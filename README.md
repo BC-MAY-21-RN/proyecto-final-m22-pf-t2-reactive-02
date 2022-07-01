@@ -1,34 +1,38 @@
 ![BrightCoders Logo](img/logo-bc.png)
 
-# Nombre del proyecto
-
-> Instrucciones: *remplazar el título con el nombre del proyecto*
+# PetMyHeart
 
 ## Descripción
 
-> Instrucciones: *escribir la descripción general del proyecto*
+> PetMyHeart es una aplicación para dispositivos móviles con sistema operativo android la cual facilita la obtención y publicación de posts sobre mascotas (dudas, sugerencias, emergencias, etc.) y el seguimiento de mascotas extraviadas, todo esto con la finalidad de brindar una ayuda mas rapida sin que se pierdan los datos entre infinidad de spam existente en las redes sociales actuales.
 
 ## Requerimientos funcionales
 
-> Instrucciones: *listar los requerimientos que se consideran para el MVP. Respetar el formato de listado indicado*
-
-- Admin
-  - [ ] Requerimiento 1
-  - [ ] Requerimiento 2
-  - [ ] ...
-
-- User 
-  - [ ] Requerimiento 1
-  - [ ] Requerimiento 2
-  - [ ] ...
+- Usuario
+  - [ ] Podrá registrar una cuenta con google o email.
+  - [ ] Podrá loguearse con cuenta google o email.
+  - [ ] Podrá desloguearse.
+  - [ ] Podrá ver su perfil.
+  - [ ] Podrá editar su perfil.
+  - [ ] Podrá ver perfiles de otros usuarios.
+  - [ ] Podrá generar posts.
+  - [ ] Podrá seleccionar una imagen de su galería o tomarla con la cámara del celular para editar su perfil o realizar un post. 
 
 ## Requerimientos no funcionales
 
-> Instrucciones: *listar los requerimientos que se consideran para el MVP. Respetar el formato de listado indicado*
-
-- [ ] Requerimiento 1
-- [ ] Requerimiento 2
-- [ ] ...
+ - [ ] Servicios
+   - La autenticación y almacenamiento deberan ser con firebase
+ - [ ] Calidad
+   - Utilizar un estilo de código estandarizado (revisado por Eslint)
+   - Incluir pruebas unitarias
+   - Puntuación **A** obtenida en CodeClimate
+- [ ] Ejecución 
+   - Puede ejecutarse en Android
+- [ ] Diseño
+   - Debe ser lo más cercano posible al proporcionado
+- [ ] Código fuente
+   - Orientado a Objetos
+   - Métodos pequeños
 
 ## Plan de ejecución
 
