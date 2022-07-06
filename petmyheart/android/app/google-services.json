@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "498369284833",
+    "project_id": "petmyheart-fffd2",
+    "storage_bucket": "petmyheart-fffd2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:498369284833:android:638157726cce81fc3285a0",
+        "android_client_info": {
+          "package_name": "com.petmyheart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "498369284833-cvts22vq0mbmudtdvc2hnahmop1p0fl9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.petmyheart",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "498369284833-lago9c9u7s9orren7o7gc59s45ha5bph.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8qEKfjVpSqQ8AgsDvZNS8Wlq8syzyfM8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "498369284833-lago9c9u7s9orren7o7gc59s45ha5bph.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
