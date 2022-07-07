@@ -9,6 +9,7 @@ import EmailSVG from '../../assets/icons/email.svg';
 import PasswordSVG from '../../assets/icons/password.svg';
 import Term from '../../components/Term';
 import ButtonsForInit from '../../components/ButtonsForInit';
+import BottomText from '../../components/BottomText';
 import styles from './styles';
 
 export default function RegisterScreen() {
@@ -36,6 +37,7 @@ export default function RegisterScreen() {
         />
         <Term text={'Acepto todos los terminos y condiciones'} />
         <ButtonsForInit />
+        <BottomText text={'¿Ya tienes una cuenta?'} />
       </View>
     </View>
   );
