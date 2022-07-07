@@ -1,20 +1,25 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import NameAppSVG from '../../assets/icons/nameapp.svg';
-import LogoSVG from '../../assets/icons/logo.svg';
-import Icons from '../../components/icons/styles';
+import LogoRegisterSVG from '../../assets/icons/logoRegister.svg';
+import Icons from '../../components/Icons';
 import InputComponent from '../../components/InputComponent';
 import UserSVG from '../../assets/icons/userIcon.svg';
 import EmailSVG from '../../assets/icons/email.svg';
 import PasswordSVG from '../../assets/icons/password.svg';
 import Term from '../../components/Term';
+import ButtonsForInit from '../../components/ButtonsForInit';
 import styles from './styles';
 
 export default function RegisterScreen() {
   return (
     <View style={styles.container}>
-      <Icons IconProp={NameAppSVG} style={styles.namecontainer} />
-      <Icons IconProp={LogoSVG} style={styles.logocontainer} />
+      <View style={styles.logoscontainer}>
+        <View style={styles.logosdireccion}>
+          <Icons IconProp={NameAppSVG} style={styles.namecontainer} />
+          <Icons IconProp={LogoRegisterSVG} style={styles.logocontainer} />
+        </View>
+      </View>
       <View style={styles.formcontainer}>
         <Text style={styles.text}>REGISTRO</Text>
         <InputComponent title={'Nombre de usuario'} Icon={UserSVG} />
@@ -30,6 +35,7 @@ export default function RegisterScreen() {
           visibleIcon={true}
         />
         <Term text={'Acepto todos los terminos y condiciones'} />
+        <ButtonsForInit />
       </View>
     </View>
   );

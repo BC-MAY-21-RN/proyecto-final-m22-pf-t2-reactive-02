@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, TextInput, TouchableOpacity} from 'react-native';
-import Icons from '../icons/styles';
+import Icons from '../Icons';
 import styles from './styles';
 import VisibleSVG from '../../assets/icons/visibility.svg';
 import TriangleSVG from '../../assets/icons/triangulo.svg';
