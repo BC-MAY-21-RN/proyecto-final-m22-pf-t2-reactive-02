@@ -7,6 +7,7 @@ import InputComponent from '../../components/InputComponent';
 import UserSVG from '../../assets/icons/userIcon.svg';
 import EmailSVG from '../../assets/icons/email.svg';
 import PasswordSVG from '../../assets/icons/password.svg';
+import Term from '../../components/Term';
 import styles from './styles';
 
 export default function RegisterScreen() {
@@ -28,6 +29,7 @@ export default function RegisterScreen() {
           Icon={PasswordSVG}
           visibleIcon={true}
         />
+        <Term text={'Acepto todos los terminos y condiciones'} />
       </View>
     </View>
   );
