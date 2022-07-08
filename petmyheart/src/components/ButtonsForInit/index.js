@@ -4,10 +4,13 @@ import styles from './styles';
 import GoogleSVG from '../../assets/icons/google.svg';
 import Icons from '../icons';
 
-export default function ButtonsForInit({}) {
+export default function ButtonsForInit({isActive, navigation, nameScreen}) {
   return (
     <View>
-      <TouchableOpacity style={styles.button1}>
+      <TouchableOpacity
+        disabled={isActive}
+        style={styles.button1}
+        onPress={() => navigation.navigate(nameScreen)}>
         <Text style={styles.text1}>CREAR CUENTA</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button2}>
