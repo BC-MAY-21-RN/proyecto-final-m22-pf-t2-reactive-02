@@ -10,11 +10,13 @@ import PasswordSVG from '../../assets/icons/password.svg';
 import Term from '../../components/Term';
 import ButtonsForInit from '../../components/ButtonsForInit';
 import BottomText from '../../components/BottomText';
+import Loading from '../../components/Loading';
 import styles from './styles';
 
 export default function RegisterScreen() {
   return (
     <View style={styles.container}>
+      <Loading isvisible={true} />
       <View style={styles.logoscontainer}>
         <View style={styles.logosdireccion}>
           <Icons IconProp={NameAppSVG} style={styles.namecontainer} />
