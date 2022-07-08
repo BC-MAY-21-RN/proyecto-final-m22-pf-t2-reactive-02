@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import GoogleSVG from '../../assets/icons/google.svg';
-import Icons from '../Icons';
+import Icons from '../icons';
 
 export default function ButtonsForInit({}) {
   return (

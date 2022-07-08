@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text} from 'react-native';
 import NameAppSVG from '../../assets/icons/nameapp.svg';
 import LogoRegisterSVG from '../../assets/icons/logoRegister.svg';
-import Icons from '../../components/Icons';
+import Icons from '../../components/icons';
 import InputComponent from '../../components/InputComponent';
 import UserSVG from '../../assets/icons/userIcon.svg';
 import EmailSVG from '../../assets/icons/email.svg';
