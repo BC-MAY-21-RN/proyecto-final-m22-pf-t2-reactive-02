@@ -7,10 +7,10 @@
  */
 
 import React from 'react';
-import RegisterScreen from './src/screens/registerScreen';
+import LoginScreen from './src/screens/loginScreen';
 
 const App = () => {
-  return <RegisterScreen />;
+  return <LoginScreen />;
 };
 
 export default App;
