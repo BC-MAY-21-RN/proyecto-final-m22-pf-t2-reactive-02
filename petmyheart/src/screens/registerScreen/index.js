@@ -16,19 +16,6 @@ import {useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import RegisterUser from '../../models/RegisterUser';
 
-const addUser = (RegisterUser, navigation) => {
-  firestore()
-    .collection('usuarios')
-    .add({
-      correo: RegisterUser.correo,
-      nombre: RegisterUser.nombre,
-      uid: RegisterUser.uid,
-    })
-    .then(() => {
-      navigation.navigate('Home');
-    });
-};
-
 const newObject = object => {
   return new RegisterUser(
     object.valuesRegister.name,
@@ -41,13 +28,14 @@ const newObject = object => {
 
 export default function RegisterScreen({navigation}) {
   const [user, setUser] = useState(new RegisterUser());
+  const [alerts, setAlerts] = useState([false, false, false, false]);
   const [loading, setLoading] = useState(false);
   const changeUser = (value, key) => {
     user.setValues({[key]: value});
     setUser(newObject(user));
-    console.log(user);
+    setAlerts(user.valuesRegister.alert);
   };
-
+  const changeLoading = value => setLoading(value);
   return (
     <View style={styles.container}>
       <Loading isvisible={loading} />
@@ -64,14 +52,14 @@ export default function RegisterScreen({navigation}) {
           Icon={UserSVG}
           changeUser={changeUser}
           input={'name'}
-          visibleAlert={user.valuesRegister.alert1}
+          visibleAlert={alerts[0]}
         />
         <InputComponent
           title={'E-mail'}
           Icon={EmailSVG}
           changeUser={changeUser}
           input={'email'}
-          visibleAlert={user.valuesRegister.alert2}
+          visibleAlert={alerts[1]}
         />
         <InputComponent
           title={'Contraseña'}
@@ -79,7 +67,7 @@ export default function RegisterScreen({navigation}) {
           visibleIcon={true}
           changeUser={changeUser}
           input={'password'}
-          visibleAlert={user.valuesRegister.alert3}
+          visibleAlert={alerts[2]}
         />
         <InputComponent
           title={'Repetir contraseña'}
@@ -87,7 +75,7 @@ export default function RegisterScreen({navigation}) {
           visibleIcon={true}
           changeUser={changeUser}
           input={'password2'}
-          visibleAlert={user.valuesRegister.alert4}
+          visibleAlert={alerts[3]}
         />
         <Term
           text={'Acepto todos los terminos y condiciones'}
@@ -96,9 +84,11 @@ export default function RegisterScreen({navigation}) {
           term={'term'}
         />
         <ButtonsForInit
-          isActive={user.getBool()}
           navigation={navigation}
           nameScreen={'Home'}
+          user={user}
+          changeUser={changeUser}
+          changeLoading={changeLoading}
         />
         <BottomText text={'¿Ya tienes una cuenta?'} />
       </View>

@@ -38,11 +38,11 @@ export default function InputComponent({
   title,
   Icon,
   visibleIcon = false,
-  visibleAlert = false,
+  visibleAlert = true,
   changeUser,
   input,
 }) {
-  const [passVisible, setPassVisible] = useState(false);
+  const [passVisible, setPassVisible] = useState(visibleIcon);
   const changePassVisible = () => setPassVisible(!passVisible);
   return (
     <View style={styles.containerInput}>
@@ -52,14 +52,14 @@ export default function InputComponent({
         <TextInput
           placeholder={title}
           style={styles.input}
-          secureTextEntry={!passVisible}
+          secureTextEntry={passVisible}
           onChange={(e, a) => changeUser(e.nativeEvent.text, input)}
         />
       </View>
       {visibleIcon ? (
         <TouchableOpacity style={styles.visible} onPress={changePassVisible}>
           <Icons
-            IconProp={!passVisible ? VisibleSVG : Visible2SVG}
+            IconProp={passVisible ? VisibleSVG : Visible2SVG}
             style={null}
           />
         </TouchableOpacity>
