@@ -5,6 +5,13 @@ import GoogleSVG from '../../assets/icons/google.svg';
 import Icons from '../icons';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+
+async function onGoogleButtonPress(navigation) {
+  const {idToken} = await GoogleSignin.signIn();
+  const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+  return auth().signInWithCredential(googleCredential);
+}
 
 const addUser = (user, navigation, nameScreen, changeLoading) => {
   firestore()
@@ -46,6 +53,10 @@ const validateData = (
   } else {
     changeLoading(true);
     registerEmailUser(user, navigation, nameScreen, changeLoading);
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'Home'}],
+    });
   }
 };
 
@@ -81,7 +92,16 @@ export default function ButtonsForInit({
         }>
         <Text style={styles.text1}>CREAR CUENTA</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button2}>
+      <TouchableOpacity
+        style={styles.button2}
+        onPress={() =>
+          onGoogleButtonPress().then(() =>
+            navigation.reset({
+              index: 0,
+              routes: [{name: 'Home'}],
+            }),
+          )
+        }>
         <Text style={styles.text2}>Ingresa con:</Text>
         <Icons IconProp={GoogleSVG} style={styles.google} />
       </TouchableOpacity>
