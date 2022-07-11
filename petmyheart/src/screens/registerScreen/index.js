@@ -13,7 +13,6 @@ import BottomText from '../../components/BottomText';
 import Loading from '../../components/Loading';
 import styles from './styles';
 import {useState} from 'react';
-import firestore from '@react-native-firebase/firestore';
 import RegisterUser from '../../models/RegisterUser';
 
 const newObject = object => {

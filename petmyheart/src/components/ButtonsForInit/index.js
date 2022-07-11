@@ -11,7 +11,7 @@ async function onGoogleButtonPress(navigation, changeLoading) {
   const {idToken} = await GoogleSignin.signIn();
   const googleCredential = auth.GoogleAuthProvider.credential(idToken);
   const name = auth().currentUser.displayName;
-  const user = {valuesRegister: {name: name, email: 'c@gmail.com'}};
+  const user = {valuesRegister: {name: name}};
   const nameScreen = 'Home';
   validateDataGoogle(user, navigation, nameScreen, changeLoading);
   return auth().signInWithCredential(googleCredential);
@@ -19,11 +19,15 @@ async function onGoogleButtonPress(navigation, changeLoading) {
 
 const validateDataGoogle = (user, navigation, nameScreen, changeLoading) => {
   const uid = auth().currentUser.uid;
-  if (!uid) {
-    addUser(user, navigation, nameScreen, changeLoading);
-  } else {
-    console.log('Usuario distinto');
-  }
+  const db = firestore();
+  db.collection('usuarios')
+    .where('uid', '==', uid)
+    .get()
+    .then(querySnapshot => {
+      if (querySnapshot.size === 0) {
+        addUser(user, navigation, nameScreen, changeLoading);
+      }
+    });
 };
 
 const addUser = (user, navigation, nameScreen, changeLoading) => {
@@ -108,12 +112,12 @@ export default function ButtonsForInit({
       <TouchableOpacity
         style={styles.button2}
         onPress={() =>
-          onGoogleButtonPress(navigation, changeLoading).then(() =>
+          onGoogleButtonPress(navigation, changeLoading).then(() => {
             navigation.reset({
               index: 0,
               routes: [{name: 'Home'}],
-            }),
-          )
+            });
+          })
         }>
         <Text style={styles.text2}>Ingresa con:</Text>
         <Icons IconProp={GoogleSVG} style={styles.google} />
