@@ -3,11 +3,12 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import CheckSVG from '../../assets/icons/check.svg';
 
-export default function Term({text, isSelect = false}) {
+export default function Term({text, isSelect = false, change, term}) {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
         <TouchableOpacity
+          onPress={(x, y) => change(!isSelect, term)}
           style={{
             ...styles.touchable,
             ...(isSelect
