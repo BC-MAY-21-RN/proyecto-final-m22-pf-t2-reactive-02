@@ -7,17 +7,30 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
-async function onGoogleButtonPress(navigation) {
+async function onGoogleButtonPress(navigation, changeLoading) {
   const {idToken} = await GoogleSignin.signIn();
   const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+  const name = auth().currentUser.displayName;
+  const user = {valuesRegister: {name: name, email: 'c@gmail.com'}};
+  const nameScreen = 'Home';
+  validateDataGoogle(user, navigation, nameScreen, changeLoading);
   return auth().signInWithCredential(googleCredential);
 }
+
+const validateDataGoogle = (user, navigation, nameScreen, changeLoading) => {
+  const uid = auth().currentUser.uid;
+  if (!uid) {
+    addUser(user, navigation, nameScreen, changeLoading);
+  } else {
+    console.log('Usuario distinto');
+  }
+};
 
 const addUser = (user, navigation, nameScreen, changeLoading) => {
   firestore()
     .collection('usuarios')
     .add({
-      correo: user.valuesRegister.email,
+      correo: auth().currentUser.email,
       nombre: user.valuesRegister.name,
       uid: auth().currentUser.uid,
     })
@@ -95,7 +108,7 @@ export default function ButtonsForInit({
       <TouchableOpacity
         style={styles.button2}
         onPress={() =>
-          onGoogleButtonPress().then(() =>
+          onGoogleButtonPress(navigation, changeLoading).then(() =>
             navigation.reset({
               index: 0,
               routes: [{name: 'Home'}],
