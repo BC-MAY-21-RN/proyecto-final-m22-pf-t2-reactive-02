@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {View, Text, TextInput, TouchableOpacity} from 'react-native';
-import Icons from '../icons';
+import Icons from '../Icons';
 import styles from './styles';
-import VisibleSVG from '../../assets/icons/visibility.svg';
-import TriangleSVG from '../../assets/icons/triangulo.svg';
-import WarningSVG from '../../assets/icons/warning.svg';
-import Visible2SVG from '../../assets/icons/visibility2.svg';
+import VisibleSVG from '../../../assets/icons/visibility.svg';
+import TriangleSVG from '../../../assets/icons/triangulo.svg';
+import WarningSVG from '../../../assets/icons/warning.svg';
+import Visible2SVG from '../../../assets/icons/visibility2.svg';
 
 const getText = title => {
   switch (title) {

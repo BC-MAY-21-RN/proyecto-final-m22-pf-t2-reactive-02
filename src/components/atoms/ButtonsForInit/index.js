@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import styles from './styles';
-import GoogleSVG from '../../assets/icons/google.svg';
-import Icons from '../icons';
+import GoogleSVG from '../../../assets/icons/google.svg';
+import Icons from '../Icons';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
