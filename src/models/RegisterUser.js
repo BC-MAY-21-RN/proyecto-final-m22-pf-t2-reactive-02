@@ -90,9 +90,9 @@ class RegisterUser {
       this.valuesRegister.password2.length > 0 &&
       this.valuesRegister.term === true
     ) {
-      return false;
-    } else {
       return true;
+    } else {
+      return false;
     }
   }
 }

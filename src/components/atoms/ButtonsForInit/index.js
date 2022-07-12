@@ -86,9 +86,10 @@ export default function ButtonsForInit({user, changeAlerts, changeLoading}) {
   return (
     <View>
       <TouchableOpacity
+        disabled={!user.getBool()}
         style={{
           ...styles.button1,
-          ...(user.getBool() ? {} : {}),
+          ...(user.getBool() ? {} : {backgroundColor: '#B09AAC'}),
         }}
         onPress={() => validateData(user, changeAlerts, changeLoading)}>
         <Text style={styles.text1}>CREAR CUENTA</Text>
