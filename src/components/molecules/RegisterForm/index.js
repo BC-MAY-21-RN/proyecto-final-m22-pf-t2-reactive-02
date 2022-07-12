@@ -1,15 +1,5 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-/*import Term from '../../components/atoms/Term';
-import ButtonsForInit from '../../components/atoms/ButtonsForInit';
-import BottomText from '../../components/atoms/BottomText';
-import Icons from '../../components/atoms/Icons';
-import InputComponent from '../../components/atoms/InputComponent';
-import NameAppSVG from '../../assets/icons/nameapp.svg';
-import LogoRegisterSVG from '../../assets/icons/logoRegister.svg';
-import UserSVG from '../../assets/icons/userIcon.svg';
-import EmailSVG from '../../assets/icons/email.svg';
-import PasswordSVG from '../../assets/icons/password.svg';*/
 import Term from '../../atoms/Term';
 import ButtonsForInit from '../../atoms/ButtonsForInit';
 import BottomText from '../../atoms/BottomText';

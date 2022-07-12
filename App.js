@@ -18,6 +18,7 @@ const App = () => {
       webClientId: CLIENT_ID,
     });
   });
+
   return (
     <UserContextProvider>
       <Navigation />
