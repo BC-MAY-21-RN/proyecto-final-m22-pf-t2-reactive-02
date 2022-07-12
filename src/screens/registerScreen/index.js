@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Text, Dimensions} from 'react-native';
-import NameAppSVG from '../../assets/icons/nameapp.svg';
+import {View} from 'react-native';
+/*import NameAppSVG from '../../assets/icons/nameapp.svg';
 import LogoRegisterSVG from '../../assets/icons/logoRegister.svg';
 import Icons from '../../components/atoms/Icons';
 import InputComponent from '../../components/atoms/InputComponent';
@@ -9,13 +9,25 @@ import EmailSVG from '../../assets/icons/email.svg';
 import PasswordSVG from '../../assets/icons/password.svg';
 import Term from '../../components/atoms/Term';
 import ButtonsForInit from '../../components/atoms/ButtonsForInit';
-import BottomText from '../../components/atoms/BottomText';
+import BottomText from '../../components/atoms/BottomText';*/
 import Loading from '../../components/atoms/Loading';
-import styles from './styles';
+//import styles from './styles';
 import {useState} from 'react';
 import RegisterUser from '../../models/RegisterUser';
+import RegisterForm from '../../components/molecules/RegisterForm';
 
-const newObject = object => {
+/*const newObject = object => {
+  return new RegisterUser(
+    object.valuesRegister.name,
+    object.valuesRegister.email,
+    object.valuesRegister.password,
+    object.valuesRegister.password2,
+    object.valuesRegister.term,
+  );
+};*/
+
+const newObject = (object, key, value) => {
+  object.setValues({[key]: value});
   return new RegisterUser(
     object.valuesRegister.name,
     object.valuesRegister.email,
@@ -26,8 +38,27 @@ const newObject = object => {
 };
 
 export default function RegisterScreen({navigation}) {
-  console.log(Dimensions.get('screen').height);
   const [user, setUser] = useState(new RegisterUser());
+  const [alerts, setAlerts] = useState([false, false, false, false]);
+  const [loading, setLoading] = useState(false);
+  const changeAlerts = arr => setAlerts(arr);
+  const changeLoading = bool => setLoading(bool);
+  const changeUser = (value, key) => setUser(newObject(user, key, value));
+
+  return (
+    <View>
+      <Loading isvisible={loading} />
+      <RegisterForm
+        user={user}
+        alerts={alerts}
+        changeAlerts={changeAlerts}
+        changeLoading={changeLoading}
+        changeUser={changeUser}
+        navigation={navigation}
+      />
+    </View>
+  );
+  /*const [user, setUser] = useState(new RegisterUser());
   const [alerts, setAlerts] = useState([false, false, false, false]);
   const [loading, setLoading] = useState(false);
   const changeUser = (value, key) => {
@@ -93,5 +124,5 @@ export default function RegisterScreen({navigation}) {
         <BottomText text={'¿Ya tienes una cuenta?'} />
       </View>
     </View>
-  );
+  );*/
 }
