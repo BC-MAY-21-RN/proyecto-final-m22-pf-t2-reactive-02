@@ -95,13 +95,23 @@ export default function ButtonsForInit({user, changeAlerts, changeLoading}) {
         <Text style={styles.text1}>CREAR CUENTA</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.button2}
+        disabled={!user.getBoolGoogle()}
+        style={{
+          ...styles.button2,
+          ...(user.getBoolGoogle() ? {} : {borderColor: '#B09AAC'}),
+        }}
         onPress={() => {
-          onGoogleButtonPress(changeLoading).then(() =>
-            validateDataGoogle(changeLoading),
-          );
+          onGoogleButtonPress(changeLoading)
+            .then(() => validateDataGoogle(changeLoading))
+            .catch(() => changeLoading(false));
         }}>
-        <Text style={styles.text2}>Ingresa con:</Text>
+        <Text
+          style={{
+            ...styles.text2,
+            ...(user.getBoolGoogle() ? {} : {color: '#B09AAC'}),
+          }}>
+          Ingresa con:
+        </Text>
         <Icons IconProp={GoogleSVG} style={styles.google} />
       </TouchableOpacity>
     </View>

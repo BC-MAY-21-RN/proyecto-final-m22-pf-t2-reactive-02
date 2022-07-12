@@ -95,6 +95,10 @@ class RegisterUser {
       return false;
     }
   }
+
+  getBoolGoogle() {
+    return this.valuesRegister.term;
+  }
 }
 
 export default RegisterUser;
