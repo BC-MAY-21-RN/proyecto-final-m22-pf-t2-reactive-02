@@ -2,13 +2,13 @@ import React from 'react';
 import {View, Text} from 'react-native';
 import NameAppSVG from '../../assets/icons/nameapp.svg';
 import LogoSVG from '../../assets/icons/logo.svg';
-import Icons from '../../components/icons';
-import InputComponent from '../../components/InputComponent';
+import Icons from '../../components/atoms/Icons';
+import InputComponent from '../../components/atoms/InputComponent';
 import EmailSVG from '../../assets/icons/email.svg';
 import PasswordSVG from '../../assets/icons/password.svg';
-import ButtonsForInit from '../../components/ButtonsForInit';
-import BottomText from '../../components/BottomText';
-import Loading from '../../components/Loading';
+import ButtonsForInit from '../../components/atoms/ButtonsForInit';
+import BottomText from '../../components/atoms/BottomText';
+import Loading from '../../components/atoms/Loading';
 import styles from './styles';
 
 export default function LoginScreen() {
@@ -30,7 +30,7 @@ export default function LoginScreen() {
           visibleIcon={true}
         />
         <BottomText text={'¿Contraseña Olvidada?'} />
-        <ButtonsForInit text="INGRESAR"/>
+        <ButtonsForInit text="INGRESAR" />
         <BottomText text={'¿Aún no tienes una cuenta?'} />
       </View>
     </View>

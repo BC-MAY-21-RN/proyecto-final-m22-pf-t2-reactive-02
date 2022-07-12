@@ -12,13 +12,16 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   button2: {
-    width: Dimensions.get('screen').width - 158,
+    width:
+      Dimensions.get('screen').width <= 360
+        ? Dimensions.get('screen').width - 120
+        : Dimensions.get('screen').width - 158,
     height: 50,
     backgroundColor: '#fff',
     borderWidth: 3,
     borderColor: '#DB6C9E',
     borderRadius: 8,
-    marginLeft: 79,
+    marginLeft: Dimensions.get('screen').width <= 360 ? 60 : 79,
     marginTop: 20,
     justifyContent: 'center',
   },

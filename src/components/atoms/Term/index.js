@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import styles from './styles';
-import CheckSVG from '../../assets/icons/check.svg';
+import CheckSVG from '../../../assets/icons/check.svg';
 
 export default function Term({text, isSelect = false, change, term}) {
   return (

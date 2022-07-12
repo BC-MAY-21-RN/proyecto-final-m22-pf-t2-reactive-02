@@ -19,7 +19,10 @@ const styles = StyleSheet.create({
     marginTop: 16,
     color: '#DB6C9E',
   },
-  logoscontainer: {width: '100%', height: 150},
+  logoscontainer: {
+    width: '100%',
+    height: Dimensions.get('screen').height < 775 ? 100 : 150,
+  },
   logosdireccion: {
     flex: 1,
     flexDirection: 'row',
