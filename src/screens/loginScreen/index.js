@@ -12,18 +12,20 @@ import Loading from '../../components/atoms/Loading';
 import styles from './styles';
 import LoginUser from '../../models/LoginUser';
 
-const newObject = object => {
-  return new LoginUser(object.valuesLogin.input2, object.valuesLogin.input3);
+const newObject = (object, key, value) => {
+  object.setValues({[key]: value});
+  return new LoginUser(object.valuesLogin.email, object.valuesLogin.password);
 };
+
 export default function LoginScreen({navigation}) {
-  const [form, setform] = useState(new LoginUser());
-  const changeUser = (value, key) => {
-    form.setValues({[key]: value});
-    setform(newObject(form));
-  };
+  const [user, setUser] = useState(new LoginUser());
+  const [loading, setLoading] = useState(false);
+  const changeUser = (value, key) => setUser(newObject(user, key, value));
+  const changeLoading = bool => setLoading(bool);
+
   return (
     <View style={styles.container}>
-      <Loading isvisible={false} />
+      <Loading isvisible={loading} />
       <View style={styles.logoscontainer}>
         <View style={styles.logosdireccion}>
           <Icons IconProp={NameAppSVG} style={styles.namecontainer} />
@@ -37,6 +39,7 @@ export default function LoginScreen({navigation}) {
           title={'E-mail'}
           Icon={EmailSVG}
           changeUser={changeUser}
+          input={'email'}
         />
         <InputComponent
           title={'Contraseña'}
@@ -44,9 +47,14 @@ export default function LoginScreen({navigation}) {
           Icon={PasswordSVG}
           visibleIcon={true}
           changeUser={changeUser}
+          input={'password'}
         />
         <BottomText text={'¿Contraseña Olvidada?'} />
-        <ButtonsForInit text="INGRESAR" />
+        <ButtonsForInit
+          text="INGRESAR"
+          user={user}
+          changeLoading={changeLoading}
+        />
         <BottomText
           text={'¿Aún no tienes una cuenta?'}
           navigation={navigation}
