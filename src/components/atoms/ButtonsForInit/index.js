@@ -82,23 +82,46 @@ const validateDataGoogle = changeLoading => {
     });
 };
 
+const loginAccount = (email, password, changeLoading) => {
+  changeLoading(true);
+  auth()
+    .signInWithEmailAndPassword(email, password)
+    .then(() => {
+      changeLoading(false);
+    })
+    .catch(error => {
+      changeLoading(false);
+    });
+};
+
 export default function ButtonsForInit({user, changeAlerts, changeLoading}) {
   return (
     <View>
       <TouchableOpacity
-        disabled={!user.getBool()}
+        disabled={!user?.getBool()}
         style={{
           ...styles.button1,
-          ...(user.getBool() ? {} : {backgroundColor: '#B09AAC'}),
+          ...(user?.getBool() ? {} : {backgroundColor: '#B09AAC'}),
         }}
-        onPress={() => validateData(user, changeAlerts, changeLoading)}>
-        <Text style={styles.text1}>CREAR CUENTA</Text>
+        onPress={() =>
+          changeAlerts === undefined
+            ? loginAccount(
+                user.valuesLogin.email,
+                user.valuesLogin.password,
+                changeLoading,
+              )
+            : validateData(user, changeAlerts, changeLoading)
+        }>
+        <Text style={styles.text1}>
+          {' '}
+          {changeAlerts === undefined ? 'INICIAR SESIÓN' : 'CREAR CUENTA'}
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity
-        disabled={!user.getBoolGoogle()}
+        disabled={!user?.getBoolGoogle()}
         style={{
           ...styles.button2,
-          ...(user.getBoolGoogle() ? {} : {borderColor: '#B09AAC'}),
+          ...(user?.getBoolGoogle() ? {} : {borderColor: '#B09AAC'}),
         }}
         onPress={() => {
           onGoogleButtonPress(changeLoading)
@@ -108,7 +131,7 @@ export default function ButtonsForInit({user, changeAlerts, changeLoading}) {
         <Text
           style={{
             ...styles.text2,
-            ...(user.getBoolGoogle() ? {} : {color: '#B09AAC'}),
+            ...(user?.getBoolGoogle() ? {} : {color: '#B09AAC'}),
           }}>
           Ingresa con:
         </Text>
