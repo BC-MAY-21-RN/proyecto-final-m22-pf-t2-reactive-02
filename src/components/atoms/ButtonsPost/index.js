@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import {Icon} from 'react-native-elements';
 import styles from './styles';
 
-export default function Post() {
+export default function ButtonsPost() {
   const [paw, setPaw] = useState(false);
   const onPawPress = () => setPaw(!paw);
   const [message, setMessage] = useState(false);
