@@ -35,17 +35,6 @@ const dataInputs = [
   },
 ];
 
-/*const TopDesign = () => {
-  return (
-    <View style={styles.logoscontainer}>
-      <View style={styles.logosdireccion}>
-        <Icons IconProp={NameAppSVG} style={styles.namecontainer} />
-        <Icons IconProp={LogoRegisterSVG} style={styles.logocontainer} />
-      </View>
-    </View>
-  );
-};*/
-
 const Inputs = ({changeUser, alerts}) => {
   return dataInputs.map((item, index) => (
     <InputComponent

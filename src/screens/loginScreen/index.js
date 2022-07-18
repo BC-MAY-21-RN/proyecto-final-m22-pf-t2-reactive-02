@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import NameAppSVG from '../../assets/icons/nameapp.svg';
 import LogoSVG from '../../assets/icons/logo.svg';
-import Icons from '../../components/atoms/Icons';
 import InputComponent from '../../components/atoms/InputComponent';
 import EmailSVG from '../../assets/icons/email.svg';
 import PasswordSVG from '../../assets/icons/password.svg';
