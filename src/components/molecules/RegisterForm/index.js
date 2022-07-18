@@ -3,7 +3,6 @@ import {View, Text} from 'react-native';
 import Term from '../../atoms/Term';
 import ButtonsForInit from '../../atoms/ButtonsForInit';
 import BottomText from '../../atoms/BottomText';
-import Icons from '../../atoms/Icons';
 import InputComponent from '../../atoms/InputComponent';
 import NameAppSVG from '../../../assets/icons/nameapp.svg';
 import LogoRegisterSVG from '../../../assets/icons/logoRegister.svg';
@@ -11,7 +10,8 @@ import UserSVG from '../../../assets/icons/userIcon.svg';
 import EmailSVG from '../../../assets/icons/email.svg';
 import PasswordSVG from '../../../assets/icons/password.svg';
 import styles from './styles';
-import LoginScreen from '../../../screens/loginScreen';
+import globalstyles from '../../../const/globalStyles';
+import TopDesign from '../../atoms/TopDesign';
 
 const dataInputs = [
   {
@@ -34,17 +34,6 @@ const dataInputs = [
     visibleicon: true,
   },
 ];
-
-const TopDesign = () => {
-  return (
-    <View style={styles.logoscontainer}>
-      <View style={styles.logosdireccion}>
-        <Icons IconProp={NameAppSVG} style={styles.namecontainer} />
-        <Icons IconProp={LogoRegisterSVG} style={styles.logocontainer} />
-      </View>
-    </View>
-  );
-};
 
 const Inputs = ({changeUser, alerts}) => {
   return dataInputs.map((item, index) => (
@@ -70,8 +59,12 @@ export default function RegisterForm({
 }) {
   return (
     <View style={styles.container}>
-      <TopDesign />
-      <View style={styles.formcontainer}>
+      <TopDesign
+        styles={styles}
+        NameAppSVG={NameAppSVG}
+        LogoRegisterSVG={LogoRegisterSVG}
+      />
+      <View style={{...globalstyles.formContainer, ...{marginTop: 20}}}>
         <Text style={styles.text}>REGISTRO</Text>
         <Inputs changeUser={changeUser} alerts={alerts} />
         <Term
