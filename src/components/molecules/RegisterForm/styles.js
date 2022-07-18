@@ -4,14 +4,6 @@ const styles = StyleSheet.create({
   namecontainer: {marginTop: 23},
   logocontainer: {marginLeft: 10},
   container: {width: '100%', height: '100%'},
-  formcontainer: {
-    backgroundColor: '#DAC3DB',
-    width: '100%',
-    height: Dimensions.get('screen').height,
-    marginTop: 20,
-    borderTopRightRadius: 30,
-    borderTopLeftRadius: 30,
-  },
   text: {
     fontSize: 16,
     fontWeight: 'bold',

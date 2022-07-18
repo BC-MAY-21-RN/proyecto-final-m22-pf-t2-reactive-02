@@ -11,6 +11,8 @@ import BottomText from '../../components/atoms/BottomText';
 import Loading from '../../components/atoms/Loading';
 import styles from './styles';
 import LoginUser from '../../models/LoginUser';
+import globalstyles from '../../const/globalStyles';
+import TopDesign from '../../components/atoms/TopDesign';
 
 const newObject = (object, key, value) => {
   object.setValues({[key]: value});
@@ -26,13 +28,12 @@ export default function LoginScreen({navigation}) {
   return (
     <View style={styles.container}>
       <Loading isvisible={loading} />
-      <View style={styles.logoscontainer}>
-        <View style={styles.logosdireccion}>
-          <Icons IconProp={NameAppSVG} style={styles.namecontainer} />
-          <Icons IconProp={LogoSVG} style={styles.logocontainer} />
-        </View>
-      </View>
-      <View style={styles.formcontainer}>
+      <TopDesign
+        styles={styles}
+        LogoRegisterSVG={LogoSVG}
+        NameAppSVG={NameAppSVG}
+      />
+      <View style={globalstyles.formContainer}>
         <Text style={styles.text}>INICIAR SESIÓN</Text>
         <InputComponent
           visibleAlert={false}
