@@ -2,18 +2,18 @@ import React from 'react';
 import {View, Text, Image} from 'react-native';
 import styles from './styles';
 
-export default function UserPost() {
+export default function UserPost({name, time, image}) {
   return (
     <View style={styles.container}>
       <Image
         style={styles.image}
         source={{
-          uri: 'https://www.lolitamoda.com/uploads/post/image/61/56.Reglas_de_estilo_que_todo_hombre_debe_conocer.jpg',
+          uri: image,
         }}
       />
       <View style={styles.info}>
-        <Text style={styles.name}>Joe Stockon</Text>
-        <Text>5h ago</Text>
+        <Text style={styles.name}>{name}</Text>
+        <Text>{time}</Text>
       </View>
     </View>
   );

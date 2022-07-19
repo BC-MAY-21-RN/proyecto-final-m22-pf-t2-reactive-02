@@ -15,8 +15,14 @@ const images = [
 export default function Post() {
   return (
     <View style={styles.container}>
-      <UserPost />
-      {false ? <Location /> : null}
+      <UserPost
+        name={'Joe Stockon'}
+        time={'7h ago'}
+        image={
+          'https://www.lolitamoda.com/uploads/post/image/61/56.Reglas_de_estilo_que_todo_hombre_debe_conocer.jpg'
+        }
+      />
+      {false ? <Location city={'Manzanillo'} state={'Colima'} /> : null}
       <Text style={styles.text}>
         HELPPP! my cat's hair is falling, I tried all and nothing work, I need
         your help with this!!..
