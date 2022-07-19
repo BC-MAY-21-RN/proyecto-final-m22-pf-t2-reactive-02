@@ -16,7 +16,7 @@ export default function Post() {
   return (
     <View style={styles.container}>
       <UserPost />
-      <Location city="Manzanillo" state="Colima" />
+      {false ? <Location /> : null}
       <Text style={styles.text}>
         HELPPP! my cat's hair is falling, I tried all and nothing work, I need
         your help with this!!..

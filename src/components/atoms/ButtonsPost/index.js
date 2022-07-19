@@ -20,7 +20,7 @@ export default function ButtonsPost() {
       </View>
       <View style={styles.buttons}>
         <View style={styles.separation}>
-          <Icon name={'home-sharp'} type={'ionicon'} />
+          {false ? <Icon name={'home-sharp'} type={'ionicon'} /> : null}
         </View>
         <View style={styles.separation}>
           <Icon name={'message'} type={'material-community'} />
