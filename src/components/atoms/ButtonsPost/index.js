@@ -6,8 +6,6 @@ import styles from './styles';
 export default function ButtonsPost() {
   const [paw, setPaw] = useState(false);
   const onPawPress = () => setPaw(!paw);
-  const [message, setMessage] = useState(false);
-  const onMessagePress = () => setMessage(!message);
   const [mark, setMark] = useState(false);
   const onMarkPress = () => setMark(!mark);
   return (
@@ -16,23 +14,21 @@ export default function ButtonsPost() {
         <Icon
           name={'paw'}
           type={'font-awesome'}
-          color={paw ? 'green' : 'black'}
+          color={paw ? '#6FCF97' : 'black'}
           onPress={onPawPress}
         />
       </View>
       <View style={styles.buttons}>
         <View style={styles.separation}>
-          <Icon
-            name={'message'}
-            type={'material-community'}
-            color={message ? 'green' : 'black'}
-            onPress={onMessagePress}
-          />
+          <Icon name={'home-sharp'} type={'ionicon'} />
+        </View>
+        <View style={styles.separation}>
+          <Icon name={'message'} type={'material-community'} />
         </View>
         <Icon
           name={'bookmark'}
           type={'ionicon'}
-          color={mark ? 'green' : 'black'}
+          color={mark ? '#6FCF97' : 'black'}
           onPress={onMarkPress}
         />
       </View>
