@@ -12,14 +12,7 @@ const logout = () => {
 export default function HomeScreen() {
   return (
     <View>
-      <Text>HomeScreen</Text>
-      <Post></Post>
-      <TouchableOpacity
-        onPress={() => {
-          logout();
-        }}>
-        <Text>Salir</Text>
-      </TouchableOpacity>
+      <Post />
     </View>
   );
 }
