@@ -3,17 +3,7 @@ import {View} from 'react-native';
 import Loading from '../../components/atoms/Loading';
 import RegisterUser from '../../models/RegisterUser';
 import RegisterForm from '../../components/molecules/RegisterForm';
-
-const newObject = (object, key, value) => {
-  object.setValues({[key]: value});
-  return new RegisterUser(
-    object.valuesRegister.name,
-    object.valuesRegister.email,
-    object.valuesRegister.password,
-    object.valuesRegister.password2,
-    object.valuesRegister.term,
-  );
-};
+import functions from './functions';
 
 export default function RegisterScreen({navigation}) {
   const [user, setUser] = useState(new RegisterUser());
@@ -21,7 +11,7 @@ export default function RegisterScreen({navigation}) {
   const [loading, setLoading] = useState(false);
   const changeAlerts = arr => setAlerts(arr);
   const changeLoading = bool => setLoading(bool);
-  const changeUser = (value, key) => setUser(newObject(user, key, value));
+  const changeUser = (value, key) => setUser(functions.newObject(user, key, value));
 
   return (
     <View>
