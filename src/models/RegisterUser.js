@@ -66,22 +66,6 @@ class RegisterUser {
     this.valuesRegister = {...this.valuesRegister, ...value};
   }
 
-  getalert1() {
-    return this.valuesRegister.alert1;
-  }
-
-  getalert2() {
-    return this.valuesRegister.alert2;
-  }
-
-  getalert3() {
-    return this.valuesRegister.alert3;
-  }
-
-  getalert4() {
-    return this.valuesRegister.alert4;
-  }
-
   getBool() {
     if (
       this.valuesRegister.name.length > 0 &&
