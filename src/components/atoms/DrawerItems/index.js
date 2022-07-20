@@ -13,6 +13,7 @@ const logout = () => {
 };
 
 export default function DrawerItems({navigation}) {
+  const user = auth().currentUser;
   return (
     <View style={styleDrawer.container}>
       <View style={styleDrawer.header}>
@@ -33,14 +34,14 @@ export default function DrawerItems({navigation}) {
           <View>
             <Image
               source={{
-                uri: 'https://cdn-icons-png.flaticon.com/512/17/17004.png',
+                uri: user.photoURL,
               }}
               style={styleDrawer.image}
             />
           </View>
           <View style={styleDrawer.dataProfile}>
-            <Text style={styleDrawer.textName}>Sunny Aveiro</Text>
-            <Text style={styleDrawer.textEmail}>sunny12@gmail.com</Text>
+            <Text style={styleDrawer.textName}>{user.displayName}</Text>
+            <Text style={styleDrawer.textEmail}>{user.email}</Text>
           </View>
         </TouchableOpacity>
       </View>
