@@ -61,7 +61,7 @@ const Navigation = () => {
             key={index}
             name={item.name}
             component={item.component}
-            options={{headerShown: item.header}}
+            options={{headerShown: item.header, header: false}}
           />
         ))}
       </Stack.Navigator>
