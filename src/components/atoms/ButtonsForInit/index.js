@@ -92,6 +92,7 @@ const loginAccount = (email, password, changeLoading) => {
     })
     .catch(error => {
       changeLoading(false);
+      Alert.alert('Error', 'Usuario o contraseña incorrectos', [{text: 'OK'}]);
     });
 };
 
