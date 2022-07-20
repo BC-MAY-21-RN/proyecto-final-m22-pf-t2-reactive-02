@@ -10,7 +10,9 @@ const Drawer = createDrawerNavigator();
 
 export default function DrawerNavigation() {
   return (
-    <Drawer.Navigator drawerContent={props => <DrawerItems {...props} />}>
+    <Drawer.Navigator
+      screenOptions={{headerShown: false}}
+      drawerContent={props => <DrawerItems {...props} />}>
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="Notification" component={NotificationScreen} />
       <Drawer.Screen name="Configuration" component={ConfigurationScreen} />
