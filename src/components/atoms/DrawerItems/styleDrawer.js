@@ -39,6 +39,7 @@ const styleDrawer = StyleSheet.create({
   textEmail: {
     fontSize: 15,
     color: 'white',
+    width: 190,
   },
   iconExitPosition: {
     width: 30,
