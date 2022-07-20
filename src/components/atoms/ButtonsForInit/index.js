@@ -31,9 +31,7 @@ const registerEmailUser = (user, changeLoading) => {
     })
     .catch(error => {
       changeLoading(false);
-      Alert.alert('Error', '' + error, [
-        {text: 'OK', onPress: () => console.log('OK Pressed')},
-      ]);
+      Alert.alert('Error', '' + error, [{text: 'OK'}]);
     });
 };
 
