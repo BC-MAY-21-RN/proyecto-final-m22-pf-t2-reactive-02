@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Alert} from 'react-native';
 import styles from './styles';
 import GoogleSVG from '../../../assets/icons/google.svg';
 import Icons from '../Icons';
@@ -31,6 +31,7 @@ const registerEmailUser = (user, changeLoading) => {
     })
     .catch(error => {
       changeLoading(false);
+      Alert.alert('Error', '' + error, [{text: 'OK'}]);
     });
 };
 
