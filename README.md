@@ -1,6 +1,7 @@
 ![BrightCoders Logo](img/logo-bc.png)
 
 # PetMyHeart
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/BC-MAY-21-RN/proyecto-final-m22-pf-t2-reactive-02.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/BC-MAY-21-RN/proyecto-final-m22-pf-t2-reactive-02/alerts/) [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/BC-MAY-21-RN/proyecto-final-m22-pf-t2-reactive-02.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/BC-MAY-21-RN/proyecto-final-m22-pf-t2-reactive-02/context:javascript)
 
 ## Sprint Leader
 
