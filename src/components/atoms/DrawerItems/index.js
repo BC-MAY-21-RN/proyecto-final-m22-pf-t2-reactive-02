@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import ButtonDrawer from '../ButtonDrawer/index';
 import auth from '@react-native-firebase/auth';
 import {Icon} from 'react-native-elements';
 import styleDrawer from './styleDrawer';
+import functions from './functions';
 
 const logout = () => {
   auth()
@@ -13,6 +14,8 @@ const logout = () => {
 };
 
 export default function DrawerItems({navigation}) {
+  const [name, setName] = useState(functions.VerifyName());
+  const [photo, setPhoto] = useState(functions.VerifyPhoto());
   const user = auth().currentUser;
   return (
     <View style={styleDrawer.container}>
@@ -34,13 +37,17 @@ export default function DrawerItems({navigation}) {
           <View>
             <Image
               source={{
-                uri: user.photoURL,
+                uri: photo
+                  ? user.photoURL
+                  : 'https://www.lolitamoda.com/uploads/post/image/61/56.Reglas_de_estilo_que_todo_hombre_debe_conocer.jpg',
               }}
               style={styleDrawer.image}
             />
           </View>
           <View style={styleDrawer.dataProfile}>
-            <Text style={styleDrawer.textName}>{user.displayName}</Text>
+            <Text style={styleDrawer.textName}>
+              {name ? user.displayName : 'Funganito'}
+            </Text>
             <Text style={styleDrawer.textEmail}>{user.email}</Text>
           </View>
         </TouchableOpacity>
