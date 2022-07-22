@@ -5,6 +5,13 @@ import {Icon} from 'react-native-elements';
 
 const Tab = createBottomTabNavigator();
 
+const screens = [
+  {name: 'Home', label: 'Inicio'},
+  {name: 'Stray', label: 'Extravios'},
+  {name: 'Adoptions', label: 'Adopciones'},
+  {name: 'Favorites', label: 'Guardados'},
+];
+
 export default function TabNavigator() {
   return (
     <Tab.Navigator
@@ -15,28 +22,16 @@ export default function TabNavigator() {
         tabBarActiveTintColor: '#80486D',
         tabBarActiveBackgroundColor: '#D3A6BA',
         tabBarInactiveBackgroundColor: '#D3A6BA80',
-        tabBarLabelStyle: {fontSize: 13},
+        tabBarLabelStyle: {fontSize: 14},
       })}>
-      <Tab.Screen
-        name="Home"
-        component={PostsScreen}
-        options={{tabBarLabel: 'Inicio'}}
-      />
-      <Tab.Screen
-        name="Stray"
-        component={PostsScreen}
-        options={{tabBarLabel: 'Extravios'}}
-      />
-      <Tab.Screen
-        name="Adoptions"
-        component={PostsScreen}
-        options={{tabBarLabel: 'Adopciones'}}
-      />
-      <Tab.Screen
-        name="Favorites"
-        component={PostsScreen}
-        options={{tabBarLabel: 'Guardados'}}
-      />
+      {screens.map((item, index) => (
+        <Tab.Screen
+          key={index}
+          name={item.name}
+          component={PostsScreen}
+          options={{tabBarLabel: item.label}}
+        />
+      ))}
     </Tab.Navigator>
   );
 }
