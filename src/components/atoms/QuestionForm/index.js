@@ -4,7 +4,7 @@ import Select from 'react-native-select-dropdown';
 import styles from './styles';
 
 export default function QuestionForm({text, changeField, data}) {
-  const [field, setField] = useState(changeField);
+  const [field] = useState(changeField);
   return (
     <View style={styles.container}>
       <View style={styles.containerText}>
