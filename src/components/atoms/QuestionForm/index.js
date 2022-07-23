@@ -1,15 +1,14 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput} from 'react-native';
+import {View, TextInput} from 'react-native';
 import Select from 'react-native-select-dropdown';
 import styles from './styles';
+import ButtonForm from '../ButtonForm';
 
 export default function QuestionForm({text, changeField, data}) {
-  const [field, setField] = useState(changeField);
+  const [field] = useState(changeField);
   return (
     <View style={styles.container}>
-      <View style={styles.containerText}>
-        <Text style={styles.text}>{text}</Text>
-      </View>
+      <ButtonForm type={false} text={text} />
       <View style={styles.containerInput}>
         {field ? (
           <TextInput placeholder="0" keyboardType="numeric" />

@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 15,
+    marginVertical: 5,
     backgroundColor: '#9485AC',
     borderRadius: 10,
     height: 50,
@@ -14,6 +14,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginVertical: 10,
     marginHorizontal: 65,
+  },
+  containerText: {
+    width: '60%',
+    marginTop: 12,
+  },
+  text2: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: '#263238',
   },
 });
 

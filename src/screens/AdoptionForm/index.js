@@ -34,7 +34,7 @@ export default function AdoptionForm({navigation}) {
           data={question2}
         />
       </View>
-      <ButtonForm text={'Enviar Formulario'} />
+      <ButtonForm text={'Enviar Formulario'} type={true} />
     </View>
   );
 }

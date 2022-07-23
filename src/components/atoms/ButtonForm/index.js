@@ -1,12 +1,19 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import styles from './styles';
 
-export default function ButtonForm({text}) {
+export default function ButtonForm({text, type}) {
+  const change = type;
   return (
-    <TouchableOpacity style={styles.container}>
-      <Text style={styles.text}>{text}</Text>
-    </TouchableOpacity>
+    <View style={styles.containerText}>
+      {change ? (
+        <TouchableOpacity style={styles.container}>
+          <Text style={styles.text}>{text}</Text>
+        </TouchableOpacity>
+      ) : (
+        <Text style={styles.text2}>{text}</Text>
+      )}
+    </View>
   );
 }

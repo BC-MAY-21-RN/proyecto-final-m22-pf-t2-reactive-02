@@ -7,15 +7,6 @@ const styles = StyleSheet.create({
     height: 51,
     marginHorizontal: 10,
   },
-  containerText: {
-    width: '60%',
-    marginTop: 12,
-  },
-  text: {
-    fontSize: 15,
-    fontWeight: '600',
-    color: '#263238',
-  },
   containerInput: {
     backgroundColor: 'rgba(165, 165, 165, 0.1)',
     height: 50,
