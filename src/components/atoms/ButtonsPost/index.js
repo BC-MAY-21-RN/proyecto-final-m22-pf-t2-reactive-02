@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {Icon} from 'react-native-elements';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import styles from './styles';
 
-export default function ButtonsPost() {
+export default function ButtonsPost({navigation}) {
   const [paw, setPaw] = useState(false);
   const onPawPress = () => setPaw(!paw);
   const [mark, setMark] = useState(false);
@@ -20,7 +21,14 @@ export default function ButtonsPost() {
       </View>
       <View style={styles.buttons}>
         <View style={styles.separation}>
-          {false ? <Icon name={'home-sharp'} type={'ionicon'} /> : null}
+          {true ? (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('AdoptionForm');
+              }}>
+              <Icon name={'home-sharp'} type={'ionicon'} />
+            </TouchableOpacity>
+          ) : null}
         </View>
         <View style={styles.separation}>
           <Icon name={'message'} type={'material-community'} />

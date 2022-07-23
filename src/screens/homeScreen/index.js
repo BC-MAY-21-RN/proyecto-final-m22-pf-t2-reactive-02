@@ -9,10 +9,10 @@ const logout = () => {
     .then(() => {});
 };
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
   return (
     <View>
-      <Post />
+      <Post navigation={navigation} />
     </View>
   );
 }

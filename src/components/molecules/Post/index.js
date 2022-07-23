@@ -12,7 +12,7 @@ const images = [
   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNenjnSNt_2L4Y16-zlFrh5GEl7Owc37MyUg&usqp=CAU',
 ];
 
-export default function Post() {
+export default function Post({navigation}) {
   return (
     <View style={styles.container}>
       <UserPost
@@ -45,7 +45,7 @@ export default function Post() {
           ))}
         </View>
       </View>
-      <ButtonsPost />
+      <ButtonsPost navigation={navigation} />
     </View>
   );
 }
