@@ -12,7 +12,7 @@ const question2 = ['Casa', 'Patio', 'Calle', 'Nose'];
 export default function AdoptionForm({navigation}) {
   return (
     <View>
-      <TopBar navigation={navigation} />
+      <TopBar navigation={navigation} iconVisible={false} />
       <Header text="Formulario de adopción" navigation={navigation} />
       <View>
         <InputForm text={'Teléfono'} />
