@@ -7,8 +7,9 @@ import {Icon} from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 import menuStyle from './styles';
 
-export default function TopBar({navigation}) {
+export default function TopBar({navigation, iconVisible}) {
   const [visible, setVisible] = useState(false);
+  const seeButton = iconVisible;
   const InputText = () => {
     return (
       <Animatable.View
@@ -61,18 +62,20 @@ export default function TopBar({navigation}) {
         )}
 
         {visible ? <InputText /> : null}
-        <TouchableOpacity
-          onPress={() => {
-            setVisible(true);
-          }}>
-          <Icon
-            name="search"
-            type="fontisto"
-            style={menuStyle.iconSearch}
-            color="#6C6C6C"
-            size={20}
-          />
-        </TouchableOpacity>
+        {seeButton ? (
+          <TouchableOpacity
+            onPress={() => {
+              setVisible(true);
+            }}>
+            <Icon
+              name="search"
+              type="fontisto"
+              style={menuStyle.iconSearch}
+              color="#6C6C6C"
+              size={20}
+            />
+          </TouchableOpacity>
+        ) : null}
       </View>
     </View>
   );
