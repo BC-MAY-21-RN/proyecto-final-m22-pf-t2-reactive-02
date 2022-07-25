@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   textInput: {
     backgroundColor: 'rgba(165, 165, 165, 0.1)',
     marginTop: 25,
-    borderBottomWidth: 1,
+    borderBottomWidth: 2,
     borderColor: 'rgba(165, 165, 165, 0.6)',
   },
 });

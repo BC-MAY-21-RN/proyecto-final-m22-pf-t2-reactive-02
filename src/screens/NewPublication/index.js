@@ -3,6 +3,7 @@ import {View, Text, TouchableOpacity, TextInput} from 'react-native';
 import styles from './styles';
 import ButtonForm from '../../components/atoms/ButtonForm';
 import Header from '../../components/atoms/header';
+import ImageUpload from '../../components/atoms/ImageUpload';
 
 export default function NewPublication({navigation}) {
   return (
@@ -14,6 +15,7 @@ export default function NewPublication({navigation}) {
         placeholder={'Escribe lo que piensas...'}
         style={styles.textInput}
       />
+      <ImageUpload />
       <ButtonForm text={'Publicar'} type={true} />
     </View>
   );
