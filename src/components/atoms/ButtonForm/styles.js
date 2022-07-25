@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     marginVertical: 10,
-    marginHorizontal: 65,
+    alignSelf: 'center',
   },
   containerText: {
     width: '60%',
