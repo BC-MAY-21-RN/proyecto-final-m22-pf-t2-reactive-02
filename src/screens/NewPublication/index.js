@@ -4,6 +4,7 @@ import styles from './styles';
 import ButtonForm from '../../components/atoms/ButtonForm';
 import Header from '../../components/atoms/header';
 import ImageUpload from '../../components/atoms/ImageUpload';
+import InputForm from '../../components/atoms/inputForm';
 
 export default function NewPublication({navigation}) {
   return (
@@ -15,8 +16,11 @@ export default function NewPublication({navigation}) {
         placeholder={'Escribe lo que piensas...'}
         style={styles.textInput}
       />
+      <InputForm text={'Añade un #Hashtag'} />
       <ImageUpload />
-      <ButtonForm text={'Publicar'} type={true} />
+      <View style={styles.button}>
+        <ButtonForm text={'Publicar'} type={true} />
+      </View>
     </View>
   );
 }
