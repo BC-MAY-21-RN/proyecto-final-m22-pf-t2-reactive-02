@@ -7,7 +7,7 @@ const Tab = createBottomTabNavigator();
 
 const screens = [
   {name: 'Home', label: 'Inicio'},
-  {name: 'Stray', label: 'Extravios'},
+  {name: 'Stray', label: 'Extravíos'},
   {name: 'Adoptions', label: 'Adopciones'},
   {name: 'Favorites', label: 'Guardados'},
 ];
@@ -30,6 +30,12 @@ export default function TabNavigator() {
           name={item.name}
           component={PostsScreen}
           options={{tabBarLabel: item.label}}
+          initialParams={{
+            hashtag:
+              item.label === 'Inicio' || item.label === 'Guardados'
+                ? 'Normal'
+                : item.label,
+          }}
         />
       ))}
     </Tab.Navigator>

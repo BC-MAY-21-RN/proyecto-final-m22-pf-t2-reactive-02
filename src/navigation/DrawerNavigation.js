@@ -8,7 +8,6 @@ import AdoptionForm from '../screens/AdoptionForm';
 import TabNavigator from './TabNavigator';
 import NewPublication from '../screens/NewPublication';
 
-
 const Drawer = createDrawerNavigator();
 
 export default function DrawerNavigation() {
