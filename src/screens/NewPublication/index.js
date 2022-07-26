@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, TextInput} from 'react-native';
+import {View, TextInput} from 'react-native';
 import styles from './styles';
 import ButtonForm from '../../components/atoms/ButtonForm';
 import Header from '../../components/atoms/header';
