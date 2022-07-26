@@ -6,10 +6,17 @@ import LoginScreen from '../screens/loginScreen';
 import UserContext from '../context/UserContext.js';
 import auth from '@react-native-firebase/auth';
 import DrawerNavigation from './DrawerNavigation';
+import WelcomeScreen from '../screens/welcomeScreen';
 
 const Stack = createNativeStackNavigator();
 
 const stackNoLoged = [
+  {
+    name: 'welcomeScreen',
+    component: WelcomeScreen,
+    title: 'welcomeScreen',
+    header: false,
+  },
   {
     name: 'registerScreen',
     component: RegisterScreen,
