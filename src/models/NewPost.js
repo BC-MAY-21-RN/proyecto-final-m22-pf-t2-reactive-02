@@ -1,11 +1,20 @@
 class NewPost {
-  constructor(hashtags = '#Normal') {
+  constructor(
+    hashtags = '#Normal',
+    text = '',
+    images = undefined,
+    location = undefined,
+  ) {
     this.valuesPost = {
-      text: '',
+      text: text,
       hashtags: hashtags,
-      images: undefined,
-      location: undefined,
+      images: images,
+      location: location,
     };
+  }
+
+  setValues(value) {
+    this.valuesPost = {...this.valuesPost, ...value};
   }
 }
 
