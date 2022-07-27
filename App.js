@@ -8,6 +8,7 @@
 
 import React, {useEffect} from 'react';
 import Navigation from './src/navigation';
+import 'react-native-gesture-handler';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {UserContextProvider} from './src/context/UserContext';
 import {CLIENT_ID} from '@env';

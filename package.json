@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@babel/plugin-transform-modules-commonjs": "^7.18.2",
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",
     "babel-jest": "^26.6.3",
@@ -45,6 +46,15 @@
     "react-test-renderer": "18.0.0"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "testEnvironment": "jsdom",
+    "timers": "fake",
+    "setupFiles" : [ "./node_modules/react-native-gesture-handler/jestSetup.js" ],
+    "moduleNameMapper": {
+      "\\.(png|jpg|ico|jpeg|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mock__/ImageMock.js"
+      },
+    "transformIgnorePatterns": [
+      "'node_modules/(?!(jest-)?@?react-native|@react-native-community|@react-navigation)"
+      ]
   }
 }
