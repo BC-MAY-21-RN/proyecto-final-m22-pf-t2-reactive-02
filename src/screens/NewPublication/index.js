@@ -21,6 +21,13 @@ const newObject = (object, key, value) => {
 export default function NewPublication({navigation, route}) {
   const [post, setPost] = useState(new NewPost(route.params.hashtag));
   const changePost = (value, key) => setPost(newObject(post, key, value));
+
+  return (
+    <FormPost changePost={changePost} navigation={navigation} route={route} />
+  );
+}
+
+const FormPost = ({navigation, changePost, route}) => {
   return (
     <View style={styles.container}>
       <Header text={'Crear publicación'} navigation={navigation} />
@@ -43,4 +50,4 @@ export default function NewPublication({navigation, route}) {
       </View>
     </View>
   );
-}
+};
