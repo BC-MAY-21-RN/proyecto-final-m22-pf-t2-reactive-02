@@ -23,11 +23,16 @@ export default function NewPublication({navigation, route}) {
   const changePost = (value, key) => setPost(newObject(post, key, value));
 
   return (
-    <FormPost changePost={changePost} navigation={navigation} route={route} />
+    <FormPost
+      changePost={changePost}
+      navigation={navigation}
+      route={route}
+      post={post}
+    />
   );
 }
 
-const FormPost = ({navigation, changePost, route}) => {
+const FormPost = ({navigation, changePost, route, post}) => {
   return (
     <View style={styles.container}>
       <Header text={'Crear publicación'} navigation={navigation} />
@@ -44,7 +49,7 @@ const FormPost = ({navigation, changePost, route}) => {
         change={changePost}
         keyvalue={'hashtags'}
       />
-      <ImageUpload />
+      <ImageUpload change={changePost} post={post} />
       <View style={styles.button}>
         <ButtonForm text={'Publicar'} type={true} />
       </View>

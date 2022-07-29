@@ -2,7 +2,7 @@ class NewPost {
   constructor(
     hashtags = '#Normal',
     text = '',
-    images = undefined,
+    images = [],
     location = undefined,
   ) {
     this.valuesPost = {
