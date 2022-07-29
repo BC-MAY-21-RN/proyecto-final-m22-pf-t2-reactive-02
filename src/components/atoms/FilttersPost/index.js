@@ -3,6 +3,7 @@ import {View, Text, Button} from 'react-native';
 import RadioButton from 'rn-radio-button';
 import * as Animatable from 'react-native-animatable';
 import styles from './styles';
+import Lists from './functions';
 
 export default function FilttersPost() {
   const Submit = () => {};
@@ -16,7 +17,7 @@ export default function FilttersPost() {
           outerWidth={23}
           innerWidth={10}
           borderWidth={1.7}
-          data={listData}
+          data={Lists.listData}
           wrapperStyle={styles.wrapper}
           color={'#A05A88'}
         />
@@ -26,7 +27,7 @@ export default function FilttersPost() {
           outerWidth={23}
           innerWidth={10}
           borderWidth={1.7}
-          data={listData2}
+          data={Lists.listData2}
           wrapperStyle={styles.wrapper}
           color={'#A05A88'}
         />
@@ -37,13 +38,3 @@ export default function FilttersPost() {
     </Animatable.View>
   );
 }
-
-const listData = [
-  {label: 'Todas', value: 1},
-  {label: 'Ayer', value: 2},
-  {label: 'Esta Semana', value: 3},
-];
-const listData2 = [
-  {label: 'Publicaciones vistas', value: 4},
-  {label: 'Publicaciones que te han gustado', value: 5},
-];
