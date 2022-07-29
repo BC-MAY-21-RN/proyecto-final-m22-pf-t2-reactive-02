@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, TouchableOpacity, Alert, ScrollView, Modal} from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
 import {request, PERMISSIONS, check, RESULTS} from 'react-native-permissions';
-import ImageViewer from 'react-native-image-zoom-viewer';
+import ImageViewer from 'react-native-image-zoom-viewer-fixed';
 import {Icon, Avatar} from 'react-native-elements';
 import styles from './styles';
 
@@ -11,7 +11,7 @@ const addImage = async (change, post) => {
   if (result.didCancel === true) {
     Alert.alert('Se cerro la galería', '', [{text: 'OK'}]);
   } else {
-    const array = [...post.valuesPost.images, result.assets[0].uri];
+    const array = [...post.valuesPost.images, {url: result.assets[0].uri}];
     change(array, 'images');
   }
 };
@@ -23,7 +23,7 @@ const launchCamera = async (change, post) => {
       {text: 'OK'},
     ]);
   } else {
-    const array = [...post.valuesPost.images, result.assets[0].uri];
+    const array = [...post.valuesPost.images, {url: result.assets[0].uri}];
     change(array, 'images');
   }
 };
@@ -54,6 +54,7 @@ const getPermissions = (change, post) => {
 
 export default function ImageUpload({change, post}) {
   const [imageOpen, setImageOpen] = useState(false);
+  const [indexImage, setIndexImage] = useState(0);
   return (
     <View>
       <View style={styles().container}>
@@ -72,15 +73,21 @@ export default function ImageUpload({change, post}) {
         {post.valuesPost.images.map((image, index) => (
           <Avatar
             key={index}
-            source={{uri: image}}
+            source={{uri: image.url}}
             size={80}
-            containerStyle={{marginRight: 10}}
-            onPress={() => setImageOpen(true)}
+            containerStyle={styles().imagecontainer}
+            onPress={() => {
+              setImageOpen(true);
+              setIndexImage(index);
+            }}
           />
         ))}
       </ScrollView>
-      <Modal visible={imageOpen} transparent={true}>
-        <ImageViewer imageUrls={post.valuesPost.images} />
+      <Modal
+        visible={imageOpen}
+        transparent={true}
+        onRequestClose={() => setImageOpen(false)}>
+        <ImageViewer imageUrls={post.valuesPost.images} index={indexImage} />
       </Modal>
     </View>
   );

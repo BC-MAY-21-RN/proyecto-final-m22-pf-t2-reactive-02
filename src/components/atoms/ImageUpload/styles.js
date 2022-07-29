@@ -15,6 +15,7 @@ const styles = value =>
       marginTop: 10,
       marginLeft: 20,
     },
+    imagecontainer: {marginRight: 10},
   });
 
 export default styles;
