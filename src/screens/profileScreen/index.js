@@ -1,11 +1,10 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import functions from '../../components/atoms/DrawerItems/functions';
 import styles from './styles';
-import UserProfileInfo from '../../components/atoms/UserProfileInfo';
-import InfoUser from '../../components/atoms/InfoUser';
 import ProfileHeader from '../../components/atoms/ProfileHeader';
+import ProfileContent from '../../components/molecules/ProfileContent';
 
 const user = auth().currentUser;
 export default function ProfileScreen() {
@@ -19,20 +18,7 @@ export default function ProfileScreen() {
         }
         name={functions.VerifyName() ? user.displayName : 'Funganito'}
       />
-      <View style={styles.container}>
-        <View style={styles.containerinfo}>
-          <UserProfileInfo info={6} title={'Publicaciones'} />
-          <UserProfileInfo info={15} title={'Me gusta'} />
-          <UserProfileInfo info={5} title={'Guardados'} />
-        </View>
-        <InfoUser icon={'mail'} text={'Correo'} info={user.email} />
-        <InfoUser icon={'phone'} text={'Teléfono'} info={'+52'} />
-        <InfoUser icon={'map-pin'} text={'Ciudad'} info={'Agrega una ciudad'} />
-        <InfoUser icon={'smile'} text={'Sobre ti: '} info={'¿Qué te gusta?'} />
-        <TouchableOpacity style={styles.editar}>
-          <Text>Editar</Text>
-        </TouchableOpacity>
-      </View>
+      <ProfileContent />
     </View>
   );
 }
