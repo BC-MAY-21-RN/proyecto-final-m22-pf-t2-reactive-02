@@ -3,12 +3,11 @@ import {Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import styles from './styles';
 
-export default function ButtonForm({text, type}) {
-  const change = type;
+export default function ButtonForm({text, onPress}) {
   return (
     <View style={styles.containerText}>
-      {change ? (
-        <TouchableOpacity style={styles.container}>
+      {onPress ? (
+        <TouchableOpacity style={styles.container} onPress={onPress}>
           <Text style={styles.text}>{text}</Text>
         </TouchableOpacity>
       ) : (
