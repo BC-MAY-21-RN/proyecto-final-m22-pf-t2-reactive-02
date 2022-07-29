@@ -7,6 +7,7 @@ import ImageUpload from '../../components/atoms/ImageUpload';
 import InputForm from '../../components/atoms/inputForm';
 
 export default function NewPublication({navigation}) {
+  const handleSubmit = () => {};
   return (
     <View style={styles.container}>
       <Header text={'Crear publicación'} navigation={navigation} />
@@ -19,7 +20,7 @@ export default function NewPublication({navigation}) {
       <InputForm text={'Añade un #Hashtag'} />
       <ImageUpload />
       <View style={styles.button}>
-        <ButtonForm text={'Publicar'} type={true} />
+        <ButtonForm text={'Publicar'} onPress={handleSubmit} />
       </View>
     </View>
   );

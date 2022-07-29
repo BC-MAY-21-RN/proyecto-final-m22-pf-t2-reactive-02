@@ -10,10 +10,15 @@ const question1 = ['Si', 'Aveces', 'Muy amenudo', 'Nunca'];
 const question2 = ['Casa', 'Patio', 'Calle', 'Nose'];
 
 export default function AdoptionForm({navigation}) {
+  const handleSubmit = () => {};
   return (
     <View>
       <TopBar navigation={navigation} iconVisible={false} />
-      <Header text="Formulario de adopción" navigation={navigation} />
+      <Header
+        text="Formulario de adopción"
+        navigation={navigation}
+        filter={true}
+      />
       <View>
         <InputForm text={'Teléfono'} />
         <InputForm text={'Correo'} />
@@ -34,7 +39,7 @@ export default function AdoptionForm({navigation}) {
           data={question2}
         />
       </View>
-      <ButtonForm text={'Enviar Formulario'} type={true} />
+      <ButtonForm text={'Enviar Formulario'} onPress={handleSubmit} />
     </View>
   );
 }
