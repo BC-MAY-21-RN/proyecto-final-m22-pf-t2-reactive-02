@@ -7,7 +7,7 @@ import styles from './styles';
 export default function PostsScreen({navigation}) {
   return (
     <View style={styles.container}>
-      <Post />
+      <Post navigation={navigation} />
       <AddButton navigation={navigation} />
     </View>
   );

@@ -46,23 +46,17 @@ export default function TopBar({navigation, iconVisible}) {
             color="#6C6C6C"
           />
         </TouchableOpacity>
-        {visible ? null : (
+        {!visible && (
           <Animatable.View animation="slideInLeft">
             <Icons IconProp={nameHeader} />
           </Animatable.View>
         )}
-        {visible ? (
-          <Animatable.View animation="slideInRight">
-            <Icons IconProp={logoHeader} style={menuStyle.logo} />
-          </Animatable.View>
-        ) : (
-          <Animatable.View animation="slideInLeft">
-            <Icons IconProp={logoHeader} style={menuStyle.logo} />
-          </Animatable.View>
-        )}
+        <Animatable.View animation={visible ? 'slideInRight' : 'slideInLeft'}>
+          <Icons IconProp={logoHeader} style={menuStyle.logo} />
+        </Animatable.View>
 
-        {visible ? <InputText /> : null}
-        {seeButton ? (
+        {visible && <InputText />}
+        {seeButton && (
           <TouchableOpacity
             onPress={() => {
               setVisible(true);
@@ -75,7 +69,7 @@ export default function TopBar({navigation, iconVisible}) {
               size={20}
             />
           </TouchableOpacity>
-        ) : null}
+        )}
       </View>
     </View>
   );
