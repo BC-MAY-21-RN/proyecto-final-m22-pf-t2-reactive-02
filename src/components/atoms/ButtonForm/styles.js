@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
   containerText: {
     width: '60%',
     marginTop: 12,
+    justifyContent: 'center',
   },
   text2: {
     fontSize: 15,
