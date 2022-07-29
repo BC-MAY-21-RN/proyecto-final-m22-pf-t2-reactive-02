@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, Text, Button} from 'react-native';
-import RadioButton from 'rn-radio-button';
 import * as Animatable from 'react-native-animatable';
 import styles from './styles';
 import Lists from './functions';
+import RadioButtonComp from '../RadioButton';
 
 export default function FilttersPost() {
   const Submit = () => {};
@@ -12,26 +12,8 @@ export default function FilttersPost() {
       <View style={styles.alignText}>
         <Text style={styles.title}>Filtros</Text>
       </View>
-      <View style={styles.containerRadio}>
-        <RadioButton
-          outerWidth={23}
-          innerWidth={10}
-          borderWidth={1.7}
-          data={Lists.listData}
-          wrapperStyle={styles.wrapper}
-          color={'#A05A88'}
-        />
-      </View>
-      <View style={styles.containerRadio}>
-        <RadioButton
-          outerWidth={23}
-          innerWidth={10}
-          borderWidth={1.7}
-          data={Lists.listData2}
-          wrapperStyle={styles.wrapper}
-          color={'#A05A88'}
-        />
-      </View>
+      <RadioButtonComp List={Lists.listData} />
+      <RadioButtonComp List={Lists.listData2} />
       <View style={styles.button}>
         <Button title="Filtrar" onPress={Submit} color="#A05A88" />
       </View>
