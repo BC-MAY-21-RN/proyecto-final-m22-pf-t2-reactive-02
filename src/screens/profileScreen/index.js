@@ -4,12 +4,11 @@ import auth from '@react-native-firebase/auth';
 import functions from '../../components/atoms/DrawerItems/functions';
 import styles from './styles';
 import UserProfileInfo from '../../components/atoms/UserProfileInfo';
-import InfoUser from '../../components/InfoUser';
+import InfoUser from '../../components/atoms/InfoUser';
 import ProfileHeader from '../../components/atoms/ProfileHeader';
 
+const user = auth().currentUser;
 export default function ProfileScreen() {
-  const user = auth().currentUser;
-
   return (
     <View style={styles.background}>
       <ProfileHeader
@@ -27,17 +26,9 @@ export default function ProfileScreen() {
           <UserProfileInfo info={5} title={'Guardados'} />
         </View>
         <InfoUser icon={'mail'} text={'Correo'} info={user.email} />
-        <InfoUser
-          icon={'phone'}
-          text={'Teléfono'}
-          info={'Agrega un teléfono'}
-        />
+        <InfoUser icon={'phone'} text={'Teléfono'} info={'+52'} />
         <InfoUser icon={'map-pin'} text={'Ciudad'} info={'Agrega una ciudad'} />
-        <InfoUser
-          icon={'smile'}
-          text={'Sobre ti: '}
-          info={'Agrega información de ti'}
-        />
+        <InfoUser icon={'smile'} text={'Sobre ti: '} info={'¿Qué te gusta?'} />
         <TouchableOpacity style={styles.editar}>
           <Text>Editar</Text>
         </TouchableOpacity>

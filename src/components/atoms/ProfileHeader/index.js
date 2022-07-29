@@ -4,7 +4,7 @@ import styles from './styles';
 import {Icon} from 'react-native-elements';
 import * as ImagePicker from 'react-native-image-picker';
 
-export default function UserProfileInfo({image, name}) {
+export default function UserHeader({image, name}) {
   const ChangeImage = () => {
     ImagePicker.launchImageLibrary();
   };
