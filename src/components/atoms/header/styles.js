@@ -5,21 +5,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 60,
   },
-  text: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginVertical: 15,
-    color: '#263238',
-  },
-  icon: {
-    marginHorizontal: 15,
-    marginTop: 19,
-  },
   containerIcon: {
     width: 30,
     height: 30,
     marginVertical: 15,
     marginLeft: 70,
+  },
+  icon: {
+    marginHorizontal: 15,
+    marginTop: 19,
   },
   iconOption: {
     transform: [{rotate: '90deg'}],
@@ -32,6 +26,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderTopStartRadius: 30,
     borderTopEndRadius: 30,
+  },
+  text: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginVertical: 15,
+    color: '#263238',
   },
 });
 export default styles;
