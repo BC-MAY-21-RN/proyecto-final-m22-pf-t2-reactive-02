@@ -52,6 +52,19 @@ const getPermissions = (change, post) => {
     .catch(error => Alert.alert('Error', '' + error, [{text: 'OK'}]));
 };
 
+const deleteImage = (change, post, index) => {
+  Alert.alert('Eliminar imagen', '¿Quiere eliminar esta imagen?', [
+    {
+      text: 'Eliminar',
+      onPress: () => {
+        const array = post.valuesPost.images;
+        change(array.splice(index, index + 1), 'images');
+      },
+    },
+    {text: 'Cancelar', style: 'cancel'},
+  ]);
+};
+
 export default function ImageUpload({change, post}) {
   const [imageOpen, setImageOpen] = useState(false);
   const [indexImage, setIndexImage] = useState(0);
@@ -80,6 +93,7 @@ export default function ImageUpload({change, post}) {
               setImageOpen(true);
               setIndexImage(index);
             }}
+            onLongPress={() => deleteImage(change, post, index)}
           />
         ))}
       </ScrollView>
