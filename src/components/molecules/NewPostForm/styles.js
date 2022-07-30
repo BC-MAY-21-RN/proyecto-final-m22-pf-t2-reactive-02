@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
     borderBottomWidth: 2,
     borderColor: 'rgba(165, 165, 165, 0.6)',
+    height: 250,
   },
 });
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, TextInput} from 'react-native';
 import ButtonForm from '../../atoms/ButtonForm';
-import ImageUpload from '../../atoms/ImageUpload';
 import InputForm from '../../atoms/inputForm';
 import Header from '../../atoms/header';
 import styles from './styles';
+import PagerImageLocation from '../PagerImageLocation';
 
 export default function NewPostForm({
   navigation,
@@ -30,10 +30,10 @@ export default function NewPostForm({
         change={changePost}
         keyvalue={'hashtags'}
       />
-      <ImageUpload
+      <PagerImageLocation
         change={changePost}
-        post={post}
         changeIndex={changeIndex}
+        post={post}
         changeVisible={changeVisible}
       />
       <ButtonForm text={'Publicar'} onPress={() => {}} />

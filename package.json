@@ -16,6 +16,7 @@
     "@react-native-google-signin/google-signin": "^8.0.0",
     "@react-navigation/bottom-tabs": "^6.3.2",
     "@react-navigation/drawer": "^6.4.3",
+    "@react-navigation/material-top-tabs": "^6.2.2",
     "@react-navigation/native": "^6.0.11",
     "@react-navigation/native-stack": "^6.7.0",
     "react": "18.0.0",
@@ -26,6 +27,7 @@
     "react-native-gesture-handler": "^2.5.0",
     "react-native-image-picker": "^4.8.4",
     "react-native-image-zoom-viewer-fixed": "^3.2.5",
+    "react-native-pager-view": "^5.4.25",
     "react-native-paper": "^4.12.3",
     "react-native-permissions": "^3.6.0",
     "react-native-reanimated": "^2.9.1",
@@ -34,6 +36,7 @@
     "react-native-select-dropdown": "^2.0.4",
     "react-native-svg": "^12.3.0",
     "react-native-svg-transformer": "^1.0.0",
+    "react-native-tab-view": "^3.1.1",
     "react-native-vector-icons": "^9.2.0",
     "rn-radio-button": "^1.0.2"
   },
