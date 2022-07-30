@@ -16,6 +16,7 @@ const styles = value =>
       marginLeft: 20,
     },
     imagecontainer: {marginRight: 10},
+    imageViewer: {backgroundColor: '#000000DC'},
   });
 
 export default styles;

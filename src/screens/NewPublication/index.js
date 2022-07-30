@@ -1,15 +1,11 @@
 import React, {useState} from 'react';
-import {View, TextInput} from 'react-native';
-import styles from './styles';
-import ButtonForm from '../../components/atoms/ButtonForm';
-import Header from '../../components/atoms/header';
-import ImageUpload from '../../components/atoms/ImageUpload';
-import InputForm from '../../components/atoms/inputForm';
+import {View} from 'react-native';
 import NewPost from '../../models/NewPost';
+import ModalImage from '../../components/atoms/ModalImage';
+import NewPostForm from '../../components/molecules/NewPostForm';
 
 const newObject = (object, key, value) => {
   object.setValues({[key]: value});
-  console.log(object);
   return new NewPost(
     object.valuesPost.hashtags,
     object.valuesPost.text,
@@ -20,39 +16,26 @@ const newObject = (object, key, value) => {
 
 export default function NewPublication({navigation, route}) {
   const [post, setPost] = useState(new NewPost(route.params.hashtag));
+  const [imageOpen, setImageOpen] = useState(false);
+  const [indexImage, setIndexImage] = useState(0);
   const changePost = (value, key) => setPost(newObject(post, key, value));
+  const changeImageOpen = value => setImageOpen(value);
+  const changeIndexImage = value => setIndexImage(value);
 
   return (
-    <FormPost
-      changePost={changePost}
-      navigation={navigation}
-      route={route}
-      post={post}
-    />
-  );
-}
-
-const FormPost = ({navigation, changePost, route, post}) => {
-  return (
-    <View style={styles.container}>
-      <Header text={'Crear publicación'} navigation={navigation} />
-      <TextInput
-        multiline
-        numberOfLines={15}
-        placeholder={'Escribe lo que piensas...'}
-        style={styles.textInput}
-        onChange={e => changePost(e.nativeEvent.text, 'text')}
+    <View>
+      <NewPostForm
+        changePost={changePost}
+        navigation={navigation}
+        route={route}
+        post={post}
+        changeIndex={changeIndexImage}
+        changeVisible={changeImageOpen}
       />
-      <InputForm
-        text={'Añade un #Hashtag'}
-        hashtag={'#' + route.params.hashtag}
-        change={changePost}
-        keyvalue={'hashtags'}
+      <ModalImage
+        changeVisible={changeImageOpen}
+        values={{i: indexImage, v: imageOpen, a: post.valuesPost.images}}
       />
-      <ImageUpload change={changePost} post={post} />
-      <View style={styles.button}>
-        <ButtonForm text={'Publicar'} type={true} />
-      </View>
     </View>
   );
-};
+}

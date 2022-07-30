@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
+//   Modal,
 import {
   View,
   TouchableOpacity,
   Alert,
   ScrollView,
-  Modal,
   Dimensions,
 } from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
 import {request, PERMISSIONS, check, RESULTS} from 'react-native-permissions';
-import ImageViewer from 'react-native-image-zoom-viewer-fixed';
+// import ImageViewer from 'react-native-image-zoom-viewer-fixed';
 import {Icon, Avatar} from 'react-native-elements';
 import styles from './styles';
 
@@ -65,17 +65,22 @@ const deleteImage = (change, post, index) => {
       text: 'Eliminar',
       onPress: () => {
         const array = post.valuesPost.images;
-        change(array.splice(index, index + 1), 'images');
+        change(
+          array.filter((_, i) => i !== index),
+          'images',
+        );
       },
     },
     {text: 'Cancelar', style: 'cancel'},
   ]);
 };
 
-export default function ImageUpload({change, post}) {
-  console.log(Dimensions.get('screen').height);
-  const [imageOpen, setImageOpen] = useState(false);
-  const [indexImage, setIndexImage] = useState(0);
+export default function ImageUpload({
+  change,
+  post,
+  changeIndex,
+  changeVisible,
+}) {
   return (
     <View>
       <View style={styles().container}>
@@ -90,7 +95,15 @@ export default function ImageUpload({change, post}) {
       </View>
       <ScrollView
         horizontal={true}
-        style={styles(post.valuesPost.images.length > 0 ? -75 : 0).scrollimage}>
+        style={
+          styles(
+            post.valuesPost.images.length > 0
+              ? 0
+              : Dimensions.get('screen').height > 740
+              ? 120
+              : 80,
+          ).scrollimage
+        }>
         {post.valuesPost.images.map((image, index) => (
           <Avatar
             key={index}
@@ -98,24 +111,13 @@ export default function ImageUpload({change, post}) {
             size={Dimensions.get('screen').height > 740 ? 120 : 80}
             containerStyle={styles().imagecontainer}
             onPress={() => {
-              setImageOpen(true);
-              setIndexImage(index);
+              changeVisible(true);
+              changeIndex(index);
             }}
             onLongPress={() => deleteImage(change, post, index)}
           />
         ))}
       </ScrollView>
-      <Modal
-        visible={imageOpen}
-        transparent={false}
-        onRequestClose={() => setImageOpen(false)}>
-        <ImageViewer
-          imageUrls={post.valuesPost.images}
-          index={indexImage}
-          style={{backgroundColor: '#000'}}
-          backgroundColor={'#000'}
-        />
-      </Modal>
     </View>
   );
 }
