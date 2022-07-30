@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {View, TouchableOpacity, Alert, ScrollView, Modal} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Alert,
+  ScrollView,
+  Modal,
+  Dimensions,
+} from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
 import {request, PERMISSIONS, check, RESULTS} from 'react-native-permissions';
 import ImageViewer from 'react-native-image-zoom-viewer-fixed';
@@ -66,6 +73,7 @@ const deleteImage = (change, post, index) => {
 };
 
 export default function ImageUpload({change, post}) {
+  console.log(Dimensions.get('screen').height);
   const [imageOpen, setImageOpen] = useState(false);
   const [indexImage, setIndexImage] = useState(0);
   return (
@@ -87,7 +95,7 @@ export default function ImageUpload({change, post}) {
           <Avatar
             key={index}
             source={{uri: image.url}}
-            size={80}
+            size={Dimensions.get('screen').height > 740 ? 120 : 80}
             containerStyle={styles().imagecontainer}
             onPress={() => {
               setImageOpen(true);
@@ -99,9 +107,14 @@ export default function ImageUpload({change, post}) {
       </ScrollView>
       <Modal
         visible={imageOpen}
-        transparent={true}
+        transparent={false}
         onRequestClose={() => setImageOpen(false)}>
-        <ImageViewer imageUrls={post.valuesPost.images} index={indexImage} />
+        <ImageViewer
+          imageUrls={post.valuesPost.images}
+          index={indexImage}
+          style={{backgroundColor: '#000'}}
+          backgroundColor={'#000'}
+        />
       </Modal>
     </View>
   );
