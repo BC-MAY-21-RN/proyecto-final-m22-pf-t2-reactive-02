@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-//   Modal,
+import React from 'react';
 import {
   View,
   TouchableOpacity,
@@ -9,7 +8,6 @@ import {
 } from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
 import {request, PERMISSIONS, check, RESULTS} from 'react-native-permissions';
-// import ImageViewer from 'react-native-image-zoom-viewer-fixed';
 import {Icon, Avatar} from 'react-native-elements';
 import styles from './styles';
 
