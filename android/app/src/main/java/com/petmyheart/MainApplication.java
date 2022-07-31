@@ -12,7 +12,6 @@ import com.facebook.soloader.SoLoader;
 import com.petmyheart.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import com.heanoria.library.reactnative.locationenabler.RNAndroidLocationEnablerPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
