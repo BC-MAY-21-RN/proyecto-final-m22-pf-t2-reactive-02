@@ -28,6 +28,7 @@
     "react-native-image-picker": "^4.8.4",
     "react-native-image-zoom-viewer-fixed": "^3.2.5",
     "react-native-location": "^2.5.0",
+    "react-native-android-location-enabler": "^1.2.2",
     "react-native-pager-view": "^5.4.25",
     "react-native-paper": "^4.12.3",
     "react-native-permissions": "^3.6.0",

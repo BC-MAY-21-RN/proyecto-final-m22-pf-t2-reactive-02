@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {Overlay} from 'react-native-elements';
 import {request, PERMISSIONS, check, RESULTS} from 'react-native-permissions';
-//import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
+import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 import PagerView from 'react-native-pager-view';
 import RNLocation from 'react-native-location';
 import ImageUpload from '../../atoms/ImageUpload';
@@ -54,12 +54,22 @@ const LocationPermissions = changeModalVisible => {
   check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
     .then(result => {
       if (result === RESULTS.GRANTED) {
-        changeModalVisible(true);
+        RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({
+          interval: 10000,
+          fastInterval: 5000,
+        })
+          .then(() => changeModalVisible(true))
+          .catch();
       } else {
         request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
           .then(result2 => {
             if (result2 === RESULTS.GRANTED) {
-              changeModalVisible(true);
+              RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({
+                interval: 10000,
+                fastInterval: 5000,
+              })
+                .then(() => changeModalVisible(true))
+                .catch();
             } else {
               Alert.alert(
                 'Se requieren permisos',
