@@ -46,7 +46,11 @@ export default function LoginScreen({navigation}) {
           changeUser={changeUser}
           input={'password'}
         />
-        <BottomText text={'¿Contraseña Olvidada?'} />
+        <BottomText 
+          text={'¿Contraseña Olvidada?'} 
+          navigation={navigation}
+          namescreen={'forgetScreen'}  
+        />
         <ButtonsForInit
           text="INGRESAR"
           user={user}
