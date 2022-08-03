@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import RegisterScreen from '../screens/registerScreen';
 import LoginScreen from '../screens/loginScreen';
-import ForgetScreen from "../screens/forgetScreen";
+import ForgetScreen from '../screens/forgetScreen';
 import UserContext from '../context/UserContext.js';
 import auth from '@react-native-firebase/auth';
 import DrawerNavigation from './DrawerNavigation';
@@ -16,25 +16,21 @@ const stackNoLoged = [
     name: 'welcomeScreen',
     component: WelcomeScreen,
     title: 'welcomeScreen',
-    header: false,
   },
   {
     name: 'registerScreen',
     component: RegisterScreen,
     title: 'registerScreen',
-    header: false,
   },
   {
     name: 'loginScreen',
     component: LoginScreen,
     title: 'loginScreen',
-    header: false,
   },
   {
     name: 'forgetScreen',
     component: ForgetScreen,
     title: 'forgetScreen',
-    header: false,
   },
 ];
 
@@ -75,7 +71,7 @@ const Navigation = () => {
             key={index}
             name={item.name}
             component={item.component}
-            options={{headerShown: item.header, header: false}}
+            options={{headerShown: false}}
           />
         ))}
       </Stack.Navigator>
