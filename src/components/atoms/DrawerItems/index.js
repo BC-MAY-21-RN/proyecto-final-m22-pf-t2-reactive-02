@@ -12,8 +12,9 @@ const logout = () => {
     .signOut()
     .then(() => {});
 };
-const user = auth().currentUser;
+
 export default function DrawerItems({navigation}) {
+  const user = auth().currentUser;
   return (
     <View style={styleDrawer.container}>
       <View style={styleDrawer.header}>
@@ -42,9 +43,7 @@ export default function DrawerItems({navigation}) {
             />
           </View>
           <View style={styleDrawer.dataProfile}>
-            <Text style={styleDrawer.textName}>
-              {functions.VerifyName() ? user.displayName : 'Funganito'}
-            </Text>
+            <Text style={styleDrawer.textName}>{user.displayName}</Text>
             <Text style={styleDrawer.textEmail}>{user.email}</Text>
           </View>
         </TouchableOpacity>
