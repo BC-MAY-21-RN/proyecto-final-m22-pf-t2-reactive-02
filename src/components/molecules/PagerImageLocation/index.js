@@ -85,8 +85,14 @@ const ModalMap = ({visible, changeVisible}) => {
           }
         />
       </MapView>
-      <Button title={'Seleccionar coordenada'} buttonStyle={{marginTop: 10, backgroundColor: '#9485AC'}} />
-      <Button title={'Cancelar'} buttonStyle={{marginTop: 10, backgroundColor: '#FE5E5E'}} />
+      <Button
+        title={'Seleccionar coordenada'}
+        buttonStyle={{marginTop: 10, backgroundColor: '#9485AC'}}
+      />
+      <Button
+        title={'Cancelar'}
+        buttonStyle={{marginTop: 10, backgroundColor: '#FE5E5E'}}
+      />
     </Overlay>
   );
 };
