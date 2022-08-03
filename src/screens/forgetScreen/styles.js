@@ -1,16 +1,9 @@
 import {StyleSheet, Dimensions} from 'react-native';
 
 const styles = StyleSheet.create({
-  namecontainer: {marginTop: 23},
+  container: {width: '100%', height: '100%', backgroundColor: '#fff'},
+  imagetext: {alignSelf: 'center', marginTop: 40, marginBottom: 40},
   logocontainer: {marginLeft: 10},
-  container: {width: '100%', height: '100%'},
-  text: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    alignSelf: 'center',
-    marginTop: 16,
-    color: '#DB6C9E',
-  },
   logoscontainer: {
     width: '100%',
     height: Dimensions.get('screen').height < 775 ? 100 : 150,
@@ -21,6 +14,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
   },
+  namecontainer: {marginTop: 23},
 });
 
 export default styles;
