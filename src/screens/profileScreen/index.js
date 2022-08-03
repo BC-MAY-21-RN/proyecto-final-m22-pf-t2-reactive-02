@@ -6,8 +6,8 @@ import styles from './styles';
 import ProfileHeader from '../../components/atoms/ProfileHeader';
 import ProfileContent from '../../components/molecules/ProfileContent';
 
-const user = auth().currentUser;
 export default function ProfileScreen() {
+  const user = auth().currentUser;
   return (
     <View style={styles.background}>
       <ProfileHeader
