@@ -18,7 +18,7 @@ export default function ProfileScreen() {
             ? user.photoURL
             : 'https://www.lolitamoda.com/uploads/post/image/61/56.Reglas_de_estilo_que_todo_hombre_debe_conocer.jpg'
         }
-        name={functions.VerifyName() ? user.displayName : 'Funganito'}
+        name={user.displayName}
       />
       <ProfileContent />
     </View>

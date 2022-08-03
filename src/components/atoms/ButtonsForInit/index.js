@@ -5,6 +5,7 @@ import GoogleSVG from '../../../assets/icons/google.svg';
 import Icons from '../Icons';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import {firebase} from '@react-native-firebase/firestore';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 const addUser = (user, changeLoading) => {
@@ -16,6 +17,11 @@ const addUser = (user, changeLoading) => {
       uid: auth().currentUser.uid,
     })
     .then(() => {
+      const update = {
+        displayName: user.valuesRegister.name,
+        photoURL: '',
+      };
+      firebase.auth().currentUser.updateProfile(update);
       changeLoading(false);
     });
 };
