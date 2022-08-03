@@ -6,8 +6,8 @@ import styles from './styles';
 import ProfileHeader from '../../components/atoms/ProfileHeader';
 import ProfileContent from '../../components/molecules/ProfileContent';
 
-const user = auth().currentUser;
 export default function ProfileScreen() {
+  const user = auth().currentUser;
   return (
     <View style={styles.background}>
       <ProfileHeader
@@ -16,7 +16,7 @@ export default function ProfileScreen() {
             ? user.photoURL
             : 'https://www.lolitamoda.com/uploads/post/image/61/56.Reglas_de_estilo_que_todo_hombre_debe_conocer.jpg'
         }
-        name={functions.VerifyName() ? user.displayName : 'Funganito'}
+        name={user.displayName}
       />
       <ProfileContent />
     </View>
