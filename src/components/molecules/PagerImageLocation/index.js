@@ -8,34 +8,49 @@ import {
   Alert,
   Dimensions,
 } from 'react-native';
-import {Overlay} from 'react-native-elements';
+import {Button, Overlay} from 'react-native-elements';
 import {request, PERMISSIONS, check, RESULTS} from 'react-native-permissions';
 import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 import PagerView from 'react-native-pager-view';
 import RNLocation from 'react-native-location';
 import ImageUpload from '../../atoms/ImageUpload';
 import styles from './styles';
-
+import MapView, {Marker} from 'react-native-maps';
 import {Icon} from 'react-native-elements';
 
+const location = (visible, changeCoordinates) => {
+  if (visible === true) {
+    RNLocation.configure({
+      distanceFilter: 5.0,
+      interval: 2000,
+    });
+
+    const unsubscriber = RNLocation.subscribeToLocationUpdates(result => {
+      changeCoordinates({
+        latitude: result[0].latitude,
+        longitude: result[0].longitude,
+        latitudeDelta: 0.09,
+        longitudeDelta: 0.04,
+      });
+    });
+    return unsubscriber;
+  }
+};
+
+const initLocation = {
+  latitude: 19.123197,
+  longitude: -104.349663,
+  latitudeDelta: 0.01,
+  longitudeDelta: 0.01,
+};
+
 const ModalMap = ({visible, changeVisible}) => {
-  const [coordinates, setCoordinates] = useState([]);
+  const [coordinates, setCoordinates] = useState(initLocation);
+  const changeCoordinates = value => setCoordinates(value);
 
   useEffect(() => {
-    if (visible === true) {
-      RNLocation.configure({
-        distanceFilter: 5.0,
-        interval: 2000,
-      });
-
-      const unsubscriber = RNLocation.subscribeToLocationUpdates(result => {
-        console.log(result);
-        setCoordinates([result[0].latitude, result[0].longitude]);
-      });
-
-      return unsubscriber;
-    }
-  });
+    location(visible, changeCoordinates);
+  }, [visible]);
 
   return (
     <Overlay
@@ -43,12 +58,44 @@ const ModalMap = ({visible, changeVisible}) => {
       onBackdropPress={() => {
         changeVisible(false);
       }}>
-      <Text>
-        {'latitud: ' + coordinates[0] + ' | longitud: ' + coordinates[1]}
-      </Text>
+      <MapView
+        moveOnMarkerPress={true}
+        style={{width: 300, height: 400}}
+        region={coordinates}
+        onLongPress={a =>
+          setCoordinates({
+            latitude: a.nativeEvent.coordinate.latitude,
+            longitude: a.nativeEvent.coordinate.longitude,
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01,
+          })
+        }
+        onRegionChange={() => changeCoordinates(coordinates)}
+        onRegionChangeComplete={() => changeCoordinates(coordinates)}>
+        <Marker
+          draggable={true}
+          coordinate={coordinates}
+          onDragEnd={newCoordinate =>
+            setCoordinates({
+              latitude: newCoordinate.nativeEvent.coordinate.latitude,
+              longitude: newCoordinate.nativeEvent.coordinate.longitude,
+              latitudeDelta: 0.01,
+              longitudeDelta: 0.01,
+            })
+          }
+        />
+      </MapView>
+      <Button title={'Seleccionar coordenada'} buttonStyle={{marginTop: 10, backgroundColor: '#9485AC'}} />
+      <Button title={'Cancelar'} buttonStyle={{marginTop: 10, backgroundColor: '#FE5E5E'}} />
     </Overlay>
   );
 };
+
+/*
+      <Text>
+        {'latitud: ' + coordinates[0] + ' | longitud: ' + coordinates[1]}
+      </Text>
+*/
 
 const LocationPermissions = changeModalVisible => {
   check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)

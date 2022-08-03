@@ -6,6 +6,7 @@ import styles from './styles';
 import ProfileHeader from '../../components/atoms/ProfileHeader';
 import ProfileContent from '../../components/molecules/ProfileContent';
 
+console.log(auth().currentUser);
 const user = auth().currentUser;
 
 export default function ProfileScreen() {
