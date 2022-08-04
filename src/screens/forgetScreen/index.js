@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
+import {View, Alert} from 'react-native';
 import NameAppSVG from '../../assets/icons/nameapp.svg';
 import LogoRegisterSVG from '../../assets/icons/logoRegister.svg';
 import InputComponent from '../../components/atoms/InputComponent';
@@ -10,8 +10,10 @@ import ButtonForgetScreen from '../../components/atoms/ButtonForgetScreen';
 import styles from './styles';
 import globalstyles from '../../const/globalStyles';
 import TopDesign from '../../components/atoms/TopDesign';
+import auth from '@react-native-firebase/auth';
 
 export default function ForgetScreen({navigation}) {
+  const [text, setText] = useState('');
   return (
     <View style={styles.container}>
       <TopDesign
@@ -30,8 +32,12 @@ export default function ForgetScreen({navigation}) {
           title={'E-mail'}
           Icon={EmailSVG}
           input={'email'}
+          changeUser={setText}
         />
-        <ButtonForgetScreen text={'RECUPERAR'} />
+        <ButtonForgetScreen
+          text={'RECUPERAR'}
+          onPress={() => auth().sendPasswordResetEmail(text)}
+        />
         <BottomText
           text={'Ingresa a tu cuenta aquí'}
           navigation={navigation}
