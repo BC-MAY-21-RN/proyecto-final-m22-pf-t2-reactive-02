@@ -12,6 +12,8 @@ const screens = [
   {name: 'Favorites', label: 'Guardados'},
 ];
 
+const hashtags = ['#Normal', '#Extravíos', '#Adopciones', '#Normal'];
+
 export default function TabNavigator() {
   return (
     <Tab.Navigator
@@ -30,12 +32,7 @@ export default function TabNavigator() {
           name={item.name}
           component={PostsScreen}
           options={{tabBarLabel: item.label}}
-          initialParams={{
-            hashtag:
-              item.label === 'Inicio' || item.label === 'Guardados'
-                ? 'Normal'
-                : item.label,
-          }}
+          initialParams={{hashtag: hashtags[index]}}
         />
       ))}
     </Tab.Navigator>
