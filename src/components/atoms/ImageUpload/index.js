@@ -11,33 +11,18 @@ import {request, PERMISSIONS, check, RESULTS} from 'react-native-permissions';
 import {Icon, Avatar} from 'react-native-elements';
 import styles from './styles';
 
-/*const addImage = async (change, post) => {
+const addImage = async (change, post) => {
   const result = await ImagePicker.launchImageLibrary();
-  if (result.didCancel === true) {
+  setImage(result, change, post);
+  /*if (result.didCancel === true) {
     Alert.alert('Se cerro la galería', '', [{text: 'OK'}]);
   } else {
     const array = [...post.valuesPost.images, {url: result.assets[0].uri}];
     change(array, 'images');
-  }
+  }*/
 };
 
-const launchCamera = async (change, post) => {
-  const result = await ImagePicker.launchCamera();
-  if (result.didCancel === true) {
-    Alert.alert('Se cerro la cámara', '' + 'La operación fue cerrada', [
-      {text: 'OK'},
-    ]);
-  } else {
-    const array = [...post.valuesPost.images, {url: result.assets[0].uri}];
-    change(array, 'images');
-  }
-};*/
-
-const loadImage = async (type, change, post) => {
-  const result =
-    type === 'camera'
-      ? await ImagePicker.launchCamera()
-      : await ImagePicker.launchImageLibrary();
+const setImage = (result, change, post) => {
   if (result.didCancel === true) {
     Alert.alert('Error al cargar la imagen', '', [{text: 'OK'}]);
   } else {
@@ -46,16 +31,29 @@ const loadImage = async (type, change, post) => {
   }
 };
 
+const launchCamera = async (change, post) => {
+  const result = await ImagePicker.launchCamera();
+  setImage(result, change, post);
+  /*if (result.didCancel === true) {
+    Alert.alert('Se cerro la cámara', '' + 'La operación fue cerrada', [
+      {text: 'OK'},
+    ]);
+  } else {
+    const array = [...post.valuesPost.images, {url: result.assets[0].uri}];
+    change(array, 'images');
+  }*/
+};
+
 const getPermissions = (change, post) => {
   check(PERMISSIONS.ANDROID.CAMERA)
     .then(result => {
       if (result === RESULTS.GRANTED) {
-        loadImage('camera', change, post);
+        launchCamera(change, post);
       } else {
         request(PERMISSIONS.ANDROID.CAMERA)
           .then(result2 => {
             if (result2 === RESULTS.GRANTED) {
-              loadImage('camera', change, post);
+              launchCamera(change, post);
             } else {
               Alert.alert(
                 'Se requieren permisos',
@@ -96,7 +94,7 @@ export default function ImageUpload({
     <View>
       <View style={styles().container}>
         <TouchableOpacity
-          onPress={() => loadImage('picker'.change, post)}
+          onPress={() => addImage(change, post)}
           style={styles().button}>
           <Icon name={'image'} type={'feather'} size={30} />
         </TouchableOpacity>
