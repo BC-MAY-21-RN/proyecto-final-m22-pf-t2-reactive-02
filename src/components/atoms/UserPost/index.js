@@ -1,12 +1,13 @@
 import React from 'react';
 import {View, Text, Image} from 'react-native';
 import styles from './styles';
+import globalstyles from '../../../const/globalStyles';
 
 export default function UserPost({name, time, image}) {
   return (
     <View style={styles.container}>
       <Image
-        style={styles.image}
+        style={globalstyles.image}
         source={{
           uri: image,
         }}

@@ -9,6 +9,7 @@ export default function ButtonsPost({navigation}) {
   const onPawPress = () => setPaw(!paw);
   const [mark, setMark] = useState(false);
   const onMarkPress = () => setMark(!mark);
+  const [comment, setComment] = useState(false);
   return (
     <View style={styles.container}>
       <View style={styles.buttons}>
@@ -31,7 +32,12 @@ export default function ButtonsPost({navigation}) {
           ) : null}
         </View>
         <View style={styles.separation}>
-          <Icon name={'message'} type={'material-community'} />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Comments');
+            }}>
+            <Icon name={'message'} type={'material-community'} />
+          </TouchableOpacity>
         </View>
         <Icon
           name={'bookmark'}

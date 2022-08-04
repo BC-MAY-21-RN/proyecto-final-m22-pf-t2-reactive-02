@@ -9,6 +9,11 @@ const globalstyles = StyleSheet.create({
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
   },
+  image: {
+    borderRadius: 50 / 2,
+    width: 50,
+    height: 50,
+  },
 });
 
 export default globalstyles;
