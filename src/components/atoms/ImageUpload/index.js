@@ -14,12 +14,6 @@ import styles from './styles';
 const addImage = async (change, post) => {
   const result = await ImagePicker.launchImageLibrary();
   setImage(result, change, post);
-  /*if (result.didCancel === true) {
-    Alert.alert('Se cerro la galería', '', [{text: 'OK'}]);
-  } else {
-    const array = [...post.valuesPost.images, {url: result.assets[0].uri}];
-    change(array, 'images');
-  }*/
 };
 
 const setImage = (result, change, post) => {
@@ -34,35 +28,31 @@ const setImage = (result, change, post) => {
 const launchCamera = async (change, post) => {
   const result = await ImagePicker.launchCamera();
   setImage(result, change, post);
-  /*if (result.didCancel === true) {
-    Alert.alert('Se cerro la cámara', '' + 'La operación fue cerrada', [
-      {text: 'OK'},
-    ]);
-  } else {
-    const array = [...post.valuesPost.images, {url: result.assets[0].uri}];
-    change(array, 'images');
-  }*/
 };
 
 const getPermissions = (change, post) => {
+  request(PERMISSIONS.ANDROID.CAMERA)
+    .then(result2 => {
+      if (result2 === RESULTS.GRANTED) {
+        launchCamera(change, post);
+      } else {
+        Alert.alert(
+          'Se requieren permisos',
+          '' + 'Tiene que aceptar los permisos para usar la cámara.',
+          [{text: 'OK'}],
+        );
+      }
+    })
+    .catch(error => Alert.alert('Error', '' + error, [{text: 'OK'}]));
+};
+
+const checkPermissions = (change, post) => {
   check(PERMISSIONS.ANDROID.CAMERA)
     .then(result => {
       if (result === RESULTS.GRANTED) {
         launchCamera(change, post);
       } else {
-        request(PERMISSIONS.ANDROID.CAMERA)
-          .then(result2 => {
-            if (result2 === RESULTS.GRANTED) {
-              launchCamera(change, post);
-            } else {
-              Alert.alert(
-                'Se requieren permisos',
-                '' + 'Tiene que aceptar los permisos para usar la cámara.',
-                [{text: 'OK'}],
-              );
-            }
-          })
-          .catch(error => Alert.alert('Error', '' + error, [{text: 'OK'}]));
+        getPermissions(change, post);
       }
     })
     .catch(error => Alert.alert('Error', '' + error, [{text: 'OK'}]));
@@ -98,7 +88,7 @@ export default function ImageUpload({
           style={styles().button}>
           <Icon name={'image'} type={'feather'} size={30} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => getPermissions(change, post)}>
+        <TouchableOpacity onPress={() => checkPermissions(change, post)}>
           <Icon name={'camera'} type={'feather'} size={30} />
         </TouchableOpacity>
       </View>
