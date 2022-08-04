@@ -2,7 +2,7 @@ import React from 'react';
 import {View, TextInput, Alert} from 'react-native';
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
-import firestore, {firebase} from '@react-native-firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
 import ButtonForm from '../../atoms/ButtonForm';
 import InputForm from '../../atoms/inputForm';
 import Header from '../../atoms/header';
@@ -27,7 +27,14 @@ const uploadImagesStorage = async images => {
   return arrayUrl;
 };
 
-const uploadPostFirestore = (listUrl, hashtags, location, text) => {
+const uploadPostFirestore = (
+  listUrl,
+  hashtags,
+  location,
+  text,
+  changeLoading,
+  navigation,
+) => {
   const hashtagsList = hashtags.toString().replace(/ /g, '').split('#');
   firestore()
     .collection('posts')
@@ -39,31 +46,50 @@ const uploadPostFirestore = (listUrl, hashtags, location, text) => {
       hashtags: hashtagsList,
     })
     .then(respuesta => {
-      respuesta.get().then(resp => uploadFavoritePostFirestore(resp.id));
+      respuesta
+        .get()
+        .then(resp =>
+          uploadFavoritePostFirestore(resp.id, changeLoading, navigation),
+        );
     })
-    .catch(err => console.log(err));
+    .catch(error => {
+      changeLoading(false);
+      Alert.alert('Error', error, [{text: 'ok'}]);
+    });
 };
 
-const uploadFavoritePostFirestore = idPost => {
+const uploadFavoritePostFirestore = (idPost, changeLoading, navigation) => {
   firestore()
     .collection('favoritos')
     .add({
       uidUsuario: auth().currentUser.uid,
       idPost: idPost,
     })
-    .then(respuesta => {
-      console.log(respuesta);
+    .then(_ => {
+      changeLoading(false);
+      navigation.goBack();
     })
-    .catch(err => console.log(err));
+    .catch(error => {
+      changeLoading(false);
+      Alert.alert('Error', error, [{text: 'ok'}]);
+    });
 };
 
-const uploadData = post => {
+const uploadData = (post, changeLoading, navigation) => {
   const {hashtags, images, location, text} = post.valuesPost;
   if (text === '' || hashtags === '') {
     Alert.alert('Complete los datos', '', [{text: 'ok'}]);
   } else {
+    changeLoading(true);
     uploadImagesStorage(images).then(listUrl => {
-      uploadPostFirestore(listUrl, hashtags, location, text);
+      uploadPostFirestore(
+        listUrl,
+        hashtags,
+        location,
+        text,
+        changeLoading,
+        navigation,
+      );
     });
   }
 };
@@ -75,6 +101,7 @@ export default function NewPostForm({
   post,
   changeIndex,
   changeVisible,
+  changeLoading,
 }) {
   return (
     <View style={styles.container}>
@@ -98,7 +125,10 @@ export default function NewPostForm({
         post={post}
         changeVisible={changeVisible}
       />
-      <ButtonForm text={'Publicar'} onPress={() => uploadData(post)} />
+      <ButtonForm
+        text={'Publicar'}
+        onPress={() => uploadData(post, changeLoading, navigation)}
+      />
     </View>
   );
 }
