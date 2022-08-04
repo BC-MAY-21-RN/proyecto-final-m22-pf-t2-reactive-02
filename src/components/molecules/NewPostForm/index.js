@@ -44,6 +44,7 @@ const uploadPostFirestore = (
       ubicacion: location,
       texto: text,
       hashtags: hashtagsList,
+      fecha: Math.round(new Date().getTime() / 1000),
     })
     .then(respuesta => {
       respuesta
