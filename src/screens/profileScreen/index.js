@@ -8,6 +8,7 @@ import ProfileContent from '../../components/molecules/ProfileContent';
 
 export default function ProfileScreen() {
   const user = auth().currentUser;
+
   return (
     <View style={styles.background}>
       <ProfileHeader
