@@ -41,7 +41,21 @@ const newLocation = newCoordinate => {
   };
 };
 
-export default function ModalMap({visible, changeVisible}) {
+const createUrl = coordinates => {
+  return (
+    'https://maps.googleapis.com/maps/api/staticmap?center=' +
+    coordinates.latitude +
+    ',' +
+    coordinates.longitude +
+    '&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7Clabel:A%7C' +
+    coordinates.latitude +
+    ',' +
+    coordinates.longitude +
+    '&key=AIzaSyAuHp-FozzKYeVbQpEYjo2T-9d9M5XLFWY'
+  );
+};
+
+export default function ModalMap({visible, changeVisible, changeImage}) {
   const [coordinates, setCoordinates] = useState(initLocation());
   const changeCoordinates = value => setCoordinates(value);
   useEffect(() => {
@@ -61,8 +75,19 @@ export default function ModalMap({visible, changeVisible}) {
           onDragEnd={value => setCoordinates(newLocation(value))}
         />
       </MapView>
-      <Button title={'Guardar'} buttonStyle={styles('#9485AC').btn} />
-      <Button title={'Cancelar'} buttonStyle={styles('#FE5E5E').btn} />
+      <Button
+        title={'Guardar'}
+        buttonStyle={styles('#9485AC').btn}
+        onPress={() => {
+          changeImage(createUrl(coordinates));
+          changeVisible(false);
+        }}
+      />
+      <Button
+        title={'Cancelar'}
+        buttonStyle={styles('#FE5E5E').btn}
+        onPress={() => changeVisible(false)}
+      />
     </Overlay>
   );
 }

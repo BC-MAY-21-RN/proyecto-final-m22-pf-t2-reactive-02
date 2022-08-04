@@ -8,6 +8,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 25,
   },
+  image: {
+    height: 199,
+    width: Dimensions.get('screen').width - 20,
+  },
   btn: {position: 'absolute', left: 15, top: 30},
 });
 
