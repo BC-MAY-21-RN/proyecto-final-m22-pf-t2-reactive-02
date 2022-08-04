@@ -24,7 +24,7 @@ export default function PagerImageLocation({
       </View>
       <View key="2">
         <Text style={styles.text}>{'Ubicación'}</Text>
-        <UploadLocation />
+        <UploadLocation change={change} />
       </View>
     </PagerView>
   );

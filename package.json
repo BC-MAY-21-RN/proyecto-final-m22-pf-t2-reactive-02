@@ -10,9 +10,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@react-native-firebase/app": "^15.1.1",
-    "@react-native-firebase/auth": "^15.1.1",
-    "@react-native-firebase/firestore": "^15.1.1",
+    "@react-native-firebase/app": "^15.2.0",
+    "@react-native-firebase/auth": "^15.2.0",
+    "@react-native-firebase/firestore": "^15.2.0",
     "@react-native-google-signin/google-signin": "^8.0.0",
     "@react-navigation/bottom-tabs": "^6.3.2",
     "@react-navigation/drawer": "^6.4.3",

@@ -53,7 +53,7 @@ const startGPS = changeModalVisible => {
   }).then(() => changeModalVisible(true));
 };
 
-export default function UploadLocation({}) {
+export default function UploadLocation({change}) {
   const [modalVisible, setModalVisible] = useState(false);
   const [image, setImage] = useState('');
   const changeModalVisible = value => setModalVisible(value);
@@ -65,6 +65,7 @@ export default function UploadLocation({}) {
         visible={modalVisible}
         changeVisible={changeModalVisible}
         changeImage={changeImage}
+        change={change}
       />
       <View style={styles.containerImage}>
         {image.length > 0 ? (

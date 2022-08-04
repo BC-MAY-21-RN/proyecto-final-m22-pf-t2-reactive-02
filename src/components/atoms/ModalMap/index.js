@@ -55,7 +55,12 @@ const createUrl = coordinates => {
   );
 };
 
-export default function ModalMap({visible, changeVisible, changeImage}) {
+export default function ModalMap({
+  visible,
+  changeVisible,
+  changeImage,
+  change,
+}) {
   const [coordinates, setCoordinates] = useState(initLocation());
   const changeCoordinates = value => setCoordinates(value);
   useEffect(() => {
@@ -81,6 +86,7 @@ export default function ModalMap({visible, changeVisible, changeImage}) {
         onPress={() => {
           changeImage(createUrl(coordinates));
           changeVisible(false);
+          change(coordinates, 'location');
         }}
       />
       <Button

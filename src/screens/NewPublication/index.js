@@ -6,6 +6,7 @@ import NewPostForm from '../../components/molecules/NewPostForm';
 
 const newObject = (object, key, value) => {
   object.setValues({[key]: value});
+  console.log(object);
   return new NewPost(
     object.valuesPost.hashtags,
     object.valuesPost.text,
