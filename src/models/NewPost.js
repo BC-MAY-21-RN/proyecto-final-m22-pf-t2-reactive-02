@@ -1,10 +1,5 @@
 class NewPost {
-  constructor(
-    hashtags = '#Normal',
-    text = '',
-    images = [],
-    location = undefined,
-  ) {
+  constructor(hashtags = '#Normal', text = '', images = [], location = {}) {
     this.valuesPost = {
       text: text,
       hashtags: hashtags,

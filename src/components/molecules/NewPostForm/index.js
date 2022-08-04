@@ -2,6 +2,7 @@ import React from 'react';
 import {View, TextInput, Alert} from 'react-native';
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
+import firestore, {firebase} from '@react-native-firebase/firestore';
 import ButtonForm from '../../atoms/ButtonForm';
 import InputForm from '../../atoms/inputForm';
 import Header from '../../atoms/header';
@@ -26,7 +27,35 @@ const uploadImagesStorage = async images => {
   return arrayUrl;
 };
 
-const uploadPostFirestore = () => {};
+const uploadPostFirestore = (listUrl, hashtags, location, text) => {
+  const hashtagsList = hashtags.toString().replace(/ /g, '').split('#');
+  firestore()
+    .collection('posts')
+    .add({
+      uidUsuario: auth().currentUser.uid,
+      listaUrl: listUrl,
+      ubicacion: location,
+      texto: text,
+      hashtags: hashtagsList,
+    })
+    .then(respuesta => {
+      respuesta.get().then(resp => uploadFavoritePostFirestore(resp.id));
+    })
+    .catch(err => console.log(err));
+};
+
+const uploadFavoritePostFirestore = idPost => {
+  firestore()
+    .collection('favoritos')
+    .add({
+      uidUsuario: auth().currentUser.uid,
+      idPost: idPost,
+    })
+    .then(respuesta => {
+      console.log(respuesta);
+    })
+    .catch(err => console.log(err));
+};
 
 const uploadData = post => {
   const {hashtags, images, location, text} = post.valuesPost;
@@ -34,12 +63,10 @@ const uploadData = post => {
     Alert.alert('Complete los datos', '', [{text: 'ok'}]);
   } else {
     uploadImagesStorage(images).then(listUrl => {
-      uploadPostFirestore();
+      uploadPostFirestore(listUrl, hashtags, location, text);
     });
   }
 };
-
-
 
 export default function NewPostForm({
   navigation,
