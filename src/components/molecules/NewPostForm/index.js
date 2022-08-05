@@ -40,17 +40,21 @@ const uploadPostFirestore = (
     .collection('posts')
     .add({
       uidUsuario: auth().currentUser.uid,
+      nombreusuario: auth().currentUser.displayName,
+      fotousuario: auth().currentUser.photoURL,
       listaUrl: listUrl,
       ubicacion: location,
       texto: text,
       hashtags: hashtagsList,
-      fecha: Math.round(new Date().getTime() / 1000),
+      fecha: firestore.Timestamp.fromMillis(Date.now()),
+      likes: {},
+      favoritos: {[auth().currentUser.uid]: true},
     })
     .then(respuesta => {
       respuesta
         .get()
         .then(resp =>
-          uploadFavoritePostFirestore(resp.id, changeLoading, navigation),
+          uploadFavoritePostFirestore(resp.id, changeLoading, navigation, resp),
         );
     })
     .catch(error => {
@@ -59,12 +63,25 @@ const uploadPostFirestore = (
     });
 };
 
-const uploadFavoritePostFirestore = (idPost, changeLoading, navigation) => {
+const getNewPost = ref => {
+  const value = ref.data();
+  const newValue = {...value, ['favoritos']: {[auth().currentUser.uid]: true}}; //value {[auth().currentUser.uid]: true});
+  return newValue;
+};
+
+const uploadFavoritePostFirestore = (
+  idPost,
+  changeLoading,
+  navigation,
+  ref,
+) => {
   firestore()
     .collection('favoritos')
     .add({
       uidUsuario: auth().currentUser.uid,
       idPost: idPost,
+      post: getNewPost(ref),
+      fecha: firestore.Timestamp.fromMillis(Date.now()),
     })
     .then(_ => {
       changeLoading(false);
@@ -116,7 +133,7 @@ export default function NewPostForm({
       />
       <InputForm
         text={'Añade un #Hashtag'}
-        hashtag={'#' + route.params.hashtag}
+        hashtag={route.params.hashtag}
         change={changePost}
         keyvalue={'hashtags'}
       />

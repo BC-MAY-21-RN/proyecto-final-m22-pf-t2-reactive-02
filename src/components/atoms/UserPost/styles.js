@@ -11,10 +11,12 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   name: {
-    fontSize: 20,
+    fontSize: 15,
+    fontWeight: 'bold',
   },
   info: {
     marginLeft: 20,
+    maxWidth: 200,
   },
 });
 
