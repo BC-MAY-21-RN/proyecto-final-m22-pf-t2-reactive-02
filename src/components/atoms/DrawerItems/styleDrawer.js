@@ -35,6 +35,7 @@ const styleDrawer = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     marginBottom: 5,
+    maxWidth: 200,
   },
   textEmail: {
     fontSize: 15,
