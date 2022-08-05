@@ -10,7 +10,6 @@ const foundFavorite = data => {
 };
 
 const foundLikes = data => {
-  console.log(data, 99999);
   return data.likes[auth().currentUser.uid];
 };
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, Image, ScrollView, Dimensions} from 'react-native';
+import {Card} from 'react-native-elements';
 import ButtonsPost from '../../atoms/ButtonsPost';
 import UserPost from '../../atoms/UserPost';
 import Location from '../../atoms/Location';
@@ -65,7 +66,7 @@ const Carousel = ({arrayImages}) => {
 
 export default function Post({navigation, data}) {
   return (
-    <View style={styles.container}>
+    <Card style={styles.container}>
       <UserPost
         name={data.nombreusuario}
         time={dateToString(data)}
@@ -77,6 +78,6 @@ export default function Post({navigation, data}) {
         <Carousel arrayImages={data.listaUrl} />
       )}
       <ButtonsPost navigation={navigation} data={data} />
-    </View>
+    </Card>
   );
 }
