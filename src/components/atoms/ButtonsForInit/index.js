@@ -19,7 +19,8 @@ const addUser = (user, changeLoading) => {
     .then(() => {
       const update = {
         displayName: user.valuesRegister.name,
-        photoURL: '',
+        photoURL:
+          'https://cdn2.excelsior.com.mx/media/styles/image800x600/public/pictures/2022/08/03/2798885.jpg',
       };
       firebase.auth().currentUser.updateProfile(update);
       changeLoading(false);
