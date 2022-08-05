@@ -36,7 +36,13 @@ export default function ForgetScreen({navigation}) {
         />
         <ButtonForgetScreen
           text={'RECUPERAR'}
-          onPress={() => auth().sendPasswordResetEmail(text)}
+          onPress={() =>
+            auth().sendPasswordResetEmail(text)
+              ? Alert.alert(
+                  'Se ha mandado un correo, por favor revisa tu bandeja de spam.',
+                )
+              : Alert.alert('Ha ocurrido un error, inténtalo nuevamente.')
+          }
         />
         <BottomText
           text={'Ingresa a tu cuenta aquí'}
