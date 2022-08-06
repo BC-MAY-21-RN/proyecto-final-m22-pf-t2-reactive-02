@@ -1,6 +1,6 @@
 import {StyleSheet, Dimensions} from 'react-native';
 
-const globalstyles = StyleSheet.create({
+const gs = StyleSheet.create({
   formContainer: {
     backgroundColor: '#DAC3DB',
     width: '100%',
@@ -16,4 +16,4 @@ const globalstyles = StyleSheet.create({
   },
 });
 
-export default globalstyles;
+export default gs;

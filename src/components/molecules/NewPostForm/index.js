@@ -35,7 +35,6 @@ const uploadPostFirestore = (
   changeLoading,
   navigation,
 ) => {
-  const hashtagsList = hashtags.toString().replace(/ /g, '').split('#');
   firestore()
     .collection('posts')
     .add({
@@ -45,7 +44,7 @@ const uploadPostFirestore = (
       listaUrl: listUrl,
       ubicacion: location,
       texto: text,
-      hashtags: hashtagsList,
+      hashtags: hashtags.toString().replace(/ /g, '').split('#'),
       fecha: firestore.Timestamp.fromMillis(Date.now()),
       likes: {},
       favoritos: {[auth().currentUser.uid]: true},
