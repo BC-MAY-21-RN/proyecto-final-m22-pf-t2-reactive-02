@@ -4,6 +4,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     height: 60,
+    backgroundColor: '#D3A6BA',
   },
   containerIcon: {
     width: 30,
