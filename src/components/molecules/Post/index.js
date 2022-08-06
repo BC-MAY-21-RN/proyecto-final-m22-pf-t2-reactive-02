@@ -1,10 +1,19 @@
-import React from 'react';
-import {View, Text, Image, ScrollView, Dimensions} from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
+import PagerView from 'react-native-pager-view';
 import {Card} from 'react-native-elements';
 import ButtonsPost from '../../atoms/ButtonsPost';
 import UserPost from '../../atoms/UserPost';
 import Location from '../../atoms/Location';
 import styles from './styles';
+import Carousel from '../../atoms/Carousel';
 
 const {width} = Dimensions.get('window');
 const height = 300;
@@ -41,43 +50,27 @@ const dateToString = data => {
   );
 };
 
-const Carousel = ({arrayImages}) => {
-  return (
-    <View style={styles.contImage}>
-      <ScrollView pagingEnabled horizontal style={{width, height}}>
-        {arrayImages.map((image, index) => (
-          <Image
-            key={index}
-            source={{uri: image}}
-            style={{height, width, resizeMode: 'cover'}}
-          />
-        ))}
-      </ScrollView>
-      <View style={styles.pagination}>
-        {arrayImages.map((i, k) => (
-          <Text key={k} style={styles.dotActive}>
-            ⬤
-          </Text>
-        ))}
-      </View>
-    </View>
-  );
-};
-
 export default function Post({navigation, data}) {
   return (
-    <Card style={styles.container}>
-      <UserPost
-        name={data.nombreusuario}
-        time={dateToString(data)}
-        image={data.fotousuario}
-      />
-      {false ? <Location city={'Manzanillo'} state={'Colima'} /> : null}
-      <Text style={styles.text}>{data.texto}</Text>
-      {data.listaUrl.length === 0 ? null : (
-        <Carousel arrayImages={data.listaUrl} />
-      )}
-      <ButtonsPost navigation={navigation} data={data} />
+    <Card style={styles.container} containerStyle={{marginHorizontal: 4}}>
+      <View>
+        <UserPost
+          name={data.nombreusuario}
+          time={dateToString(data)}
+          image={data.fotousuario}
+        />
+        <Text style={styles.text}>{data.texto}</Text>
+        <Carousel arrayImages={data.listaUrl} change={() => {}} />
+        <ButtonsPost navigation={navigation} data={data} />
+      </View>
     </Card>
   );
 }
+
+/*{false ? <Location city={'Manzanillo'} state={'Colima'} /> : null}
+<Text style={styles.text}>{data.texto}</Text>
+{data.listaUrl.length === 0 ? null : (
+  <Carousel arrayImages={data.listaUrl} />
+)}*/
+
+//         <Carousel arrayImages={data.listaUrl} />
