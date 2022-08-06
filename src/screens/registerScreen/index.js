@@ -11,7 +11,8 @@ export default function RegisterScreen({navigation}) {
   const [loading, setLoading] = useState(false);
   const changeAlerts = arr => setAlerts(arr);
   const changeLoading = bool => setLoading(bool);
-  const changeUser = (value, key) => setUser(functions.newObject(user, key, value));
+  const changeUser = (value, key) =>
+    setUser(functions.newObject(user, key, value));
 
   return (
     <View>

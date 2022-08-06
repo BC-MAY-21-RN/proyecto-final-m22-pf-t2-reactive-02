@@ -5,7 +5,16 @@ import GoogleSVG from '../../../assets/icons/google.svg';
 import Icons from '../Icons';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import {firebase} from '@react-native-firebase/firestore';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+
+const getPhotoUrl = value => {
+  if (value === null) {
+    return 'https://cdn2.excelsior.com.mx/media/styles/image800x600/public/pictures/2022/08/03/2798885.jpg';
+  } else {
+    return value;
+  }
+};
 
 const addUser = (user, changeLoading) => {
   firestore()
@@ -14,8 +23,15 @@ const addUser = (user, changeLoading) => {
       correo: user.valuesRegister.email,
       nombre: user.valuesRegister.name,
       uid: auth().currentUser.uid,
+      imagenurl: getPhotoUrl(auth().currentUser.photoURL),
+      fecharegistro: firestore.Timestamp.fromMillis(Date.now()),
     })
     .then(() => {
+      const update = {
+        displayName: user.valuesRegister.name,
+        photoURL: getPhotoUrl(auth().currentUser.photoURL),
+      };
+      firebase.auth().currentUser.updateProfile(update);
       changeLoading(false);
     });
 };

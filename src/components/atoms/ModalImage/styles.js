@@ -1,9 +1,7 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  button: {
-    marginTop: 70,
-  },
+  imageViewer: {backgroundColor: '#000000DC'},
 });
 
 export default styles;
