@@ -8,7 +8,7 @@ import NotificationComponent from '../../components/atoms/NotificationComponent'
 import fireBaseDataConsult from './functions';
 import styles from './styles';
 
-export default function CommentsScreen({navigation}) {
+export default function CommentsScreen({navigation, route}) {
   const [getData, setGetData] = useState([]);
   const [newComment, setNewCommet] = useState(false);
   const changeGetData = comments => setGetData(comments);
@@ -20,7 +20,7 @@ export default function CommentsScreen({navigation}) {
     <View style={styles.container}>
       <Header text={'Comentarios'} navigation={navigation} />
       <ScrollView>
-        <Post navigation={navigation} />
+        <Post navigation={navigation} data={route.params.data} />
         <ScrollView horizontal={true}>
           <View style={styles.containerList}>
             <FlatList

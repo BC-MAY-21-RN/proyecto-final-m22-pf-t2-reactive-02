@@ -53,7 +53,7 @@ export default function ButtonsPost({navigation, data}) {
         <View style={styles.separation}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('Comments');
+              navigation.navigate('Comments', {data: data});
             }}>
             <Icon name={'message'} type={'material-community'} />
           </TouchableOpacity>
