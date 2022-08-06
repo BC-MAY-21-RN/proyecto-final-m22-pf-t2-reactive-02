@@ -1,6 +1,6 @@
 import {StyleSheet, Dimensions} from 'react-native';
 
-const globalstyles = StyleSheet.create({
+const gs = StyleSheet.create({
   formContainer: {
     backgroundColor: '#DAC3DB',
     width: '100%',
@@ -9,6 +9,11 @@ const globalstyles = StyleSheet.create({
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
   },
+  image: {
+    borderRadius: 50 / 2,
+    width: 50,
+    height: 50,
+  },
 });
 
-export default globalstyles;
+export default gs;
