@@ -1,15 +1,19 @@
 import React, {useState} from 'react';
 import {View, Image, TextInput, TouchableOpacity} from 'react-native';
 import auth from '@react-native-firebase/auth';
-import functions from '../DrawerItems/functions';
 import globalstyles from '../../../const/globalStyles';
 import styles from './styles';
 import {Icon} from 'react-native-elements';
 import firestore from '@react-native-firebase/firestore';
+import Verify from '../DrawerItems/functions';
 
-export default function Comments() {
-  const photo = functions.VerifyPhoto();
+export default function Comments(props) {
+  const {newComment, setNewCommet} = props;
+  const onHandle = () => {
+    setNewCommet(!newComment);
+  };
   const user = auth().currentUser;
+  const photo = Verify(user.photoURL);
   const [text, setText] = useState();
   const addCommentsFunction = () => {
     firestore()
@@ -20,6 +24,7 @@ export default function Comments() {
         texto: text,
         userId: user.uid,
         userName: user.displayName,
+        fecha: firestore.Timestamp.fromMillis(Date.now()),
       })
       .then(() => {});
   };
@@ -45,11 +50,12 @@ export default function Comments() {
         onPress={() => {
           addCommentsFunction();
           setText('');
+          onHandle();
         }}>
         <Icon
           name={'ios-paper-plane'}
           type={'ionicon'}
-          color={'black'}
+          color={'#D3A6BA'}
           style={styles.icon}
         />
       </TouchableOpacity>

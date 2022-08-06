@@ -11,6 +11,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
   },
+  containerInput: {
+    width: '75%',
+    height: 35,
+    borderRadius: 20,
+    marginLeft: 10,
+    marginTop: 7,
+  },
   input: {
     padding: 10,
     width: '100%',
@@ -20,16 +27,9 @@ const styles = StyleSheet.create({
     borderColor: '#979797',
     borderWidth: 0.4,
   },
-  containerInput: {
-    width: '75%',
-    height: 35,
-    borderRadius: 20,
-    marginLeft: 10,
-    marginTop: 7,
-  },
   icon: {
     transform: [{rotate: '45deg'}],
-    margin: 10,
+    marginVertical: 11,
   },
 });
 
