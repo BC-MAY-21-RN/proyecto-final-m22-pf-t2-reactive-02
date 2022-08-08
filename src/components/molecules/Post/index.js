@@ -3,7 +3,7 @@ import {View, Text} from 'react-native';
 import {Card} from 'react-native-elements';
 import ButtonsPost from '../../atoms/ButtonsPost';
 import UserPost from '../../atoms/UserPost';
-import Location from '../../atoms/Location';
+//import Location from '../../atoms/Location';
 import styles from './styles';
 import Carousel from '../../atoms/Carousel';
 import ModalImage from '../../atoms/ModalImage';
@@ -36,22 +36,16 @@ const dateToString = data => {
   );
 };
 
-const jsonImgs = data => {
-  const array = data.map(url => ({url: url}));
-  return array;
-};
-
-export default function Post({navigation, data}) {
-  const [visible, setVisible] = useState(false);
-  const [index, setIndex] = useState(0);
-  const changev = value => setVisible(value);
-  const changei = value => setIndex(value);
+export default function Post({
+  navigation,
+  data,
+  setImage,
+  setLocation,
+  setShowMap,
+  setShowImage,
+}) {
   return (
-    <Card containerStyle={{marginHorizontal: 4}}>
-      <ModalImage
-        changeVisible={changev}
-        values={{a: jsonImgs(data.listaUrl), i: index, v: visible}}
-      />
+    <Card containerStyle={styles.card}>
       <View>
         <UserPost
           name={data.nombreusuario}
@@ -59,12 +53,31 @@ export default function Post({navigation, data}) {
           image={data.fotousuario}
         />
         <Text style={styles.text}>{data.texto}</Text>
-        <Carousel array={data.listaUrl} changev={changev} changei={changei} />
+        <Carousel
+          array={data.listaUrl}
+          setImage={setImage}
+          setShowImage={setShowImage}
+        />
         <ButtonsPost navigation={navigation} data={data} />
       </View>
     </Card>
   );
 }
+
+/*
+changev={changev} changei={changei}
+
+
+  const [visible, setVisible] = useState(false);
+  const [index, setIndex] = useState(0);
+  const changev = value => setVisible(value);
+  const changei = value => setIndex(value);
+
+      <ModalImage
+        changeVisible={changev}
+        values={{a: jsonImgs(data.listaUrl), i: index, v: visible}}
+      />
+*
 
 /*{false ? <Location city={'Manzanillo'} state={'Colima'} /> : null}
 <Text style={styles.text}>{data.texto}</Text>

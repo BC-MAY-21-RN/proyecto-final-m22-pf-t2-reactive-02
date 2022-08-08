@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, TouchableOpacity, Alert, Image} from 'react-native';
 import {request, PERMISSIONS, check, RESULTS} from 'react-native-permissions';
 import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
@@ -28,7 +28,7 @@ const location = (changePost, changeModalVisible) => {
   });
 };
 
-const checkPermissions = (changeModalVisible, changePost, sub, setSub) => {
+const checkPermissions = (changeModalVisible, changePost) => {
   check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
     .then(locationresult => {
       check(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(
@@ -37,9 +37,9 @@ const checkPermissions = (changeModalVisible, changePost, sub, setSub) => {
             locationresult === RESULTS.GRANTED &&
             externalStorage === RESULTS.GRANTED
           ) {
-            startGPS(changePost, changeModalVisible, sub, setSub);
+            startGPS(changePost, changeModalVisible);
           } else {
-            requestPermissions(changePost, changeModalVisible, sub, setSub);
+            requestPermissions(changePost, changeModalVisible);
           }
         },
       );
@@ -47,7 +47,7 @@ const checkPermissions = (changeModalVisible, changePost, sub, setSub) => {
     .catch(error => Alert.alert('Error', '' + error, [{text: 'OK'}]));
 };
 
-const requestPermissions = (changePost, changeModalVisible, sub, setSub) => {
+const requestPermissions = (changePost, changeModalVisible) => {
   request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION).then(locationresult2 => {
     request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(
       externalStorage2 => {
@@ -55,7 +55,7 @@ const requestPermissions = (changePost, changeModalVisible, sub, setSub) => {
           locationresult2 === RESULTS.GRANTED &&
           externalStorage2 === RESULTS.GRANTED
         ) {
-          startGPS(changePost, changeModalVisible, sub, setSub);
+          startGPS(changePost, changeModalVisible);
         } else {
           Alert.alert(
             'Se requieren permisos',
@@ -68,7 +68,7 @@ const requestPermissions = (changePost, changeModalVisible, sub, setSub) => {
   });
 };
 
-const startGPS = async (changePost, changeModalVisible, sub, setSub) => {
+const startGPS = async (changePost, changeModalVisible) => {
   RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({
     interval: 10000,
     fastInterval: 5000,
@@ -81,7 +81,6 @@ export default function UploadLocation({
   post,
   mapOpen,
 }) {
-  const [sub, setSub] = useState(() => {});
   const changeModalVisible = value => setMapOpen(value);
   return (
     <View>
@@ -99,9 +98,7 @@ export default function UploadLocation({
       </View>
       <TouchableOpacity
         style={styles.btn}
-        onPress={() =>
-          checkPermissions(changeModalVisible, changePost, sub, setSub)
-        }>
+        onPress={() => checkPermissions(changeModalVisible, changePost)}>
         <Icon name={'map-pin'} type={'feather'} size={30} />
       </TouchableOpacity>
     </View>

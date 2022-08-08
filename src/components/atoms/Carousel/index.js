@@ -3,12 +3,20 @@ import {View, Text, Image, TouchableOpacity} from 'react-native';
 import PagerView from 'react-native-pager-view';
 import styles from './styles';
 
-const showImages = (index, changei, changev) => {
-  changei(index);
-  changev(true);
+const jsonImgs = data => {
+  const array = data.map(url => ({url: url}));
+  return array;
 };
 
-export default function Carousel({array, changev, changei}) {
+const showImages = (index, setImage, setShowImage, array) => {
+  const changeShowImage = () => setShowImage(true);
+  const setValuesImages = values => setImage(values);
+  const jsonImages = {i: index, a: jsonImgs(array)};
+  changeShowImage();
+  setValuesImages(jsonImages);
+};
+
+export default function Carousel({array, setImage, setShowImage}) {
   const [position, setPosition] = useState(0);
   const newPos = e => setPosition(e.nativeEvent.position);
   return (
@@ -17,7 +25,9 @@ export default function Carousel({array, changev, changei}) {
         {array.map((url, index) => (
           <View key={index}>
             <TouchableOpacity
-              onPress={() => showImages(position, changei, changev)}>
+              onPress={() =>
+                showImages(position, setImage, setShowImage, array)
+              }>
               <Image source={{uri: url}} style={styles().img} />
             </TouchableOpacity>
           </View>

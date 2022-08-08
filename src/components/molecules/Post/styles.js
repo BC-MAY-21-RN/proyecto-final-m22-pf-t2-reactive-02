@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 10,
   },
+  card: {marginHorizontal: 4},
   image: {
     width: '100%',
     height: 300,

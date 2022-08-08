@@ -6,7 +6,7 @@ import AddButton from '../../components/atoms/AddButton';
 import Post from '../../components/molecules/Post';
 import styles from './styles';
 import ModalImage from '../../components/atoms/ModalImage';
-//import Comments from '../../components/atoms/Comments';
+import ModalMap from '../../components/atoms/ModalMap';
 
 function firebaseDataConsult(changeGetData, params) {
   firestore()
@@ -24,8 +24,17 @@ function firebaseDataConsult(changeGetData, params) {
     });
 }
 
+/*
+      <ModalImage />
+      <ModalMap />
+*/
+
 export default function PostsScreen({navigation, route}) {
   const [getData, setGetData] = useState([]);
+  const [images, setImage] = useState();
+  const [location, setLocation] = useState();
+  const [showMap, setShowMap] = useState();
+  const [showImage, setShowImage] = useState();
   const changeGetData = post => setGetData(post);
   useFocusEffect(
     useCallback(() => {
@@ -34,9 +43,17 @@ export default function PostsScreen({navigation, route}) {
   );
   return (
     <View style={styles.container}>
+      <ModalImage visible={setShowImage} values={{...images, v: showImage}} />
       <FlatList
         data={getData}
-        renderItem={({item}) => <Post navigation={navigation} data={item} />}
+        renderItem={({item}) => (
+          <Post
+            navigation={navigation}
+            data={item}
+            setImage={setImage}
+            setShowImage={setShowImage}
+          />
+        )}
       />
       <AddButton navigation={navigation} hashtag={route.params.hashtag} />
     </View>
