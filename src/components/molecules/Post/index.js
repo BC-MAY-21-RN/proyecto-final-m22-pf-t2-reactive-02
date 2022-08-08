@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text} from 'react-native';
-import {Card} from 'react-native-elements';
+import {Card, Icon} from 'react-native-elements';
 import ButtonsPost from '../../atoms/ButtonsPost';
 import UserPost from '../../atoms/UserPost';
 //import Location from '../../atoms/Location';
@@ -23,6 +23,13 @@ const months = {
   12: 'Diciembre',
 };
 
+const location = {
+  latitude: 0,
+  longitude: 0,
+  latitudeDelta: 0.09,
+  longitudeDelta: 0.04,
+};
+
 const dateToString = data => {
   const dateInt = data.fecha.seconds;
   const date = new Date(dateInt * 1000);
@@ -36,6 +43,27 @@ const dateToString = data => {
   );
 };
 
+const LocationButton = ({data, setLocation, setShowMap}) => {
+  const changeShowMap = () => setShowMap(true);
+  const changeLocationMap = () => setLocation(data.ubicacion);
+  return (
+    <View style={{position: 'absolute', right: 16, top: 10}}>
+      {data.ubicacion.latitude === 0 &&
+      data.ubicacion.longitude === 0 ? null : (
+        <Icon
+          name="map-marker"
+          type="material-community"
+          color="#517fa4"
+          onPress={() => {
+            changeLocationMap();
+            changeShowMap();
+          }}
+        />
+      )}
+    </View>
+  );
+};
+
 export default function Post({
   navigation,
   data,
@@ -46,6 +74,11 @@ export default function Post({
 }) {
   return (
     <Card containerStyle={styles.card}>
+      <LocationButton
+        data={data}
+        setLocation={setLocation}
+        setShowMap={setShowMap}
+      />
       <View>
         <UserPost
           name={data.nombreusuario}

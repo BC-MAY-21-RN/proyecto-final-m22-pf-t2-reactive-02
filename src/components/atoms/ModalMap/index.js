@@ -1,4 +1,3 @@
-// Cambiar coordenadas
 import React from 'react';
 import {Overlay} from 'react-native-elements';
 import MapView, {Marker} from 'react-native-maps';
@@ -21,11 +20,15 @@ const ModalMap = ({visible, setMapOpen, changePost, init}) => {
       <MapView
         style={styles().Mapsize}
         region={init}
-        onLongPress={value => changePost(location(value), 'location')}>
+        onLongPress={value =>
+          changePost ? changePost(location(value), 'location') : {}
+        }>
         <Marker
-          draggable={true}
+          draggable={changePost ? true : false}
           coordinate={init}
-          onDragEnd={value => changePost(location(value), 'location')}
+          onDragEnd={value =>
+            changePost ? changePost(location(value), 'location') : {}
+          }
         />
       </MapView>
       <Options

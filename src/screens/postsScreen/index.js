@@ -24,17 +24,19 @@ function firebaseDataConsult(changeGetData, params) {
     });
 }
 
-/*
-      <ModalImage />
-      <ModalMap />
-*/
+const initLocation = {
+  latitude: 0,
+  longitude: 0,
+  latitudeDelta: 0.09,
+  longitudeDelta: 0.04,
+};
 
 export default function PostsScreen({navigation, route}) {
   const [getData, setGetData] = useState([]);
   const [images, setImage] = useState();
-  const [location, setLocation] = useState();
-  const [showMap, setShowMap] = useState();
-  const [showImage, setShowImage] = useState();
+  const [location, setLocation] = useState(initLocation);
+  const [showMap, setShowMap] = useState(false);
+  const [showImage, setShowImage] = useState(false);
   const changeGetData = post => setGetData(post);
   useFocusEffect(
     useCallback(() => {
@@ -44,6 +46,12 @@ export default function PostsScreen({navigation, route}) {
   return (
     <View style={styles.container}>
       <ModalImage visible={setShowImage} values={{...images, v: showImage}} />
+      <ModalMap
+        init={location}
+        setMapOpen={setShowMap}
+        visible={showMap}
+        changePost={false}
+      />
       <FlatList
         data={getData}
         renderItem={({item}) => (
@@ -52,6 +60,8 @@ export default function PostsScreen({navigation, route}) {
             data={item}
             setImage={setImage}
             setShowImage={setShowImage}
+            setLocation={setLocation}
+            setShowMap={setShowMap}
           />
         )}
       />

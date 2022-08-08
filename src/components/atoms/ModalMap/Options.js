@@ -20,15 +20,17 @@ const createUrl = coordinates => {
 const Options = ({changePost, changeMapOpen, init}) => {
   return (
     <View>
-      <Button
-        title={'Ok'}
-        buttonStyle={styles('#9485AC').btn}
-        onPress={() => {
-          changePost(init, 'location');
-          changePost(createUrl(init), 'urlMap');
-          changeMapOpen(false);
-        }}
-      />
+      {changePost ? (
+        <Button
+          title={'Ok'}
+          buttonStyle={styles('#9485AC').btn}
+          onPress={() => {
+            changePost(init, 'location');
+            changePost(createUrl(init), 'urlMap');
+            changeMapOpen(false);
+          }}
+        />
+      ) : null}
       <Button
         title={'Cerrar'}
         buttonStyle={styles('#FE5E5E').btn}
