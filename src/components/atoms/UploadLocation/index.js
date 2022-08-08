@@ -2,22 +2,44 @@ import React, {useState} from 'react';
 import {View, TouchableOpacity, Alert, Image} from 'react-native';
 import {request, PERMISSIONS, check, RESULTS} from 'react-native-permissions';
 import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
+import RNLocation from 'react-native-location';
 import {Icon} from 'react-native-elements';
 import ModalMap from '../ModalMap';
 import styles from './styles';
 
-const checkPermissions = changeModalVisible => {
+const location = (changePost, changeModalVisible) => {
+  RNLocation.configure({
+    distanceFilter: 5.0,
+    interval: 2,
+  });
+
+  const unSub = RNLocation.subscribeToLocationUpdates(async result => {
+    await changePost(
+      {
+        latitude: result[0].latitude,
+        longitude: result[0].longitude,
+        latitudeDelta: 0.09,
+        longitudeDelta: 0.04,
+      },
+      'location',
+    );
+    await changeModalVisible(true);
+    unSub();
+  });
+};
+
+const checkPermissions = (changeModalVisible, changePost, sub, setSub) => {
   check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
-    .then(location => {
+    .then(locationresult => {
       check(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(
         externalStorage => {
           if (
-            location === RESULTS.GRANTED &&
+            locationresult === RESULTS.GRANTED &&
             externalStorage === RESULTS.GRANTED
           ) {
-            startGPS(changeModalVisible);
+            startGPS(changePost, changeModalVisible, sub, setSub);
           } else {
-            requestPermissions(changeModalVisible);
+            requestPermissions(changePost, changeModalVisible, sub, setSub);
           }
         },
       );
@@ -25,15 +47,15 @@ const checkPermissions = changeModalVisible => {
     .catch(error => Alert.alert('Error', '' + error, [{text: 'OK'}]));
 };
 
-const requestPermissions = changeModalVisible => {
-  request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION).then(location2 => {
+const requestPermissions = (changePost, changeModalVisible, sub, setSub) => {
+  request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION).then(locationresult2 => {
     request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE).then(
       externalStorage2 => {
         if (
-          location2 === RESULTS.GRANTED &&
+          locationresult2 === RESULTS.GRANTED &&
           externalStorage2 === RESULTS.GRANTED
         ) {
-          startGPS(changeModalVisible);
+          startGPS(changePost, changeModalVisible, sub, setSub);
         } else {
           Alert.alert(
             'Se requieren permisos',
@@ -46,40 +68,40 @@ const requestPermissions = changeModalVisible => {
   });
 };
 
-const startGPS = changeModalVisible => {
+const startGPS = async (changePost, changeModalVisible, sub, setSub) => {
   RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({
     interval: 10000,
     fastInterval: 5000,
-  }).then(() => changeModalVisible(true));
+  }).then(() => location(changePost, changeModalVisible));
 };
 
-export default function UploadLocation({change}) {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [image, setImage] = useState('');
-  const changeModalVisible = value => setModalVisible(value);
-  const changeImage = value => setImage(value);
-
+export default function UploadLocation({
+  changePost,
+  setMapOpen,
+  post,
+  mapOpen,
+}) {
+  const [sub, setSub] = useState(() => {});
+  const changeModalVisible = value => setMapOpen(value);
   return (
     <View>
       <ModalMap
-        visible={modalVisible}
-        changeVisible={changeModalVisible}
-        changeImage={changeImage}
-        change={change}
+        visible={mapOpen}
+        changePost={changePost}
+        setMapOpen={setMapOpen}
+        init={post.valuesPost.location}
+        post={post}
       />
       <View style={styles.containerImage}>
-        {image.length > 0 ? (
-          <Image
-            style={styles.image}
-            source={{
-              uri: image,
-            }}
-          />
+        {post.valuesPost.urlMap.length > 0 ? (
+          <Image style={styles.image} source={{uri: post.valuesPost.urlMap}} />
         ) : null}
       </View>
       <TouchableOpacity
         style={styles.btn}
-        onPress={() => checkPermissions(changeModalVisible)}>
+        onPress={() =>
+          checkPermissions(changeModalVisible, changePost, sub, setSub)
+        }>
         <Icon name={'map-pin'} type={'feather'} size={30} />
       </TouchableOpacity>
     </View>

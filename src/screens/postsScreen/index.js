@@ -5,7 +5,8 @@ import {View, FlatList} from 'react-native';
 import AddButton from '../../components/atoms/AddButton';
 import Post from '../../components/molecules/Post';
 import styles from './styles';
-import Comments from '../../components/atoms/Comments';
+import ModalImage from '../../components/atoms/ModalImage';
+//import Comments from '../../components/atoms/Comments';
 
 function firebaseDataConsult(changeGetData, params) {
   firestore()
@@ -31,7 +32,6 @@ export default function PostsScreen({navigation, route}) {
       firebaseDataConsult(changeGetData, route.params.hashtag);
     }, [route.params.hashtag]),
   );
-
   return (
     <View style={styles.container}>
       <FlatList

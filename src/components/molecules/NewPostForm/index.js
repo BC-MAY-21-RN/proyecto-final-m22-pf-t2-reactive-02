@@ -92,7 +92,9 @@ const uploadFavoritePostFirestore = (
     });
 };
 
-const uploadData = (post, changeLoading, navigation) => {
+const uploadData = (post, setLoading, navigation) => {
+  const changeLoading = value => setLoading(value);
+
   const {hashtags, images, location, text} = post.valuesPost;
   if (text === '' || hashtags === '') {
     Alert.alert('Complete los datos', '', [{text: 'ok'}]);
@@ -114,11 +116,12 @@ const uploadData = (post, changeLoading, navigation) => {
 export default function NewPostForm({
   navigation,
   changePost,
-  route,
   post,
-  changeIndex,
-  changeVisible,
-  changeLoading,
+  setIndexImage,
+  setImageOpen,
+  setLoading,
+  setMapOpen,
+  mapOpen,
 }) {
   return (
     <View style={styles.container}>
@@ -132,19 +135,21 @@ export default function NewPostForm({
       />
       <InputForm
         text={'Añade un #Hashtag'}
-        hashtag={route.params.hashtag}
+        hashtag={post.valuesPost.hashtags}
         change={changePost}
         keyvalue={'hashtags'}
       />
       <PagerImageLocation
-        change={changePost}
-        changeIndex={changeIndex}
+        changePost={changePost}
+        setIndexImage={setIndexImage}
+        setImageOpen={setImageOpen}
+        setMapOpen={setMapOpen}
         post={post}
-        changeVisible={changeVisible}
+        mapOpen={mapOpen}
       />
       <ButtonForm
         text={'Publicar'}
-        onPress={() => uploadData(post, changeLoading, navigation)}
+        onPress={() => uploadData(post, setLoading, navigation)}
       />
     </View>
   );

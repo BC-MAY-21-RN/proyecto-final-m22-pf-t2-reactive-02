@@ -1,26 +1,12 @@
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  Dimensions,
-  TouchableOpacity,
-} from 'react-native';
-import PagerView from 'react-native-pager-view';
+import {View, Text} from 'react-native';
 import {Card} from 'react-native-elements';
 import ButtonsPost from '../../atoms/ButtonsPost';
 import UserPost from '../../atoms/UserPost';
 import Location from '../../atoms/Location';
 import styles from './styles';
 import Carousel from '../../atoms/Carousel';
-
-const {width} = Dimensions.get('window');
-const height = 300;
-/*const images = [
-  'https://www.hogarmania.com/archivos/202202/gato-esfinge-portada-1280x720x80xX.jpg',
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNenjnSNt_2L4Y16-zlFrh5GEl7Owc37MyUg&usqp=CAU',
-];*/
+import ModalImage from '../../atoms/ModalImage';
 
 const months = {
   1: 'Enero',
@@ -50,9 +36,22 @@ const dateToString = data => {
   );
 };
 
+const jsonImgs = data => {
+  const array = data.map(url => ({url: url}));
+  return array;
+};
+
 export default function Post({navigation, data}) {
+  const [visible, setVisible] = useState(false);
+  const [index, setIndex] = useState(0);
+  const changev = value => setVisible(value);
+  const changei = value => setIndex(value);
   return (
-    <Card style={styles.container} containerStyle={{marginHorizontal: 4}}>
+    <Card containerStyle={{marginHorizontal: 4}}>
+      <ModalImage
+        changeVisible={changev}
+        values={{a: jsonImgs(data.listaUrl), i: index, v: visible}}
+      />
       <View>
         <UserPost
           name={data.nombreusuario}
@@ -60,7 +59,7 @@ export default function Post({navigation, data}) {
           image={data.fotousuario}
         />
         <Text style={styles.text}>{data.texto}</Text>
-        <Carousel arrayImages={data.listaUrl} change={() => {}} />
+        <Carousel array={data.listaUrl} changev={changev} changei={changei} />
         <ButtonsPost navigation={navigation} data={data} />
       </View>
     </Card>
