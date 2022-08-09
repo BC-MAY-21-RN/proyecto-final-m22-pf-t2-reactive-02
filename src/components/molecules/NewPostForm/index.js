@@ -64,7 +64,7 @@ const uploadPostFirestore = (
 
 const getNewPost = ref => {
   const value = ref.data();
-  const newValue = {...value, ['favoritos']: {[auth().currentUser.uid]: true}}; //value {[auth().currentUser.uid]: true});
+  const newValue = {...value, ['favoritos']: {[auth().currentUser.uid]: true}};
   return newValue;
 };
 
