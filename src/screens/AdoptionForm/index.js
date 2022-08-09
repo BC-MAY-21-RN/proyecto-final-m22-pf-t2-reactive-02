@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
+import {View, Alert} from 'react-native';
 import Header from '../../components/atoms/header';
 import TopBar from '../../components/atoms/TopBar';
 import InputForm from '../../components/atoms/inputForm';
@@ -19,6 +19,7 @@ const addForm = (
   horas,
   pacifico,
   lugar,
+  navigation,
 ) => {
   firestore()
     .collection('adopciones')
@@ -33,11 +34,27 @@ const addForm = (
       uidUsuario: auth().currentUser.uid,
       nombreUsuario: auth().currentUser.displayName,
     })
-    .then(() => {});
+    .then(_ => {
+      Alert.alert('Se ha enviado tu respuesta.', '', [
+        {text: 'ok', onPress: () => navigation.goBack()},
+      ]);
+    })
+    .catch(error => {
+      Alert.alert('Error', error, [{text: 'ok'}]);
+    });
 };
 
-const functions = ({tel, correo, ciudad, mascotas, horas, pacifico, lugar}) => {
-  addForm(tel, correo, ciudad, mascotas, horas, pacifico, lugar);
+const functions = ({
+  tel,
+  correo,
+  ciudad,
+  mascotas,
+  horas,
+  pacifico,
+  lugar,
+  navigation,
+}) => {
+  addForm(tel, correo, ciudad, mascotas, horas, pacifico, lugar, navigation);
 };
 
 export default function AdoptionForm({navigation}) {
@@ -110,6 +127,7 @@ export default function AdoptionForm({navigation}) {
             horas,
             pacifico,
             lugar,
+            navigation,
           });
         }}
       />
