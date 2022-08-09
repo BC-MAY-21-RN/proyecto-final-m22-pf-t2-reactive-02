@@ -144,8 +144,7 @@ export default function NewPostForm({
         setIndexImage={setIndexImage}
         setImageOpen={setImageOpen}
         setMapOpen={setMapOpen}
-        post={post}
-        mapOpen={mapOpen}
+        values={{post: post, mapOpen: mapOpen}}
       />
       <ButtonForm
         text={'Publicar'}

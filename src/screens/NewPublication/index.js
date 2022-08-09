@@ -8,12 +8,13 @@ import Loading from '../../components/atoms/Loading';
 
 const newObject = (object, key, value) => {
   object.setValues({[key]: value});
+  const json = object.valuesPost;
   return new NewPost(
-    object.valuesPost.hashtags,
-    object.valuesPost.text,
-    object.valuesPost.images,
-    object.valuesPost.location,
-    object.valuesPost.urlMap,
+    json.hashtags,
+    json.text,
+    json.images,
+    json.location,
+    json.urlMap,
   );
 };
 
