@@ -8,8 +8,12 @@ const fireBaseDataConsult = changeGetData => {
     .then(querySnapshot => {
       var dataComment = [];
       querySnapshot.forEach(documentSnapshot => {
-        dataComment.push(documentSnapshot.data());
+        dataComment.push({
+          ...documentSnapshot.data(),
+          idDoc: documentSnapshot.ref.id,
+        });
         changeGetData(dataComment);
+        console.log(dataComment);
       });
     });
 };
