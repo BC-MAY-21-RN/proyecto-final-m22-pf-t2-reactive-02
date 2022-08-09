@@ -5,6 +5,7 @@ import UserPost from '../UserPost';
 import Verify from '../DrawerItems/functions';
 import {Overlay} from 'react-native-elements';
 import firestore from '@react-native-firebase/firestore';
+import styles from './styles';
 
 export default function NotificationComponent({data}) {
   const [visible, setVisible] = useState(false);
@@ -70,12 +71,3 @@ export default function NotificationComponent({data}) {
     </Card>
   );
 }
-
-import {StyleSheet} from 'react-native';
-
-const styles = StyleSheet.create({
-  iconPosition: {flexDirection: 'row'},
-  icon: {
-    marginLeft: 130,
-  },
-});
