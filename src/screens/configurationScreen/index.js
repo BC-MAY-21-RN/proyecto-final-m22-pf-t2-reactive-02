@@ -10,7 +10,7 @@ import Verify from '../../components/atoms/DrawerItems/functions';
 export default function ConfigurationScreen({navigation}) {
   const user = auth().currentUser;
   return (
-    <View>
+    <View style={styles.background}>
       <TopBar navigation={navigation} />
       <ConfigurationHeader 
         image={
@@ -20,6 +20,7 @@ export default function ConfigurationScreen({navigation}) {
         }
         name={Verify(user.displayName) ? user.displayName : 'Funganito'}
       />
+      <ConfigurationContent />
 
     </View>
   );
