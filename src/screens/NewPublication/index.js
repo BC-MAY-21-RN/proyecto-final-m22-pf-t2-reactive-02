@@ -27,7 +27,7 @@ const modal = (indexImage, imageOpen, post) => {
 };*/
 
 export default function NewPublication({navigation, route}) {
-  const [post, setPost] = useState(new NewPost(route.params.hashtag));
+  const [post, setPost] = useState(new NewPost('#' + route.params.hashtag));
   const [iOpen, setImageOpen] = useState(false);
   const [mapOpen, setMapOpen] = useState(false);
   const [loading, setLoading] = useState(false);

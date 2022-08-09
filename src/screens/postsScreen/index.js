@@ -1,6 +1,7 @@
 import React, {useState, useCallback} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 import {View, FlatList} from 'react-native';
 import AddButton from '../../components/atoms/AddButton';
 import Post from '../../components/molecules/Post';
@@ -8,10 +9,24 @@ import styles from './styles';
 import ModalImage from '../../components/atoms/ModalImage';
 import ModalMap from '../../components/atoms/ModalMap';
 
-function firebaseDataConsult(changeGetData, hashtag) {
-  const hashtags = hashtag.toString().replace(/ /g, '').split('#');
-  const noNormalhashtag = hashtags.filter((_, i) => i !== 0);
-  const hashtagforSearch = hashtags[1] === 'Normal' ? [''] : noNormalhashtag;
+function favorites(changeGetData) {
+  firestore()
+    .collection('favoritos')
+    .where('uidUsuario', '==', auth().currentUser.uid)
+    .get()
+    .then(querySnapshot => {
+      var dataFlight = [];
+      querySnapshot.forEach(documentSnapshot => {
+        dataFlight.push({
+          ...documentSnapshot.data().post,
+          idDoc: documentSnapshot.data().idPost,
+        });
+        changeGetData(dataFlight);
+      });
+    });
+}
+
+function noFavorites(changeGetData, hashtagforSearch) {
   firestore()
     .collection('posts')
     .where('hashtags', 'array-contains-any', hashtagforSearch)
@@ -26,6 +41,18 @@ function firebaseDataConsult(changeGetData, hashtag) {
         changeGetData(dataFlight);
       });
     });
+}
+
+function createArray(changeGetData, hashtag) {
+  const hashtags = hashtag.toString().replace(/ /g, '').split('#');
+  const noNormalhashtag = hashtags.filter((_, i) => i !== 0);
+  const hashtagforSearch = hashtags[1] === 'Normal' ? [''] : noNormalhashtag;
+
+  if (hashtags[2] === 'Guardados') {
+    favorites(changeGetData);
+  } else {
+    noFavorites(changeGetData, hashtagforSearch);
+  }
 }
 
 const initLocation = {
@@ -44,7 +71,7 @@ export default function PostsScreen({navigation, route}) {
   const changeGetData = post => setGetData(post);
   useFocusEffect(
     useCallback(() => {
-      firebaseDataConsult(changeGetData, route.params.hashtag);
+      createArray(changeGetData, route.params.hashtag);
     }, [route.params.hashtag]),
   );
   return (

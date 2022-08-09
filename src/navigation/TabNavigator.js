@@ -12,7 +12,7 @@ const screens = [
   {name: 'Favorites', label: 'Guardados'},
 ];
 
-const hashtags = ['#Normal', '#Extravíos', '#Adopciones', '#Normal'];
+const hashtags = ['#Normal', '#Extravíos', '#Adopciones', '#Normal#Guardados'];
 
 export default function TabNavigator() {
   return (

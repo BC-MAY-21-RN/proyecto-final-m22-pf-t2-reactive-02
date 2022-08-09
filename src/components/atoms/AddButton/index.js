@@ -6,7 +6,11 @@ export default function AddButton({navigation, hashtag}) {
   return (
     <TouchableOpacity
       style={styles.containerButton}
-      onPress={() => navigation.navigate('NewPublication', {hashtag: hashtag})}>
+      onPress={() =>
+        navigation.navigate('NewPublication', {
+          hashtag: hashtag.toString().split('#')[1],
+        })
+      }>
       <Text style={styles.textButton}>+</Text>
     </TouchableOpacity>
   );
