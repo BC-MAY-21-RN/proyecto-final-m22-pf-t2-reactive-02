@@ -20,7 +20,7 @@ export default function Carousel({array, setImage, setShowImage}) {
   const [position, setPosition] = useState(0);
   const newPos = e => setPosition(e.nativeEvent.position);
   return (
-    <View style={styles().container}>
+    <View style={styles(array.length === 0 ? 0 : 200).container}>
       <PagerView onPageScroll={e => newPos(e)} style={styles().pager}>
         {array.map((url, index) => (
           <View key={index}>

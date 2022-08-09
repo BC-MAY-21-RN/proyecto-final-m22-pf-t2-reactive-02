@@ -1,12 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text} from 'react-native';
 import {Card, Icon} from 'react-native-elements';
 import ButtonsPost from '../../atoms/ButtonsPost';
 import UserPost from '../../atoms/UserPost';
-//import Location from '../../atoms/Location';
 import styles from './styles';
 import Carousel from '../../atoms/Carousel';
-import ModalImage from '../../atoms/ModalImage';
 
 const months = {
   1: 'Enero',
@@ -21,13 +19,6 @@ const months = {
   10: 'Octubre',
   11: 'Noviembre',
   12: 'Diciembre',
-};
-
-const location = {
-  latitude: 0,
-  longitude: 0,
-  latitudeDelta: 0.09,
-  longitudeDelta: 0.04,
 };
 
 const dateToString = data => {
@@ -47,7 +38,7 @@ const LocationButton = ({data, setLocation, setShowMap}) => {
   const changeShowMap = () => setShowMap(true);
   const changeLocationMap = () => setLocation(data.ubicacion);
   return (
-    <View style={{position: 'absolute', right: 16, top: 10}}>
+    <View style={styles.locationbutton}>
       {data.ubicacion.latitude === 0 &&
       data.ubicacion.longitude === 0 ? null : (
         <Icon
@@ -96,26 +87,3 @@ export default function Post({
     </Card>
   );
 }
-
-/*
-changev={changev} changei={changei}
-
-
-  const [visible, setVisible] = useState(false);
-  const [index, setIndex] = useState(0);
-  const changev = value => setVisible(value);
-  const changei = value => setIndex(value);
-
-      <ModalImage
-        changeVisible={changev}
-        values={{a: jsonImgs(data.listaUrl), i: index, v: visible}}
-      />
-*
-
-/*{false ? <Location city={'Manzanillo'} state={'Colima'} /> : null}
-<Text style={styles.text}>{data.texto}</Text>
-{data.listaUrl.length === 0 ? null : (
-  <Carousel arrayImages={data.listaUrl} />
-)}*/
-
-//         <Carousel arrayImages={data.listaUrl} />

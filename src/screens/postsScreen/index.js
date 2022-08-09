@@ -8,9 +8,13 @@ import styles from './styles';
 import ModalImage from '../../components/atoms/ModalImage';
 import ModalMap from '../../components/atoms/ModalMap';
 
-function firebaseDataConsult(changeGetData, params) {
+function firebaseDataConsult(changeGetData, hashtag) {
+  const hashtags = hashtag.toString().replace(/ /g, '').split('#');
+  const noNormalhashtag = hashtags.filter((_, i) => i !== 0);
+  const hashtagforSearch = hashtags[1] === 'Normal' ? [''] : noNormalhashtag;
   firestore()
     .collection('posts')
+    .where('hashtags', 'array-contains-any', hashtagforSearch)
     .get()
     .then(querySnapshot => {
       var dataFlight = [];
