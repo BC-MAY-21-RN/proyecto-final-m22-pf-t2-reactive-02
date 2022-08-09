@@ -89,10 +89,8 @@ export default function PostsScreen({navigation, route}) {
           <Post
             navigation={navigation}
             data={item}
-            setImage={setImage}
-            setShowImage={setShowImage}
-            setLocation={setLocation}
-            setShowMap={setShowMap}
+            imagesFunctions={{setImage, setShowImage}}
+            mapFunctions={{setShowMap, setLocation}}
           />
         )}
       />

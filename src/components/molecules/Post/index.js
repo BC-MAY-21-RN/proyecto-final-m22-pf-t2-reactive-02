@@ -62,13 +62,15 @@ export default function Post({
   setLocation,
   setShowMap,
   setShowImage,
+  imagesFunctions,
+  mapFunctions,
 }) {
   return (
     <Card containerStyle={styles.card}>
       <LocationButton
         data={data}
-        setLocation={setLocation}
-        setShowMap={setShowMap}
+        setLocation={mapFunctions.setLocation}
+        setShowMap={mapFunctions.setShowMap}
       />
       <View>
         <UserPost
@@ -79,8 +81,8 @@ export default function Post({
         <Text style={styles.text}>{data.texto}</Text>
         <Carousel
           array={data.listaUrl}
-          setImage={setImage}
-          setShowImage={setShowImage}
+          setImage={imagesFunctions.setImage}
+          setShowImage={imagesFunctions.setShowImage}
         />
         <ButtonsPost navigation={navigation} data={data} />
       </View>
