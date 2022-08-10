@@ -79,6 +79,9 @@ export default function PostsScreen({navigation, route}) {
   return (
     <View style={styles.container}>
       <TopBar navigation={navigation} iconVisible={true} />
+      {route.params.goback === true ? (
+        <Header navigation={navigation} color={'#fff'} text={'Búsqueda'} />
+      ) : null}
       <ModalImage visible={setShowImage} values={{...images, v: showImage}} />
       <ModalMap
         init={location}
@@ -97,7 +100,9 @@ export default function PostsScreen({navigation, route}) {
           />
         )}
       />
-      <AddButton navigation={navigation} hashtag={route.params.hashtag} />
+      {route.params.goback === true ? null : (
+        <AddButton navigation={navigation} hashtag={route.params.hashtag} />
+      )}
     </View>
   );
 }
