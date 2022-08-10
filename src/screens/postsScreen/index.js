@@ -8,6 +8,8 @@ import Post from '../../components/molecules/Post';
 import styles from './styles';
 import ModalImage from '../../components/atoms/ModalImage';
 import ModalMap from '../../components/atoms/ModalMap';
+import Header from '../../components/atoms/header';
+import TopBar from '../../components/atoms/TopBar';
 
 function favorites(changeGetData) {
   firestore()
@@ -76,6 +78,7 @@ export default function PostsScreen({navigation, route}) {
   );
   return (
     <View style={styles.container}>
+      <TopBar navigation={navigation} iconVisible={true} />
       <ModalImage visible={setShowImage} values={{...images, v: showImage}} />
       <ModalMap
         init={location}
