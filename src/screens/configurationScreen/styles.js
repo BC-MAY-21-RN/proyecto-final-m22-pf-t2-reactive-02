@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   background: {
-    backgroundColor: '#DAC3DB',
+    backgroundColor: 'white',
   },
   title: {
     color: '#784B90',

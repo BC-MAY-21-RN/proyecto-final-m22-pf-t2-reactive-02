@@ -1,19 +1,32 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    height: '40%',
+    backgroundColor: '#DAC3DB',
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    padding: 20,
+  },
+  direction: {
+    flex: 1,
+    flexDirection: 'row', 
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    width: 200,
+  },
   image: {
     borderRadius: 90,
-    width: 180,
-    height: 180,
+    width: 80,
+    height: 80,
     alignSelf: 'center',
   },
   name: {
     fontSize: 25,
     alignSelf: 'center',
     fontWeight: 'bold',
-  },
-  header: {
-    padding: 30,
   },
   changeImage: {
     backgroundColor: '#F1F1F1',

@@ -9,11 +9,6 @@ export default function ProfileContent() {
   const user = auth().currentUser;
   return (
     <View style={styles.container}>
-      <View style={styles.containerinfo}>
-        <UserProfileInfo info={6} title={'Publicaciones'} />
-        <UserProfileInfo info={15} title={'Me gusta'} />
-        <UserProfileInfo info={5} title={'Guardados'} />
-      </View>
       <InfoUser icon={'mail'} text={'Correo'} info={user.email} />
       <InfoUser icon={'phone'} text={'Teléfono'} info={'+52'} />
       <InfoUser icon={'map-pin'} text={'Ciudad'} info={'Agrega una ciudad'} />

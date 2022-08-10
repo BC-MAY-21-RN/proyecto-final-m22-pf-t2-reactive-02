@@ -11,7 +11,6 @@ export default function ConfigurationScreen({navigation}) {
   const user = auth().currentUser;
   return (
     <View style={styles.background}>
-      <TopBar navigation={navigation} />
       <ConfigurationHeader 
         image={
           Verify(user.photoURL)
