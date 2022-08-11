@@ -9,7 +9,7 @@ import menuStyle from './styles';
 
 const navigate = (e, navigation) => {
   const arrayText = e.nativeEvent.text.split('#');
-  const array = arrayText.filter((item, _) => item !== '');
+  const array = arrayText.filter((_, i) => i !== 0);
   if (array.length > 0) {
     navigation.navigate('Home', {
       hashtag: e.nativeEvent.text,

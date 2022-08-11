@@ -27,13 +27,11 @@ const foundAdoption = data => {
 };
 
 const updateLike = (id, likes, functionType, data, disablefunction) => {
-  console.log('updateLike');
   firestore()
     .collection('posts')
     .doc(id)
     .update({likes: likes})
     .then(() => {
-      console.log('update like 2');
       firestore()
         .collection('favoritos')
         .doc(id + auth().currentUser.uid)
@@ -49,7 +47,6 @@ const updateLike = (id, likes, functionType, data, disablefunction) => {
 };
 
 const addLike = (data, disablefunction) => {
-  console.log('addlike');
   firestore()
     .collection('likes')
     .doc(data.idDoc + auth().currentUser.uid)
@@ -118,7 +115,6 @@ const updateFavorite = (id, favorites, functionType, data, disablefunction) => {
 };
 
 const put = (data, type, disablefunction) => {
-  console.log('put');
   const obj = {...data[type], ...{[auth().currentUser.uid]: true}};
   if (type === 'likes') {
     updateLike(data.idDoc, obj, 'put', data, disablefunction);
@@ -128,7 +124,6 @@ const put = (data, type, disablefunction) => {
 };
 
 const remove = (data, type, disablefunction) => {
-  console.log('remove');
   const obj = data[type];
   delete obj[auth().currentUser.uid];
   if (type === 'likes') {
@@ -156,7 +151,6 @@ const buttonsFunction = (
   hashtag,
   disablefunction,
 ) => {
-  console.log('buttonsFunction');
   if (value) {
     disablefunction(true);
     remove(data, type, disablefunction);
