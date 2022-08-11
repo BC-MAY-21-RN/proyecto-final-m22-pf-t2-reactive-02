@@ -31,42 +31,99 @@ const updateLike = (id, likes) => {
     .collection('posts')
     .doc(id)
     .update({likes: likes})
+    .then(() => {
+      firestore()
+        .collection('favoritos')
+        .doc(id + auth().currentUser.uid)
+        .update({['post.likes']: likes})
+        .then(() => {});
+    });
+};
+
+const addFavorite = (id, data) => {
+  const newData = {...data, favoritos: {[auth().currentUser.uid]: true}};
+  console.log(newData);
+  delete newData.idDoc;
+  firestore()
+    .collection('favoritos')
+    .doc(id + auth().currentUser.uid)
+    .set({
+      uidUsuario: auth().currentUser.uid,
+      idPost: id,
+      post: newData,
+      fecha: firestore.Timestamp.fromMillis(Date.now()),
+    })
+    .then(_ => {})
+    .catch(error => {});
+};
+
+const deleteFavorite = id => {
+  firestore()
+    .collection('favoritos')
+    .doc(id + auth().currentUser.uid)
+    .delete()
     .then(() => {});
 };
 
-const putLike = data => {
-  const likes = {...data.likes, ...{[auth().currentUser.uid]: true}};
-  console.log(data.idDoc);
-  updateLike(data.idDoc, likes);
+const updateFavorite = (id, favorites, functionType, data) => {
+  firestore()
+    .collection('posts')
+    .doc(id)
+    .update({favoritos: favorites})
+    .then(() => {
+      if (functionType === 'put') {
+        addFavorite(id, data);
+      } else {
+        firestore()
+          .collection('favoritos')
+          .doc(id + auth().currentUser.uid)
+          .update({['post.favoritos']: favorites})
+          .then(() => {
+            deleteFavorite(id);
+          });
+      }
+    });
 };
 
-const removeLike = data => {
-  const likes = data.likes;
-  delete likes[auth().currentUser.uid];
-  updateLike(data.idDoc, likes);
-};
-
-const likeFunction = (paw, setPaw, data) => {
-  if (paw) {
-    removeLike(data);
-    setPaw(!paw);
+const put = (data, type) => {
+  const obj = {...data[type], ...{[auth().currentUser.uid]: true}};
+  if (type === 'likes') {
+    updateLike(data.idDoc, obj);
   } else {
-    putLike(data);
-    setPaw(!paw);
+    updateFavorite(data.idDoc, obj, 'put', data);
+  }
+};
+
+const remove = (data, type) => {
+  const obj = data[type];
+  delete obj[auth().currentUser.uid];
+  if (type === 'likes') {
+    updateLike(data.idDoc, obj);
+  } else {
+    updateFavorite(data.idDoc, obj, 'remove', data);
+  }
+};
+
+const buttonsFunction = (value, setValue, data, type) => {
+  if (value) {
+    remove(data, type);
+    setValue(!value);
+  } else {
+    put(data, type);
+    setValue(!value);
   }
 };
 
 export default function ButtonsPost({navigation, data}) {
   const [paw, setPaw] = useState(foundLikes(data));
   const [mark, setMark] = useState(foundFavorite(data));
-  const onMarkPress = () => setMark(!mark);
   return (
     <View style={styles.container}>
       <Icon
         name={'paw'}
         type={'font-awesome'}
         color={paw ? '#6FCF97' : 'black'}
-        onPress={() => likeFunction(paw, setPaw, data)}
+        onPress={() => buttonsFunction(paw, setPaw, data, 'likes')}
       />
       <View style={styles.buttons}>
         <View style={styles.separation}>
@@ -87,7 +144,7 @@ export default function ButtonsPost({navigation, data}) {
           name={'bookmark'}
           type={'ionicon'}
           color={mark ? '#6FCF97' : 'black'}
-          onPress={onMarkPress}
+          onPress={() => buttonsFunction(mark, setMark, data, 'favoritos')}
         />
       </View>
     </View>
