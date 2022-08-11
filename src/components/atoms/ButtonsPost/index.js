@@ -26,27 +26,30 @@ const foundAdoption = data => {
   return contador;
 };
 
-const updateLike = (id, likes, functionType, data) => {
+const updateLike = (id, likes, functionType, data, disablefunction) => {
+  console.log('updateLike');
   firestore()
     .collection('posts')
     .doc(id)
     .update({likes: likes})
     .then(() => {
+      console.log('update like 2');
       firestore()
         .collection('favoritos')
         .doc(id + auth().currentUser.uid)
         .update({['post.likes']: likes})
         .then(() => {
           if (functionType === 'put') {
-            addLike(data);
+            addLike(data, disablefunction);
           } else {
-            deleteLike(data);
+            deleteLike(data, disablefunction);
           }
         });
     });
 };
 
-const addLike = data => {
+const addLike = (data, disablefunction) => {
+  console.log('addlike');
   firestore()
     .collection('likes')
     .doc(data.idDoc + auth().currentUser.uid)
@@ -56,18 +59,20 @@ const addLike = data => {
       usuarioOP: data.uidUsuario,
       fecha: firestore.Timestamp.fromMillis(Date.now()),
     })
-    .then();
+    .then(() => disablefunction(false))
+    .catch(() => disablefunction(false));
 };
 
-const deleteLike = data => {
+const deleteLike = (data, disablefunction) => {
   firestore()
     .collection('likes')
     .doc(data.idDoc + auth().currentUser.uid)
     .delete()
-    .then(() => {});
+    .then(() => disablefunction(false))
+    .catch(() => disablefunction(false));
 };
 
-const addFavorite = (id, data) => {
+const addFavorite = (id, data, disablefunction) => {
   const newData = {...data, favoritos: {[auth().currentUser.uid]: true}};
   delete newData.idDoc;
   firestore()
@@ -79,54 +84,57 @@ const addFavorite = (id, data) => {
       post: newData,
       fecha: firestore.Timestamp.fromMillis(Date.now()),
     })
-    .then(_ => {})
-    .catch(error => {});
+    .then(_ => disablefunction(false))
+    .catch(error => disablefunction(false));
 };
 
-const deleteFavorite = id => {
+const deleteFavorite = (id, disablefunction) => {
   firestore()
     .collection('favoritos')
     .doc(id + auth().currentUser.uid)
     .delete()
-    .then(() => {});
+    .then(() => disablefunction(false))
+    .catch(() => disablefunction(false));
 };
 
-const updateFavorite = (id, favorites, functionType, data) => {
+const updateFavorite = (id, favorites, functionType, data, disablefunction) => {
   firestore()
     .collection('posts')
     .doc(id)
     .update({favoritos: favorites})
     .then(() => {
       if (functionType === 'put') {
-        addFavorite(id, data);
+        addFavorite(id, data, disablefunction);
       } else {
         firestore()
           .collection('favoritos')
           .doc(id + auth().currentUser.uid)
           .update({['post.favoritos']: favorites})
           .then(() => {
-            deleteFavorite(id);
+            deleteFavorite(id, disablefunction);
           });
       }
     });
 };
 
-const put = (data, type) => {
+const put = (data, type, disablefunction) => {
+  console.log('put');
   const obj = {...data[type], ...{[auth().currentUser.uid]: true}};
   if (type === 'likes') {
-    updateLike(data.idDoc, obj, 'put', data);
+    updateLike(data.idDoc, obj, 'put', data, disablefunction);
   } else {
-    updateFavorite(data.idDoc, obj, 'put', data);
+    updateFavorite(data.idDoc, obj, 'put', data, disablefunction);
   }
 };
 
-const remove = (data, type) => {
+const remove = (data, type, disablefunction) => {
+  console.log('remove');
   const obj = data[type];
   delete obj[auth().currentUser.uid];
   if (type === 'likes') {
-    updateLike(data.idDoc, obj, 'remove', data);
+    updateLike(data.idDoc, obj, 'remove', data, disablefunction);
   } else {
-    updateFavorite(data.idDoc, obj, 'remove', data);
+    updateFavorite(data.idDoc, obj, 'remove', data, disablefunction);
   }
 };
 
@@ -146,16 +154,20 @@ const buttonsFunction = (
   getData,
   setGetData,
   hashtag,
+  disablefunction,
 ) => {
+  console.log('buttonsFunction');
   if (value) {
-    remove(data, type);
+    disablefunction(true);
+    remove(data, type, disablefunction);
     deleteComponent(getData, setGetData, hashtag, data, type);
     const hashtags = hashtag.toString().replace(/ /g, '').split('#');
     if (hashtags[2] !== 'Guardados' || type === 'likes') {
       setValue(!value);
     }
   } else {
-    put(data, type);
+    disablefunction(true);
+    put(data, type, disablefunction);
     setValue(!value);
   }
 };
@@ -167,23 +179,27 @@ export default function ButtonsPost({
   setGetData,
   hashtag,
 }) {
-  const [paw, setPaw] = useState(foundLikes(data));
-  const [mark, setMark] = useState(foundFavorite(data));
+  const [like, setLike] = useState(foundLikes(data));
+  const [favorite, setFavorite] = useState(foundFavorite(data));
+  const [disabledL, setdisableL] = useState(false);
+  const [disabledF, setdisableF] = useState(false);
   return (
     <View style={styles.container}>
       <Icon
+        disabled={disabledL}
         name={'paw'}
         type={'font-awesome'}
-        color={paw ? '#6FCF97' : 'black'}
+        color={like ? '#6FCF97' : 'black'}
         onPress={() =>
           buttonsFunction(
-            paw,
-            setPaw,
+            like,
+            setLike,
             data,
             'likes',
             getData,
             setGetData,
             hashtag,
+            setdisableL,
           )
         }
       />
@@ -203,18 +219,20 @@ export default function ButtonsPost({
           </TouchableOpacity>
         </View>
         <Icon
+          disabled={disabledF}
           name={'bookmark'}
           type={'ionicon'}
-          color={mark ? '#6FCF97' : 'black'}
+          color={favorite ? '#6FCF97' : 'black'}
           onPress={() =>
             buttonsFunction(
-              mark,
-              setMark,
+              favorite,
+              setFavorite,
               data,
               'favoritos',
               getData,
               setGetData,
               hashtag,
+              setdisableF,
             )
           }
         />
