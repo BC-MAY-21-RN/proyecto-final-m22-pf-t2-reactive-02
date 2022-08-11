@@ -8,10 +8,14 @@ import * as Animatable from 'react-native-animatable';
 import menuStyle from './styles';
 
 const navigate = (e, navigation) => {
-  navigation.navigate('Home', {
-    hashtag: e.nativeEvent.text,
-    goback: true,
-  });
+  const arrayText = e.nativeEvent.text.split('#');
+  const array = arrayText.filter((item, _) => item !== '');
+  if (array.length > 0) {
+    navigation.navigate('Home', {
+      hashtag: e.nativeEvent.text,
+      goback: true,
+    });
+  }
 };
 
 export default function TopBar({navigation, iconVisible}) {
