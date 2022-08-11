@@ -64,6 +64,33 @@ const initLocation = {
   longitudeDelta: 0.04,
 };
 
+const ListPost = ({
+  getData,
+  navigation,
+  imagesFunctions,
+  mapFunctions,
+  setGetData,
+  hashtag,
+}) => {
+  return (
+    <FlatList
+      data={getData}
+      renderItem={({item, index}) => (
+        <Post
+          key={index}
+          navigation={navigation}
+          data={item}
+          imagesFunctions={imagesFunctions}
+          mapFunctions={mapFunctions}
+          getData={getData}
+          setGetData={setGetData}
+          hashtag={hashtag}
+        />
+      )}
+    />
+  );
+};
+
 export default function PostsScreen({navigation, route}) {
   const [getData, setGetData] = useState([]);
   const [images, setImage] = useState();
@@ -89,16 +116,13 @@ export default function PostsScreen({navigation, route}) {
         visible={showMap}
         changePost={false}
       />
-      <FlatList
-        data={getData}
-        renderItem={({item}) => (
-          <Post
-            navigation={navigation}
-            data={item}
-            imagesFunctions={{setImage, setShowImage}}
-            mapFunctions={{setShowMap, setLocation}}
-          />
-        )}
+      <ListPost
+        navigation={navigation}
+        imagesFunctions={{setImage, setShowImage}}
+        mapFunctions={{setShowMap, setLocation}}
+        getData={getData}
+        setGetData={setGetData}
+        hashtag={route.params.hashtag}
       />
       {route.params.goback === true ? null : (
         <AddButton navigation={navigation} hashtag={route.params.hashtag} />

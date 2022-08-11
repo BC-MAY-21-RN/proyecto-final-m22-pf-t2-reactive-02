@@ -130,8 +130,26 @@ const remove = (data, type) => {
   }
 };
 
-const buttonsFunction = (value, setValue, data, type) => {
+const deleteComponent = (getData, setGetData, hashtag, data, type) => {
+  const hashtags = hashtag.toString().replace(/ /g, '').split('#');
+  if (hashtags[2] === 'Guardados' && type !== 'likes') {
+    const array = getData.filter(item => item !== data);
+    setGetData(array);
+  }
+};
+
+const buttonsFunction = (
+  value,
+  setValue,
+  data,
+  type,
+  getData,
+  setGetData,
+  hashtag,
+  navigation,
+) => {
   if (value) {
+    deleteComponent(getData, setGetData, hashtag, data, type, navigation);
     remove(data, type);
     setValue(!value);
   } else {
@@ -140,7 +158,13 @@ const buttonsFunction = (value, setValue, data, type) => {
   }
 };
 
-export default function ButtonsPost({navigation, data}) {
+export default function ButtonsPost({
+  navigation,
+  data,
+  getData,
+  setGetData,
+  hashtag,
+}) {
   const [paw, setPaw] = useState(foundLikes(data));
   const [mark, setMark] = useState(foundFavorite(data));
   return (
@@ -149,7 +173,17 @@ export default function ButtonsPost({navigation, data}) {
         name={'paw'}
         type={'font-awesome'}
         color={paw ? '#6FCF97' : 'black'}
-        onPress={() => buttonsFunction(paw, setPaw, data, 'likes')}
+        onPress={() =>
+          buttonsFunction(
+            paw,
+            setPaw,
+            data,
+            'likes',
+            getData,
+            setGetData,
+            hashtag,
+          )
+        }
       />
       <View style={styles.buttons}>
         <View style={styles.separation}>
@@ -170,7 +204,18 @@ export default function ButtonsPost({navigation, data}) {
           name={'bookmark'}
           type={'ionicon'}
           color={mark ? '#6FCF97' : 'black'}
-          onPress={() => buttonsFunction(mark, setMark, data, 'favoritos')}
+          onPress={() =>
+            buttonsFunction(
+              mark,
+              setMark,
+              data,
+              'favoritos',
+              getData,
+              setGetData,
+              hashtag,
+              navigation,
+            )
+          }
         />
       </View>
     </View>
