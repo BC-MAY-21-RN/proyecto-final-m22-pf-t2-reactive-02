@@ -11,6 +11,7 @@ const addForm = (
   pacifico,
   lugar,
   navigation,
+  uid,
 ) => {
   if (
     telefono !== '' &&
@@ -31,6 +32,8 @@ const addForm = (
         horas: horas,
         Pacifico: pacifico,
         lugarMascota: lugar,
+        uidPosteo: uid,
+        fecha: firestore.Timestamp.fromMillis(Date.now()),
         uidUsuario: auth().currentUser.uid,
         nombreUsuario: auth().currentUser.displayName,
       })
@@ -56,8 +59,19 @@ const add = ({
   pacifico,
   lugar,
   navigation,
+  uid,
 }) => {
-  addForm(tel, correo, ciudad, mascotas, horas, pacifico, lugar, navigation);
+  addForm(
+    tel,
+    correo,
+    ciudad,
+    mascotas,
+    horas,
+    pacifico,
+    lugar,
+    navigation,
+    uid,
+  );
 };
 
 const functions = {

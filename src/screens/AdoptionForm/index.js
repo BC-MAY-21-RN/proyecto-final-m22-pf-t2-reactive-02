@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Alert} from 'react-native';
+import {View} from 'react-native';
 import Header from '../../components/atoms/header';
 import TopBar from '../../components/atoms/TopBar';
 import InputForm from '../../components/atoms/inputForm';
@@ -10,7 +10,7 @@ import functions from './functions';
 const question1 = ['Si', 'Aveces', 'Muy amenudo', 'Nunca'];
 const question2 = ['Casa', 'Patio', 'Calle', 'Nose'];
 
-export default function AdoptionForm({navigation}) {
+export default function AdoptionForm({navigation, route}) {
   const [tel, setTel] = useState('');
   const [correo, setCorreo] = useState('');
   const [ciudad, setCiudad] = useState('');
@@ -18,7 +18,7 @@ export default function AdoptionForm({navigation}) {
   const [horas, setHoras] = useState('');
   const [pacifico, setPacifico] = useState('');
   const [lugar, setLugar] = useState('');
-  const variables = {tel, correo, ciudad, mascotas, horas, pacifico, lugar};
+  const uid = route.params.data.uidUsuario;
   return (
     <View>
       <TopBar navigation={navigation} iconVisible={false} />
@@ -74,7 +74,15 @@ export default function AdoptionForm({navigation}) {
         text={'Enviar Formulario'}
         onPress={() => {
           functions.add({
-            variables,
+            tel,
+            correo,
+            ciudad,
+            mascotas,
+            horas,
+            pacifico,
+            lugar,
+            navigation,
+            uid,
           });
         }}
       />
