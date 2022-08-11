@@ -1,9 +1,9 @@
 import firestore from '@react-native-firebase/firestore';
 
-const fireBaseDataConsult = changeGetData => {
+const fireBaseDataConsult = (changeGetData, id) => {
   firestore()
     .collection('comentarios')
-    .where('postUid', '==', 'hd54gg')
+    .where('postUid', '==', id)
     .get()
     .then(querySnapshot => {
       var dataComment = [];
@@ -13,7 +13,6 @@ const fireBaseDataConsult = changeGetData => {
           idDoc: documentSnapshot.ref.id,
         });
         changeGetData(dataComment);
-        console.log(dataComment);
       });
     });
 };

@@ -1,34 +1,42 @@
 import React, {useState} from 'react';
-import {Alert, Text, View} from 'react-native';
+import {Text, View, Modal} from 'react-native';
 import {Button, Card, Icon} from 'react-native-elements';
 import UserPost from '../UserPost';
 import Verify from '../DrawerItems/functions';
 import {Overlay} from 'react-native-elements';
 import firestore from '@react-native-firebase/firestore';
 import styles from './styles';
+import {Tooltip} from 'react-native-elements';
 
-export default function NotificationComponent({data}) {
+export default function NotificationComponent({
+  data,
+  setEditComment,
+  setEditText,
+  newComment,
+  setNewCommet,
+  getData,
+  setGetData,
+}) {
   const [visible, setVisible] = useState(false);
   const toggleOverlay = () => {
     setVisible(!visible);
   };
-  const deleteComments = id => {
+  const deleteComments = (id, setGetDatas, getDatas) => {
     firestore()
       .collection('comentarios')
       .doc(id)
       .delete()
       .then(() => {
-        Alert.alert('Producto Elimiando!');
+        setGetDatas(
+          getDatas.filter(item => {
+            item.idDoc !== id;
+          }),
+        );
       });
   };
-  const updateComments = id => {
-    firestore()
-      .collection('comentarios')
-      .doc(id)
-      .update({texto: 'motomami'})
-      .then(() => {
-        Alert.alert('Producto Actualizado!');
-      });
+
+  const callInputComment = () => {
+    setEditText({text: data.texto, id: data.idDoc});
   };
 
   return (
@@ -43,29 +51,34 @@ export default function NotificationComponent({data}) {
               : 'https://www.lolitamoda.com/uploads/post/image/61/56.Reglas_de_estilo_que_todo_hombre_debe_conocer.jpg'
           }
         />
-        <Icon
-          name={'dots-three-vertical'}
-          type={'entypo'}
-          size={20}
-          onPress={() => {
-            toggleOverlay();
-          }}
-          containerStyle={styles.icon}
-        />
-        <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
-          <Button
-            title="Editar"
-            onPress={() => {
-              updateComments(data.idDoc);
-            }}
+        <Tooltip
+          popover={
+            <View>
+              <Button
+                title="Editar"
+                onPress={() => {
+                  callInputComment();
+                  setEditComment(true);
+                  toggleOverlay();
+                }}
+              />
+              <Button
+                title="Eliminar"
+                onPress={() => {
+                  deleteComments(data.idDoc, setGetData, getData);
+                  setNewCommet(!newComment);
+                  toggleOverlay();
+                }}
+              />
+            </View>
+          }>
+          <Icon
+            name={'dots-three-vertical'}
+            type={'entypo'}
+            size={20}
+            containerStyle={styles.icon}
           />
-          <Button
-            title="Eliminar"
-            onPress={() => {
-              deleteComments(data.idDoc);
-            }}
-          />
-        </Overlay>
+        </Tooltip>
       </View>
       <Text style={{marginHorizontal: 15}}>{data.texto}</Text>
     </Card>
