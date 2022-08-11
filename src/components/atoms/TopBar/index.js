@@ -28,10 +28,7 @@ export default function TopBar({navigation, iconVisible}) {
           style={menuStyle.input}
           onSubmitEditing={e => navigate(e, navigation)}
         />
-        <TouchableOpacity
-          onPress={() => {
-            setVisible(false);
-          }}>
+        <TouchableOpacity onPress={() => setVisible(false)}>
           <Icon
             name="close"
             type="antdesign"
@@ -46,10 +43,7 @@ export default function TopBar({navigation, iconVisible}) {
   return (
     <View style={menuStyle.container}>
       <View style={menuStyle.iconsPosition}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.openDrawer();
-          }}>
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
           <Icon
             name="menu"
             type="feather"
@@ -68,10 +62,7 @@ export default function TopBar({navigation, iconVisible}) {
 
         {visible && <InputText />}
         {seeButton && (
-          <TouchableOpacity
-            onPress={() => {
-              setVisible(true);
-            }}>
+          <TouchableOpacity onPress={() => setVisible(true)}>
             <Icon
               name="search"
               type="fontisto"
