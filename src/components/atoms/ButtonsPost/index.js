@@ -151,7 +151,7 @@ const buttonsFunction = (
     remove(data, type);
     deleteComponent(getData, setGetData, hashtag, data, type);
     const hashtags = hashtag.toString().replace(/ /g, '').split('#');
-    if (hashtags[2] !== 'Guardados') {
+    if (hashtags[2] !== 'Guardados' || type === 'likes') {
       setValue(!value);
     }
   } else {
