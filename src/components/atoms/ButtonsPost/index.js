@@ -26,7 +26,7 @@ const foundAdoption = data => {
   return contador;
 };
 
-const updateLike = (id, likes) => {
+const updateLike = (id, likes, functionType, data) => {
   firestore()
     .collection('posts')
     .doc(id)
@@ -36,13 +36,39 @@ const updateLike = (id, likes) => {
         .collection('favoritos')
         .doc(id + auth().currentUser.uid)
         .update({['post.likes']: likes})
-        .then(() => {});
+        .then(() => {
+          if (functionType === 'put') {
+            addLike(data);
+          } else {
+            deleteLike(data);
+          }
+        });
     });
+};
+
+const addLike = data => {
+  firestore()
+    .collection('likes')
+    .doc(data.idDoc + auth().currentUser.uid)
+    .set({
+      uidUsuario: auth().currentUser.uid,
+      idPost: data.idDoc,
+      usuarioOP: data.uidUsuario,
+      fecha: firestore.Timestamp.fromMillis(Date.now()),
+    })
+    .then();
+};
+
+const deleteLike = data => {
+  firestore()
+    .collection('likes')
+    .doc(data.idDoc + auth().currentUser.uid)
+    .delete()
+    .then(() => {});
 };
 
 const addFavorite = (id, data) => {
   const newData = {...data, favoritos: {[auth().currentUser.uid]: true}};
-  console.log(newData);
   delete newData.idDoc;
   firestore()
     .collection('favoritos')
@@ -88,7 +114,7 @@ const updateFavorite = (id, favorites, functionType, data) => {
 const put = (data, type) => {
   const obj = {...data[type], ...{[auth().currentUser.uid]: true}};
   if (type === 'likes') {
-    updateLike(data.idDoc, obj);
+    updateLike(data.idDoc, obj, 'put', data);
   } else {
     updateFavorite(data.idDoc, obj, 'put', data);
   }
@@ -98,7 +124,7 @@ const remove = (data, type) => {
   const obj = data[type];
   delete obj[auth().currentUser.uid];
   if (type === 'likes') {
-    updateLike(data.idDoc, obj);
+    updateLike(data.idDoc, obj, 'remove', data);
   } else {
     updateFavorite(data.idDoc, obj, 'remove', data);
   }
