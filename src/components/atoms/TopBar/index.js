@@ -7,6 +7,13 @@ import {Icon} from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 import menuStyle from './styles';
 
+const navigate = (e, navigation) => {
+  navigation.navigate('Home', {
+    hashtag: e.nativeEvent.text,
+    goback: true,
+  });
+};
+
 export default function TopBar({navigation, iconVisible}) {
   const [visible, setVisible] = useState(false);
   const seeButton = iconVisible;
@@ -19,12 +26,7 @@ export default function TopBar({navigation, iconVisible}) {
         <TextInput
           placeholder="Buscar"
           style={menuStyle.input}
-          onSubmitEditing={e =>
-            navigation.navigate('Home', {
-              hashtag: e.nativeEvent.text,
-              goback: true,
-            })
-          }
+          onSubmitEditing={e => navigate(e, navigation)}
         />
         <TouchableOpacity
           onPress={() => {
