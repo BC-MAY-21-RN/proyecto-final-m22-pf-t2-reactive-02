@@ -8,6 +8,8 @@ import Post from '../../components/molecules/Post';
 import styles from './styles';
 import ModalImage from '../../components/atoms/ModalImage';
 import ModalMap from '../../components/atoms/ModalMap';
+import Header from '../../components/atoms/header';
+import TopBar from '../../components/atoms/TopBar';
 
 function favorites(changeGetData) {
   firestore()
@@ -15,13 +17,13 @@ function favorites(changeGetData) {
     .where('uidUsuario', '==', auth().currentUser.uid)
     .get()
     .then(querySnapshot => {
-      var dataFlight = [];
+      var data = [];
       querySnapshot.forEach(documentSnapshot => {
-        dataFlight.push({
+        data.push({
           ...documentSnapshot.data().post,
           idDoc: documentSnapshot.data().idPost,
         });
-        changeGetData(dataFlight);
+        changeGetData(data);
       });
     });
 }
@@ -32,13 +34,13 @@ function noFavorites(changeGetData, hashtagforSearch) {
     .where('hashtags', 'array-contains-any', hashtagforSearch)
     .get()
     .then(querySnapshot => {
-      var dataFlight = [];
+      var data = [];
       querySnapshot.forEach(documentSnapshot => {
-        dataFlight.push({
+        data.push({
           ...documentSnapshot.data(),
           idDoc: documentSnapshot.ref.id,
         });
-        changeGetData(dataFlight);
+        changeGetData(data);
       });
     });
 }
@@ -76,6 +78,10 @@ export default function PostsScreen({navigation, route}) {
   );
   return (
     <View style={styles.container}>
+      <TopBar navigation={navigation} iconVisible={true} />
+      {route.params.goback === true ? (
+        <Header navigation={navigation} color={'#fff'} text={'Búsqueda'} />
+      ) : null}
       <ModalImage visible={setShowImage} values={{...images, v: showImage}} />
       <ModalMap
         init={location}
@@ -94,7 +100,9 @@ export default function PostsScreen({navigation, route}) {
           />
         )}
       />
-      <AddButton navigation={navigation} hashtag={route.params.hashtag} />
+      {route.params.goback === true ? null : (
+        <AddButton navigation={navigation} hashtag={route.params.hashtag} />
+      )}
     </View>
   );
 }

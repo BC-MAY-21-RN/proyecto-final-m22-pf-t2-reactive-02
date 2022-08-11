@@ -5,7 +5,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import styles from './styles';
 import FilttersPost from '../FilttersPost';
 
-export default function Header({text, navigation, filter}) {
+export default function Header({text, navigation, filter, color}) {
   const [visible, setVisible] = useState(false);
 
   const toggleOverlay = () => {
@@ -15,7 +15,7 @@ export default function Header({text, navigation, filter}) {
   const Filterer = () => {
     return (
       <Overlay
-        overlayStyle={styles.overlay}
+        overlayStyle={styles().overlay}
         isVisible={visible}
         onBackdropPress={toggleOverlay}>
         <FilttersPost />
@@ -24,24 +24,28 @@ export default function Header({text, navigation, filter}) {
   };
   return (
     <View>
-      <View style={styles.container}>
+      <View style={styles(color).container}>
         <TouchableOpacity
           onPress={() => {
-            navigation.goBack();
+            if (navigation.canGoBack()) {
+              navigation.goBack();
+            } else {
+              navigation.navigate('Home', {hashtag: '#Normal'});
+            }
           }}>
-          <Icon name="arrowleft" type="antdesign" style={styles.icon} />
+          <Icon name="arrowleft" type="antdesign" style={styles().icon} />
         </TouchableOpacity>
-        <Text style={styles.text}>{text}</Text>
+        <Text style={styles().text}>{text}</Text>
         {filter && (
           <TouchableOpacity
-            style={styles.containerIcon}
+            style={styles().containerIcon}
             onPress={() => {
               setVisible(true);
             }}>
             <Icon
               name="ios-options-outline"
               type="ionicon"
-              style={styles.iconOption}
+              style={styles().iconOption}
               size={30}
             />
           </TouchableOpacity>
