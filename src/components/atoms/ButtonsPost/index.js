@@ -146,12 +146,14 @@ const buttonsFunction = (
   getData,
   setGetData,
   hashtag,
-  navigation,
 ) => {
   if (value) {
-    deleteComponent(getData, setGetData, hashtag, data, type, navigation);
     remove(data, type);
-    setValue(!value);
+    deleteComponent(getData, setGetData, hashtag, data, type);
+    const hashtags = hashtag.toString().replace(/ /g, '').split('#');
+    if (hashtags[2] !== 'Guardados') {
+      setValue(!value);
+    }
   } else {
     put(data, type);
     setValue(!value);
@@ -213,7 +215,6 @@ export default function ButtonsPost({
               getData,
               setGetData,
               hashtag,
-              navigation,
             )
           }
         />

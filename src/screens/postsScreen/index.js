@@ -75,9 +75,8 @@ const ListPost = ({
   return (
     <FlatList
       data={getData}
-      renderItem={({item, index}) => (
+      renderItem={({item}) => (
         <Post
-          key={index}
           navigation={navigation}
           data={item}
           imagesFunctions={imagesFunctions}
