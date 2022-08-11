@@ -1,17 +1,16 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import styles from './styles';
-import TopBar from '../../components/atoms/TopBar';
-import ConfigurationHeader from '../../components/atoms/ConfigurationHeader'
-import ConfigurationContent from '../../components/molecules/ConfigurationContent'
+import ConfigurationHeader from '../../components/atoms/ConfigurationHeader';
+import ConfigurationContent from '../../components/molecules/ConfigurationContent';
 import Verify from '../../components/atoms/DrawerItems/functions';
 
-export default function ConfigurationScreen({navigation}) {
+export default function ConfigurationScreen() {
   const user = auth().currentUser;
   return (
     <View style={styles.background}>
-      <ConfigurationHeader 
+      <ConfigurationHeader
         image={
           Verify(user.photoURL)
             ? user.photoURL
@@ -20,7 +19,6 @@ export default function ConfigurationScreen({navigation}) {
         name={Verify(user.displayName) ? user.displayName : 'Funganito'}
       />
       <ConfigurationContent />
-
     </View>
   );
 }

@@ -1,22 +1,22 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    height: '60%',
+    height: '50%',
+    marginTop: 30,
     marginRight: 30,
     marginLeft: 30,
   },
-  containerinfo: {
-    flexDirection: 'row',
-    alignSelf: 'center',
-  },
-  editar: {
-    backgroundColor: '#F1F1F1',
-    borderRadius: 10,
+
+  guardar: {
+    backgroundColor: '#C4C4C4',
+    borderRadius: 8,
     paddingHorizontal: 20,
     paddingVertical: 10,
-    marginTop: 15,
-    alignSelf: 'center',
+    width: Dimensions.get('screen').width - 250,
+    marginTop: 80,
+    marginLeft: 90,
+    alignItems: 'center',
   },
 });
 
