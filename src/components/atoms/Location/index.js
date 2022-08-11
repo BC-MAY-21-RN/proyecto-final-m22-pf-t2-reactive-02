@@ -3,7 +3,7 @@ import {View, Text} from 'react-native';
 import {Icon} from 'react-native-elements';
 import styles from './styles';
 
-export default function Location({city, state}) {
+/*export default function Location({city, state}) {
   return (
     <View style={styles.container}>
       <View>
@@ -15,4 +15,4 @@ export default function Location({city, state}) {
       </View>
     </View>
   );
-}
+}*/

@@ -18,6 +18,14 @@ const navigate = (e, navigation) => {
   }
 };
 
+const TouchableIcon = ({onPress, iconName, style, type}) => {
+  return (
+    <TouchableOpacity onPress={() => onPress()}>
+      <Icon name={iconName} type={type} style={style} color="#6C6C6C" />
+    </TouchableOpacity>
+  );
+};
+
 export default function TopBar({navigation, iconVisible}) {
   const [visible, setVisible] = useState(false);
   const seeButton = iconVisible;
@@ -32,15 +40,12 @@ export default function TopBar({navigation, iconVisible}) {
           style={menuStyle.input}
           onSubmitEditing={e => navigate(e, navigation)}
         />
-        <TouchableOpacity onPress={() => setVisible(false)}>
-          <Icon
-            name="close"
-            type="antdesign"
-            style={menuStyle.iconSearch2}
-            color="#979797"
-            size={20}
-          />
-        </TouchableOpacity>
+        <TouchableIcon
+          iconName={'close'}
+          style={menuStyle.iconSearch2}
+          onPress={() => setVisible(false)}
+          type={'antdesign'}
+        />
       </Animatable.View>
     );
   };
@@ -63,18 +68,14 @@ export default function TopBar({navigation, iconVisible}) {
         <Animatable.View animation={visible ? 'slideInRight' : 'slideInLeft'}>
           <Icons IconProp={logoHeader} style={menuStyle.logo} />
         </Animatable.View>
-
         {visible && <InputText />}
         {seeButton && (
-          <TouchableOpacity onPress={() => setVisible(true)}>
-            <Icon
-              name="search"
-              type="fontisto"
-              style={menuStyle.iconSearch}
-              color="#6C6C6C"
-              size={20}
-            />
-          </TouchableOpacity>
+          <TouchableIcon
+            iconName={'search'}
+            style={menuStyle.iconSearch}
+            onPress={() => setVisible(true)}
+            type={'feather'}
+          />
         )}
       </View>
     </View>
