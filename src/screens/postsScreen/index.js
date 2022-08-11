@@ -17,13 +17,13 @@ function favorites(changeGetData) {
     .where('uidUsuario', '==', auth().currentUser.uid)
     .get()
     .then(querySnapshot => {
-      var dataFlight = [];
+      var data = [];
       querySnapshot.forEach(documentSnapshot => {
-        dataFlight.push({
+        data.push({
           ...documentSnapshot.data().post,
           idDoc: documentSnapshot.data().idPost,
         });
-        changeGetData(dataFlight);
+        changeGetData(data);
       });
     });
 }
@@ -34,13 +34,13 @@ function noFavorites(changeGetData, hashtagforSearch) {
     .where('hashtags', 'array-contains-any', hashtagforSearch)
     .get()
     .then(querySnapshot => {
-      var dataFlight = [];
+      var data = [];
       querySnapshot.forEach(documentSnapshot => {
-        dataFlight.push({
+        data.push({
           ...documentSnapshot.data(),
           idDoc: documentSnapshot.ref.id,
         });
-        changeGetData(dataFlight);
+        changeGetData(data);
       });
     });
 }
