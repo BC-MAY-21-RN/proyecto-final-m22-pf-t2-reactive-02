@@ -1,8 +1,9 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import styles from './styles';
-import {Icon} from 'react-native-elements';
+import Icons from '../Icons';
 import * as ImagePicker from 'react-native-image-picker';
+import PickImage from '../../../assets/icons/add_a_photo.svg'
 
 export default function UserHeader({image, name}) {
   const ChangeImage = () => {
@@ -19,7 +20,7 @@ export default function UserHeader({image, name}) {
         />
         <View style={styles.changeImage}>
           <TouchableOpacity onPress={ChangeImage}>
-            <Icon name={'upload'} type={'feather'} />
+            <Icons IconProp={PickImage} />
           </TouchableOpacity>
         </View>
         <Text style={styles.name}>{name}</Text>
@@ -27,3 +28,6 @@ export default function UserHeader({image, name}) {
     </View>
   );
 }
+
+
+/*DB6C9E tarjeta, nombre #616060, línea #7B7B7B */

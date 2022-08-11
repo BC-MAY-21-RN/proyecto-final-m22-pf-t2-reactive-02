@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
   },
   image: {
     borderRadius: 90,
-    width: 80,
-    height: 80,
+    width: 100,
+    height: 100,
     alignSelf: 'center',
   },
   name: {
