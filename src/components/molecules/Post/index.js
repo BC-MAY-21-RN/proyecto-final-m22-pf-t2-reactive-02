@@ -58,10 +58,6 @@ const LocationButton = ({data, setLocation, setShowMap}) => {
 export default function Post({
   navigation,
   data,
-  setImage,
-  setLocation,
-  setShowMap,
-  setShowImage,
   imagesFunctions,
   mapFunctions,
 }) {

@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
+import {View, Alert} from 'react-native';
 import {Icon} from 'react-native-elements';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 import styles from './styles';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import values from '../../../const/hashtags';
@@ -25,9 +26,38 @@ const foundAdoption = data => {
   return contador;
 };
 
+const updateLike = (id, likes) => {
+  firestore()
+    .collection('posts')
+    .doc(id)
+    .update({likes: likes})
+    .then(() => {});
+};
+
+const putLike = data => {
+  const likes = {...data.likes, ...{[auth().currentUser.uid]: true}};
+  console.log(data.idDoc);
+  updateLike(data.idDoc, likes);
+};
+
+const removeLike = data => {
+  const likes = data.likes;
+  delete likes[auth().currentUser.uid];
+  updateLike(data.idDoc, likes);
+};
+
+const likeFunction = (paw, setPaw, data) => {
+  if (paw) {
+    removeLike(data);
+    setPaw(!paw);
+  } else {
+    putLike(data);
+    setPaw(!paw);
+  }
+};
+
 export default function ButtonsPost({navigation, data}) {
   const [paw, setPaw] = useState(foundLikes(data));
-  const onPawPress = () => setPaw(!paw);
   const [mark, setMark] = useState(foundFavorite(data));
   const onMarkPress = () => setMark(!mark);
   return (
@@ -36,25 +66,20 @@ export default function ButtonsPost({navigation, data}) {
         name={'paw'}
         type={'font-awesome'}
         color={paw ? '#6FCF97' : 'black'}
-        onPress={onPawPress}
+        onPress={() => likeFunction(paw, setPaw, data)}
       />
       <View style={styles.buttons}>
         <View style={styles.separation}>
-          {foundAdoption(data) > 0 ? (
+          {foundAdoption(data) < 1 ? null : (
             <Icon
               name={'home-sharp'}
               type={'ionicon'}
-              onPress={() => {
-                navigation.navigate('AdoptionForm');
-              }}
+              onPress={() => navigation.navigate('AdoptionForm')}
             />
-          ) : null}
+          )}
         </View>
         <View style={styles.separation}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('Comments', {data: data});
-            }}>
+          <TouchableOpacity onPress={() => Alert.alert('Ruta no válida')}>
             <Icon name={'message'} type={'material-community'} />
           </TouchableOpacity>
         </View>
