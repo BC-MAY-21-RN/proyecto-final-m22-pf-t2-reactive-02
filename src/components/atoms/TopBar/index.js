@@ -26,29 +26,30 @@ const TouchableIcon = ({onPress, iconName, style, type}) => {
   );
 };
 
+const InputText = ({navigation, setVisible}) => {
+  return (
+    <Animatable.View
+      animation="lightSpeedIn"
+      duration={1500}
+      style={menuStyle.inputContainer}>
+      <TextInput
+        placeholder="Buscar"
+        style={menuStyle.input}
+        onSubmitEditing={e => navigate(e, navigation)}
+      />
+      <TouchableIcon
+        iconName={'close'}
+        style={menuStyle.iconSearch2}
+        onPress={() => setVisible(false)}
+        type={'antdesign'}
+      />
+    </Animatable.View>
+  );
+};
+
 export default function TopBar({navigation, iconVisible}) {
   const [visible, setVisible] = useState(false);
   const seeButton = iconVisible;
-  const InputText = () => {
-    return (
-      <Animatable.View
-        animation="lightSpeedIn"
-        duration={1500}
-        style={menuStyle.inputContainer}>
-        <TextInput
-          placeholder="Buscar"
-          style={menuStyle.input}
-          onSubmitEditing={e => navigate(e, navigation)}
-        />
-        <TouchableIcon
-          iconName={'close'}
-          style={menuStyle.iconSearch2}
-          onPress={() => setVisible(false)}
-          type={'antdesign'}
-        />
-      </Animatable.View>
-    );
-  };
   return (
     <View style={menuStyle.container}>
       <View style={menuStyle.iconsPosition}>
@@ -68,7 +69,9 @@ export default function TopBar({navigation, iconVisible}) {
         <Animatable.View animation={visible ? 'slideInRight' : 'slideInLeft'}>
           <Icons IconProp={logoHeader} style={menuStyle.logo} />
         </Animatable.View>
-        {visible && <InputText />}
+        {visible && (
+          <InputText navigation={navigation} setVisible={setVisible} />
+        )}
         {seeButton && (
           <TouchableIcon
             iconName={'search'}
