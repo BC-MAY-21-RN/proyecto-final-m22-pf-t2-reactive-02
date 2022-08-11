@@ -7,8 +7,6 @@ import {Icon} from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 import menuStyle from './styles';
 
-// console.log(e.nativeEvent.text)
-
 export default function TopBar({navigation, iconVisible}) {
   const [visible, setVisible] = useState(false);
   const seeButton = iconVisible;
