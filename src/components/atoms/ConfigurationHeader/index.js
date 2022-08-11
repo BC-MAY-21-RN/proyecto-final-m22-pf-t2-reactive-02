@@ -3,6 +3,7 @@ import {View, Text, Image, TouchableOpacity} from 'react-native';
 import styles from '../ProfileHeader/styles';
 import styleContainer from './styles';
 import Icons from '../Icons';
+import InputConfiguration from '../inputConfiguration';
 import * as ImagePicker from 'react-native-image-picker';
 import PickImage from '../../../assets/icons/add_a_photo.svg';
 

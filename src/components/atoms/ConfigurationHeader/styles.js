@@ -1,10 +1,10 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    height: Dimensions.get('screen').height,
+    height: '60%',
     backgroundColor: '#DAC3DB',
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
