@@ -26,12 +26,31 @@ const TouchableIcon = ({onPress, iconName, style, type}) => {
   );
 };
 
+const components = [TextInput, TouchableIcon];
+const styles = [menuStyle.input, menuStyle.iconSearch2];
+
 const InputText = ({navigation, setVisible}) => {
   return (
     <Animatable.View
       animation="lightSpeedIn"
       duration={1500}
       style={menuStyle.inputContainer}>
+      {components.map((Componente, i) => (
+        <Componente
+          key={i}
+          placeholder="Buscar"
+          style={styles[i]}
+          onSubmitEditing={e => navigate(e, navigation)}
+          iconName={'close'}
+          onPress={() => setVisible(false)}
+          type={'antdesign'}
+        />
+      ))}
+    </Animatable.View>
+  );
+};
+
+/*
       <TextInput
         placeholder="Buscar"
         style={menuStyle.input}
@@ -43,9 +62,7 @@ const InputText = ({navigation, setVisible}) => {
         onPress={() => setVisible(false)}
         type={'antdesign'}
       />
-    </Animatable.View>
-  );
-};
+*/
 
 export default function TopBar({navigation, iconVisible}) {
   const [visible, setVisible] = useState(false);
