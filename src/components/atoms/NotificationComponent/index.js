@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
-import {Text, View, Modal} from 'react-native';
+import React, {useRef} from 'react';
+import {Text, View} from 'react-native';
 import {Button, Card, Icon} from 'react-native-elements';
 import UserPost from '../UserPost';
 import Verify from '../DrawerItems/functions';
-import {Overlay} from 'react-native-elements';
 import firestore from '@react-native-firebase/firestore';
 import styles from './styles';
 import {Tooltip} from 'react-native-elements';
@@ -17,10 +16,6 @@ export default function NotificationComponent({
   getData,
   setGetData,
 }) {
-  const [visible, setVisible] = useState(false);
-  const toggleOverlay = () => {
-    setVisible(!visible);
-  };
   const deleteComments = (id, setGetDatas, getDatas) => {
     firestore()
       .collection('comentarios')
@@ -38,7 +33,7 @@ export default function NotificationComponent({
   const callInputComment = () => {
     setEditText({text: data.texto, id: data.idDoc});
   };
-
+  const tooltipRef = useRef(null);
   return (
     <Card>
       <View style={styles.iconPosition}>
@@ -52,22 +47,33 @@ export default function NotificationComponent({
           }
         />
         <Tooltip
+          containerStyle={styles.tooltip}
+          backgroundColor={'white'}
+          ref={tooltipRef}
+          height={80}
+          width={100}
+          withPointer={false}
+          overlayColor={'rgba(92, 92, 92, 0.6)'}
           popover={
             <View>
               <Button
                 title="Editar"
+                titleStyle={{color: '#263238'}}
+                buttonStyle={styles.button}
                 onPress={() => {
                   callInputComment();
                   setEditComment(true);
-                  toggleOverlay();
+                  setNewCommet(!newComment);
+                  tooltipRef.current.toggleTooltip();
                 }}
               />
               <Button
                 title="Eliminar"
+                buttonStyle={styles.button}
+                titleStyle={{color: '#263238'}}
                 onPress={() => {
                   deleteComments(data.idDoc, setGetData, getData);
                   setNewCommet(!newComment);
-                  toggleOverlay();
                 }}
               />
             </View>
