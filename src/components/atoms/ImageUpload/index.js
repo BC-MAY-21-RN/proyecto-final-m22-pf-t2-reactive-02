@@ -74,46 +74,50 @@ const deleteImage = (change, post, index) => {
   ]);
 };
 
+const styleScroll = post => {
+  return styles(
+    post.valuesPost.images.length > 0
+      ? 0
+      : Dimensions.get('screen').height > 740
+      ? 120
+      : 80,
+  ).scrollimage;
+};
+
+const openImage = (setIndexImage, setImageOpen, index) => {
+  const changeIndex = () => setIndexImage(index);
+  const changeImageOpen = () => setImageOpen(true);
+  changeIndex();
+  changeImageOpen();
+};
+
 export default function ImageUpload({
-  change,
+  changePost,
   post,
-  changeIndex,
-  changeVisible,
+  setIndexImage,
+  setImageOpen,
 }) {
   return (
     <View>
       <View style={styles().container}>
         <TouchableOpacity
-          onPress={() => addImage(change, post)}
+          onPress={() => addImage(changePost, post)}
           style={styles().button}>
           <Icon name={'image'} type={'feather'} size={30} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => checkPermissions(change, post)}>
+        <TouchableOpacity onPress={() => checkPermissions(changePost, post)}>
           <Icon name={'camera'} type={'feather'} size={30} />
         </TouchableOpacity>
       </View>
-      <ScrollView
-        horizontal={true}
-        style={
-          styles(
-            post.valuesPost.images.length > 0
-              ? 0
-              : Dimensions.get('screen').height > 740
-              ? 120
-              : 80,
-          ).scrollimage
-        }>
+      <ScrollView horizontal={true} style={styleScroll(post)}>
         {post.valuesPost.images.map((image, index) => (
           <Avatar
             key={index}
             source={{uri: image.url}}
             size={Dimensions.get('screen').height > 740 ? 120 : 80}
             containerStyle={styles().imagecontainer}
-            onPress={() => {
-              changeVisible(true);
-              changeIndex(index);
-            }}
-            onLongPress={() => deleteImage(change, post, index)}
+            onPress={() => openImage(setIndexImage, setImageOpen, index)}
+            onLongPress={() => deleteImage(changePost, post, index)}
           />
         ))}
       </ScrollView>

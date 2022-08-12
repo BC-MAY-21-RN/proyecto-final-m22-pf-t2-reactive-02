@@ -7,6 +7,17 @@ import {Icon} from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 import menuStyle from './styles';
 
+const navigate = (e, navigation) => {
+  const arrayText = e.nativeEvent.text.split('#');
+  const array = arrayText.filter((item, _) => item !== '');
+  if (array.length > 0) {
+    navigation.navigate('Home', {
+      hashtag: e.nativeEvent.text,
+      goback: true,
+    });
+  }
+};
+
 export default function TopBar({navigation, iconVisible}) {
   const [visible, setVisible] = useState(false);
   const seeButton = iconVisible;
@@ -16,11 +27,12 @@ export default function TopBar({navigation, iconVisible}) {
         animation="lightSpeedIn"
         duration={1500}
         style={menuStyle.inputContainer}>
-        <TextInput placeholder="Buscar" style={menuStyle.input} />
-        <TouchableOpacity
-          onPress={() => {
-            setVisible(false);
-          }}>
+        <TextInput
+          placeholder="Buscar"
+          style={menuStyle.input}
+          onSubmitEditing={e => navigate(e, navigation)}
+        />
+        <TouchableOpacity onPress={() => setVisible(false)}>
           <Icon
             name="close"
             type="antdesign"
@@ -35,10 +47,7 @@ export default function TopBar({navigation, iconVisible}) {
   return (
     <View style={menuStyle.container}>
       <View style={menuStyle.iconsPosition}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.openDrawer();
-          }}>
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
           <Icon
             name="menu"
             type="feather"
@@ -57,10 +66,7 @@ export default function TopBar({navigation, iconVisible}) {
 
         {visible && <InputText />}
         {seeButton && (
-          <TouchableOpacity
-            onPress={() => {
-              setVisible(true);
-            }}>
+          <TouchableOpacity onPress={() => setVisible(true)}>
             <Icon
               name="search"
               type="fontisto"

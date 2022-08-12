@@ -3,7 +3,8 @@ import {Modal} from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer-fixed';
 import styles from './styles';
 
-export default function ModalImage({changeVisible, values}) {
+export default function ModalImage({visible, values}) {
+  const changeVisible = value => visible(value);
   return (
     <Modal
       visible={values.v}

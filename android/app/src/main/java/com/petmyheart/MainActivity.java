@@ -4,6 +4,8 @@ import android.os.Bundle;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
+import android.view.KeyEvent;
+import android.util.Log;
 
 public class MainActivity extends ReactActivity {
 
@@ -14,6 +16,11 @@ public class MainActivity extends ReactActivity {
   @Override
   protected String getMainComponentName() {
     return "petmyheart";
+  }
+
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    return true;
   }
 
   @Override

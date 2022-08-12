@@ -1,17 +1,10 @@
 import React from 'react';
-import {View, Text, Image, ScrollView, Dimensions} from 'react-native';
-import {Card} from 'react-native-elements';
+import {View, Text} from 'react-native';
+import {Card, Icon} from 'react-native-elements';
 import ButtonsPost from '../../atoms/ButtonsPost';
 import UserPost from '../../atoms/UserPost';
-import Location from '../../atoms/Location';
 import styles from './styles';
-
-const {width} = Dimensions.get('window');
-const height = 300;
-/*const images = [
-  'https://www.hogarmania.com/archivos/202202/gato-esfinge-portada-1280x720x80xX.jpg',
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNenjnSNt_2L4Y16-zlFrh5GEl7Owc37MyUg&usqp=CAU',
-];*/
+import Carousel from '../../atoms/Carousel';
 
 const months = {
   1: 'Enero',
@@ -41,43 +34,58 @@ const dateToString = data => {
   );
 };
 
-const Carousel = ({arrayImages}) => {
+const LocationButton = ({data, setLocation, setShowMap}) => {
+  const changeShowMap = () => setShowMap(true);
+  const changeLocationMap = () => setLocation(data.ubicacion);
   return (
-    <View style={styles.contImage}>
-      <ScrollView pagingEnabled horizontal style={{width, height}}>
-        {arrayImages.map((image, index) => (
-          <Image
-            key={index}
-            source={{uri: image}}
-            style={{height, width, resizeMode: 'cover'}}
-          />
-        ))}
-      </ScrollView>
-      <View style={styles.pagination}>
-        {arrayImages.map((i, k) => (
-          <Text key={k} style={styles.dotActive}>
-            ⬤
-          </Text>
-        ))}
-      </View>
+    <View style={styles.locationbutton}>
+      {data.ubicacion.latitude === 0 &&
+      data.ubicacion.longitude === 0 ? null : (
+        <Icon
+          name="map-marker"
+          type="material-community"
+          color="#517fa4"
+          onPress={() => {
+            changeLocationMap();
+            changeShowMap();
+          }}
+        />
+      )}
     </View>
   );
 };
 
-export default function Post({navigation, data}) {
+export default function Post({
+  navigation,
+  data,
+  setImage,
+  setLocation,
+  setShowMap,
+  setShowImage,
+  imagesFunctions,
+  mapFunctions,
+}) {
   return (
-    <Card style={styles.container}>
-      <UserPost
-        name={data.nombreusuario}
-        time={dateToString(data)}
-        image={data.fotousuario}
+    <Card containerStyle={styles.card}>
+      <LocationButton
+        data={data}
+        setLocation={mapFunctions.setLocation}
+        setShowMap={mapFunctions.setShowMap}
       />
-      {false ? <Location city={'Manzanillo'} state={'Colima'} /> : null}
-      <Text style={styles.text}>{data.texto}</Text>
-      {data.listaUrl.length === 0 ? null : (
-        <Carousel arrayImages={data.listaUrl} />
-      )}
-      <ButtonsPost navigation={navigation} data={data} />
+      <View>
+        <UserPost
+          name={data.nombreusuario}
+          time={dateToString(data)}
+          image={data.fotousuario}
+        />
+        <Text style={styles.text}>{data.texto}</Text>
+        <Carousel
+          array={data.listaUrl}
+          setImage={imagesFunctions.setImage}
+          setShowImage={imagesFunctions.setShowImage}
+        />
+        <ButtonsPost navigation={navigation} data={data} />
+      </View>
     </Card>
   );
 }

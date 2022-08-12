@@ -1,40 +1,92 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, {useRef} from 'react';
+import {Text, View} from 'react-native';
+import {Button, Card, Icon} from 'react-native-elements';
 import UserPost from '../UserPost';
-import auth from '@react-native-firebase/auth';
-import functions from '../DrawerItems/functions';
+import Verify from '../DrawerItems/functions';
+import firestore from '@react-native-firebase/firestore';
+import styles from './styles';
+import {Tooltip} from 'react-native-elements';
 
-export default function NotificationComponent() {
-  const [name, setName] = useState(functions.VerifyName());
-  const [photo, setPhoto] = useState(functions.VerifyPhoto());
-  const user = auth().currentUser;
+export default function NotificationComponent({
+  data,
+  setEditComment,
+  setEditText,
+  newComment,
+  setNewCommet,
+  getData,
+  setGetData,
+}) {
+  const deleteComments = (id, setGetDatas, getDatas) => {
+    firestore()
+      .collection('comentarios')
+      .doc(id)
+      .delete()
+      .then(() => {
+        setGetDatas(
+          getDatas.filter(item => {
+            item.idDoc !== id;
+          }),
+        );
+      });
+  };
 
+  const callInputComment = () => {
+    setEditText({text: data.texto, id: data.idDoc});
+  };
+  const tooltipRef = useRef(null);
   return (
-    <View style={styles.container}>
-      <UserPost
-        name={name ? user.displayName : 'Funganito'}
-        time={'7h ago'}
-        image={
-          photo
-            ? user.photoURL
-            : 'https://www.lolitamoda.com/uploads/post/image/61/56.Reglas_de_estilo_que_todo_hombre_debe_conocer.jpg'
-        }
-      />
-      <Text style={styles.text}>
-        Pablo clavo un clavito en la esquina de pablito, pablito tenía frio y
-        clavo otro clavito.
-      </Text>
-    </View>
+    <Card>
+      <View style={styles.iconPosition}>
+        <UserPost
+          name={Verify(data.userName) ? data.userName : 'Funganito'}
+          time={'7 hrs'}
+          image={
+            Verify(data.photo)
+              ? data.photo
+              : 'https://www.lolitamoda.com/uploads/post/image/61/56.Reglas_de_estilo_que_todo_hombre_debe_conocer.jpg'
+          }
+        />
+        <Tooltip
+          containerStyle={styles.tooltip}
+          backgroundColor={'white'}
+          ref={tooltipRef}
+          height={80}
+          width={100}
+          withPointer={false}
+          overlayColor={'rgba(92, 92, 92, 0.6)'}
+          popover={
+            <View>
+              <Button
+                title="Editar"
+                titleStyle={{color: '#263238'}}
+                buttonStyle={styles.button}
+                onPress={() => {
+                  callInputComment();
+                  setEditComment(true);
+                  setNewCommet(!newComment);
+                  tooltipRef.current.toggleTooltip();
+                }}
+              />
+              <Button
+                title="Eliminar"
+                buttonStyle={styles.button}
+                titleStyle={{color: '#263238'}}
+                onPress={() => {
+                  deleteComments(data.idDoc, setGetData, getData);
+                  setNewCommet(!newComment);
+                }}
+              />
+            </View>
+          }>
+          <Icon
+            name={'dots-three-vertical'}
+            type={'entypo'}
+            size={20}
+            containerStyle={styles.icon}
+          />
+        </Tooltip>
+      </View>
+      <Text style={{marginHorizontal: 15}}>{data.texto}</Text>
+    </Card>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-    marginTop: 7,
-    paddingBottom: 7,
-  },
-  text: {
-    marginHorizontal: 10,
-  },
-});

@@ -7,7 +7,7 @@ import ProfileScreen from '../screens/profileScreen';
 import AdoptionForm from '../screens/AdoptionForm';
 import TabNavigator from './TabNavigator';
 import NewPublication from '../screens/NewPublication';
-
+import CommentsScreen from '../screens/CommentsScreen';
 const Drawer = createDrawerNavigator();
 
 export default function DrawerNavigation() {
@@ -22,6 +22,11 @@ export default function DrawerNavigation() {
       <Drawer.Screen
         name="AdoptionForm"
         component={AdoptionForm}
+        options={{unmountOnBlur: true}}
+      />
+      <Drawer.Screen
+        name="Comments"
+        component={CommentsScreen}
         options={{unmountOnBlur: true}}
       />
       <Drawer.Screen
