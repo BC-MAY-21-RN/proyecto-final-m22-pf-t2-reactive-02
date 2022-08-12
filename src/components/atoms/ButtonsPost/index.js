@@ -27,16 +27,26 @@ const foundAdoption = data => {
 };
 
 const updateLike = (id, likes, functionType, data, disablefunction) => {
+  console.log('updatelike 1');
   firestore()
     .collection('posts')
     .doc(id)
     .update({likes: likes})
     .then(() => {
+      console.log('updatelike 2');
       firestore()
         .collection('favoritos')
         .doc(id + auth().currentUser.uid)
         .update({['post.likes']: likes})
         .then(() => {
+          console.log('updatelike 3');
+          if (functionType === 'put') {
+            addLike(data, disablefunction);
+          } else {
+            deleteLike(data, disablefunction);
+          }
+        })
+        .catch(() => {
           if (functionType === 'put') {
             addLike(data, disablefunction);
           } else {
@@ -47,6 +57,7 @@ const updateLike = (id, likes, functionType, data, disablefunction) => {
 };
 
 const addLike = (data, disablefunction) => {
+  console.log('addlike');
   firestore()
     .collection('likes')
     .doc(data.idDoc + auth().currentUser.uid)
@@ -61,6 +72,7 @@ const addLike = (data, disablefunction) => {
 };
 
 const deleteLike = (data, disablefunction) => {
+  console.log('deletelike');
   firestore()
     .collection('likes')
     .doc(data.idDoc + auth().currentUser.uid)
@@ -115,6 +127,7 @@ const updateFavorite = (id, favorites, functionType, data, disablefunction) => {
 };
 
 const put = (data, type, disablefunction) => {
+  console.log('put');
   const obj = {...data[type], ...{[auth().currentUser.uid]: true}};
   if (type === 'likes') {
     updateLike(data.idDoc, obj, 'put', data, disablefunction);
@@ -124,6 +137,7 @@ const put = (data, type, disablefunction) => {
 };
 
 const remove = (data, type, disablefunction) => {
+  console.log('remove');
   const obj = data[type];
   delete obj[auth().currentUser.uid];
   if (type === 'likes') {
@@ -151,6 +165,7 @@ const buttonsFunction = (
   hashtag,
   disablefunction,
 ) => {
+  console.log('buttonsFunction');
   if (value) {
     disablefunction(true);
     remove(data, type, disablefunction);
@@ -234,3 +249,38 @@ export default function ButtonsPost({
     </View>
   );
 }
+
+/*
+        <View style={styles.separation}>
+          {foundAdoption(data) < 1 ? null : (
+            <Icon
+              name={'home-sharp'}
+              type={'ionicon'}
+              onPress={() => navigation.navigate('AdoptionForm')}
+            />
+          )}
+        </View>
+        <View style={styles.separation}>
+          <TouchableOpacity onPress={() => Alert.alert('Ruta no válida')}>
+            <Icon name={'message'} type={'material-community'} />
+          </TouchableOpacity>
+        </View>
+        <Icon
+          disabled={disabledF}
+          name={'bookmark'}
+          type={'ionicon'}
+          color={favorite ? '#6FCF97' : 'black'}
+          onPress={() =>
+            buttonsFunction(
+              favorite,
+              setFavorite,
+              data,
+              'favoritos',
+              getData,
+              setGetData,
+              hashtag,
+              setdisableF,
+            )
+          }
+        />
+*/
