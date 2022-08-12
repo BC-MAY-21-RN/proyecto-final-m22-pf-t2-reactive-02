@@ -5,27 +5,32 @@ import ImageUpload from '../../atoms/ImageUpload';
 import styles from './styles';
 import UploadLocation from '../../atoms/UploadLocation';
 
+const components = [ImageUpload, UploadLocation];
+
 export default function PagerImageLocation({
-  change,
-  changeIndex,
-  changeVisible,
-  post,
+  changePost,
+  setMapOpen,
+  setIndexImage,
+  setImageOpen,
+  values,
 }) {
   return (
     <PagerView initialPage={0} style={styles.container}>
-      <View key="1">
-        <Text style={styles.text}>{'Imágenes'}</Text>
-        <ImageUpload
-          change={change}
-          changeIndex={changeIndex}
-          changeVisible={changeVisible}
-          post={post}
-        />
-      </View>
-      <View key="2">
-        <Text style={styles.text}>{'Ubicación'}</Text>
-        <UploadLocation change={change} />
-      </View>
+      {components.map((Component, index) => (
+        <View key={index}>
+          <Text style={styles.text}>
+            {index === 0 ? 'Imágenes' : 'Ubicación'}
+          </Text>
+          <Component
+            changePost={changePost}
+            setIndexImage={setIndexImage}
+            setImageOpen={setImageOpen}
+            setMapOpen={setMapOpen}
+            mapOpen={values.mapOpen}
+            post={values.post}
+          />
+        </View>
+      ))}
     </PagerView>
   );
 }

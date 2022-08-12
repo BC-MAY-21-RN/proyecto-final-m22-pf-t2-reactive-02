@@ -53,7 +53,7 @@ export default function InputComponent({
           placeholder={title}
           style={styles.input}
           secureTextEntry={passVisible}
-          onChange={(e, a) => changeUser(e.nativeEvent.text, input)}
+          onChange={e => changeUser(e.nativeEvent.text, input)}
         />
       </View>
       {visibleIcon ? (

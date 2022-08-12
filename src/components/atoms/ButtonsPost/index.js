@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import {Icon} from 'react-native-elements';
 import auth from '@react-native-firebase/auth';
 import styles from './styles';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import values from '../../../const/hashtags';
 
 const foundFavorite = data => {
@@ -29,7 +30,6 @@ export default function ButtonsPost({navigation, data}) {
   const onPawPress = () => setPaw(!paw);
   const [mark, setMark] = useState(foundFavorite(data));
   const onMarkPress = () => setMark(!mark);
-
   return (
     <View style={styles.container}>
       <Icon
@@ -51,7 +51,12 @@ export default function ButtonsPost({navigation, data}) {
           ) : null}
         </View>
         <View style={styles.separation}>
-          <Icon name={'message'} type={'material-community'} />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Comments', {data: data});
+            }}>
+            <Icon name={'message'} type={'material-community'} />
+          </TouchableOpacity>
         </View>
         <Icon
           name={'bookmark'}

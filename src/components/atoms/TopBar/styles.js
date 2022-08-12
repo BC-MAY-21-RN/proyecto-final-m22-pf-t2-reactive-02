@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 
 const menuStyle = StyleSheet.create({
   container: {
@@ -19,7 +19,7 @@ const menuStyle = StyleSheet.create({
     marginLeft: 8,
   },
   iconSearch: {
-    marginLeft: 190,
+    marginLeft: Dimensions.get('screen').width - 220,
     marginTop: 4,
   },
   iconSearch2: {
