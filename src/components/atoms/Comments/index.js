@@ -6,27 +6,49 @@ import styles from './styles';
 import {Icon} from 'react-native-elements';
 import firestore from '@react-native-firebase/firestore';
 
-const addCommentsFunction = text => {
+const addCommentsFunction = (text, setInput, postId) => {
   firestore()
     .collection('comentarios')
     .add({
       photo: auth().currentUser.photoURL,
-      postUid: 'hd54gg',
+      postUid: postId,
       texto: text,
       userId: auth().currentUser.uid,
       userName: auth().currentUser.displayName,
       fecha: firestore.Timestamp.fromMillis(Date.now()),
     })
-    .then(() => {});
+    .then(() => {
+      setInput('');
+    });
+};
+const updateComments = (id, text, setInput) => {
+  firestore()
+    .collection('comentarios')
+    .doc(id)
+    .update({texto: text})
+    .then(() => {
+      setInput('');
+    });
 };
 
-const functions = ({text, setText, onHandle}) => {
-  addCommentsFunction(text);
+const functions = ({text, setText, onHandle, data, setInput, postId}) => {
+  if (data.id) {
+    updateComments(data.id, text, setInput);
+  } else {
+    addCommentsFunction(text, setInput, postId);
+  }
   setText('');
   onHandle();
 };
 
-export default function Comments({newComment, setNewCommet}) {
+export default function Comments({
+  newComment,
+  setNewCommet,
+  editComment,
+  data,
+  setInput,
+  postId,
+}) {
   const [text, setText] = useState();
   const onHandle = () => {
     setNewCommet(!newComment);
@@ -39,12 +61,12 @@ export default function Comments({newComment, setNewCommet}) {
           placeholder={'Escribe un comentario...'}
           style={styles.input}
           onChangeText={newText => setText(newText)}
-          defaultValue={text}
+          defaultValue={editComment ? data.text : text}
         />
       </View>
       <TouchableOpacity
         onPress={() => {
-          functions({onHandle, setText, text});
+          functions({onHandle, setText, text, data, setInput, postId});
         }}>
         <Icon name={'ios-paper-plane'} type={'ionicon'} style={styles.icon} />
       </TouchableOpacity>
