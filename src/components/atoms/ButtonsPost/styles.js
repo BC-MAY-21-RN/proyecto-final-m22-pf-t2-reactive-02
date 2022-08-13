@@ -8,7 +8,9 @@ const styles = (bool, value) =>
     },
     buttons: {
       margin: 10,
-      marginRight: bool ? Dimensions.get('screen').width - 200 : 0,
+      marginRight: bool
+        ? Dimensions.get('screen').width - 200 + (value ? 0 : 35)
+        : 0,
     },
     separation: {
       marginRight: 15,
