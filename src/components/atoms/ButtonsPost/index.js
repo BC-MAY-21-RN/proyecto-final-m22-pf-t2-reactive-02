@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Alert} from 'react-native';
+import {View} from 'react-native';
 import {Icon} from 'react-native-elements';
 import styles from './styles';
 import functions from './functions';
@@ -11,7 +11,30 @@ const components = [
     disabled: true,
     multicolor: true,
     marginright: true,
-    onPress: (_, data) => {},
+    onPress: (
+      _,
+      data,
+      like,
+      __,
+      setLike,
+      ___,
+      ____,
+      setdisableL,
+      getData,
+      setGetData,
+      hashtag,
+    ) => {
+      functions.buttonsFunction(
+        like,
+        setLike,
+        data,
+        'likes',
+        getData,
+        setGetData,
+        hashtag,
+        setdisableL,
+      );
+    },
   },
   {
     name: 'home-sharp',
@@ -33,7 +56,30 @@ const components = [
     type: 'ionicon',
     disabled: true,
     multicolor: true,
-    onPress: (_, data) => {},
+    onPress: (
+      _,
+      data,
+      __,
+      favorite,
+      ___,
+      setFavorite,
+      setdisableF,
+      ____,
+      getData,
+      setGetData,
+      hashtag,
+    ) => {
+      functions.buttonsFunction(
+        favorite,
+        setFavorite,
+        data,
+        'favoritos',
+        getData,
+        setGetData,
+        hashtag,
+        setdisableF,
+      );
+    },
   },
 ];
 

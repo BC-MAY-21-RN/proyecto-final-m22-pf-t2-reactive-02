@@ -22,19 +22,16 @@ const foundAdoption = data => {
 };
 
 const updateLike = (id, likes, functionType, data, disablefunction) => {
-  console.log('updatelike 1');
   firestore()
     .collection('posts')
     .doc(id)
     .update({likes: likes})
     .then(() => {
-      console.log('updatelike 2');
       firestore()
         .collection('favoritos')
         .doc(id + auth().currentUser.uid)
         .update({['post.likes']: likes})
         .then(() => {
-          console.log('updatelike 3');
           if (functionType === 'put') {
             addLike(data, disablefunction);
           } else {
@@ -52,7 +49,6 @@ const updateLike = (id, likes, functionType, data, disablefunction) => {
 };
 
 const addLike = (data, disablefunction) => {
-  console.log('addlike');
   firestore()
     .collection('likes')
     .doc(data.idDoc + auth().currentUser.uid)
@@ -67,7 +63,6 @@ const addLike = (data, disablefunction) => {
 };
 
 const deleteLike = (data, disablefunction) => {
-  console.log('deletelike');
   firestore()
     .collection('likes')
     .doc(data.idDoc + auth().currentUser.uid)
@@ -121,9 +116,7 @@ const updateFavorite = (id, favorites, functionType, data, disablefunction) => {
     });
 };
 
-const put = (data, type, disablefunction) => {
-  console.log('put');
-  const obj = {...data[type], ...{[auth().currentUser.uid]: true}};
+const filterType = (data, type, disablefunction, obj) => {
   if (type === 'likes') {
     updateLike(data.idDoc, obj, 'put', data, disablefunction);
   } else {
@@ -131,15 +124,15 @@ const put = (data, type, disablefunction) => {
   }
 };
 
+const put = (data, type, disablefunction) => {
+  const obj = {...data[type], ...{[auth().currentUser.uid]: true}};
+  filterType(data, type, disablefunction, obj);
+};
+
 const remove = (data, type, disablefunction) => {
-  console.log('remove');
   const obj = data[type];
   delete obj[auth().currentUser.uid];
-  if (type === 'likes') {
-    updateLike(data.idDoc, obj, 'remove', data, disablefunction);
-  } else {
-    updateFavorite(data.idDoc, obj, 'remove', data, disablefunction);
-  }
+  filterType(data, type, disablefunction, obj);
 };
 
 const deleteComponent = (getData, setGetData, hashtag, data, type) => {
@@ -160,7 +153,6 @@ const buttonsFunction = (
   hashtag,
   disablefunction,
 ) => {
-  console.log('buttonsFunction');
   if (value) {
     disablefunction(true);
     remove(data, type, disablefunction);
