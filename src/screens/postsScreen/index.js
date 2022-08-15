@@ -15,6 +15,7 @@ function favorites(changeGetData) {
   firestore()
     .collection('favoritos')
     .where('uidUsuario', '==', auth().currentUser.uid)
+    .orderBy('fecha', 'desc')
     .get()
     .then(querySnapshot => {
       var data = [];
@@ -32,6 +33,7 @@ function noFavorites(changeGetData, hashtagforSearch) {
   firestore()
     .collection('posts')
     .where('hashtags', 'array-contains-any', hashtagforSearch)
+    .orderBy('fecha', 'desc')
     .get()
     .then(querySnapshot => {
       var data = [];
