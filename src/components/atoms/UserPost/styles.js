@@ -7,6 +7,8 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 15,
+    maxWidth: 120,
+    width: 120,
     fontWeight: 'bold',
   },
   info: {
