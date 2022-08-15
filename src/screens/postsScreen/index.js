@@ -99,8 +99,11 @@ export default function PostsScreen({navigation, route}) {
   const changeGetData = post => setGetData(post);
   useFocusEffect(
     useCallback(() => {
+      if (route.params.goback !== undefined) {
+        changeGetData([]);
+      }
       createArray(changeGetData, route.params.hashtag);
-    }, [route.params.hashtag]),
+    }, [route.params.hashtag, route.params.goback]),
   );
   return (
     <View style={styles.container}>
