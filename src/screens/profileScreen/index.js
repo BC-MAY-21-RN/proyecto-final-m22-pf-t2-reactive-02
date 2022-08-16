@@ -6,7 +6,7 @@ import ProfileHeader from '../../components/atoms/ProfileHeader';
 import ProfileContent from '../../components/molecules/ProfileContent';
 import Verify from '../../components/atoms/DrawerItems/functions';
 
-export default function ProfileScreen() {
+export default function ProfileScreen({navigation}) {
   const user = auth().currentUser;
 
   return (
@@ -19,7 +19,7 @@ export default function ProfileScreen() {
         }
         name={Verify(user.displayName) ? user.displayName : 'Funganito'}
       />
-      <ProfileContent />
+      <ProfileContent navigation={navigation} />
     </View>
   );
 }

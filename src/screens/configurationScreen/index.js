@@ -5,11 +5,13 @@ import styles from './styles';
 import ConfigurationHeader from '../../components/atoms/ConfigurationHeader';
 import ConfigurationContent from '../../components/molecules/ConfigurationContent';
 import Verify from '../../components/atoms/DrawerItems/functions';
+import Header from '../../components/atoms/header';
 
-export default function ConfigurationScreen() {
+export default function ConfigurationScreen({navigation}) {
   const user = auth().currentUser;
   return (
     <View style={styles.background}>
+      <Header text={'Editar Perfil'} navigation={navigation} />
       <ConfigurationHeader
         image={
           Verify(user.photoURL)
