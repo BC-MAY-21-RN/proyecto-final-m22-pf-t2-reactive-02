@@ -12,7 +12,6 @@ const logout = () => {
 export default function NotificationScreen() {
   return (
     <View>
-      <NotificationComponent />
       <Text>Notification</Text>
       <TouchableOpacity
         onPress={() => {
