@@ -50,20 +50,6 @@ const InputText = ({navigation, setVisible}) => {
   );
 };
 
-/*
-      <TextInput
-        placeholder="Buscar"
-        style={menuStyle.input}
-        onSubmitEditing={e => navigate(e, navigation)}
-      />
-      <TouchableIcon
-        iconName={'close'}
-        style={menuStyle.iconSearch2}
-        onPress={() => setVisible(false)}
-        type={'antdesign'}
-      />
-*/
-
 export default function TopBar({navigation, iconVisible}) {
   const [visible, setVisible] = useState(false);
   const seeButton = iconVisible;
