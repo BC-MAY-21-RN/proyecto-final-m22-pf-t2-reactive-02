@@ -45,7 +45,7 @@ export default function ButtonsPost({navigation, data}) {
               name={'home-sharp'}
               type={'ionicon'}
               onPress={() => {
-                navigation.navigate('AdoptionForm');
+                navigation.navigate('AdoptionForm', {data: data});
               }}
             />
           ) : null}
