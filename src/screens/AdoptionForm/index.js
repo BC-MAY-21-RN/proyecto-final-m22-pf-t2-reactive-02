@@ -25,6 +25,7 @@ export default function AdoptionForm({navigation, route}) {
         <InputForm
           text={'Teléfono'}
           keyvalue={'telefono'}
+          type={'numeric'}
           change={newTel => setTel(newTel)}
         />
         <InputForm
