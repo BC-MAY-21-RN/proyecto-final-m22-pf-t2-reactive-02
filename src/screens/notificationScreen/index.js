@@ -13,6 +13,7 @@ import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import styles from './styles';
 import AdoptionInfo from '../../components/atoms/AdoptionInfo';
+import MessageAdoption from '../../components/atoms/MessageAdoption';
 
 function info(changeGetData) {
   const id = auth().currentUser.uid;
@@ -40,6 +41,15 @@ export default function NotificationScreen({navigation, data}) {
   useEffect(() => {
     info(changeGetData);
   }, []);
+  const array = () => {
+    let contador = 0;
+    getData.map(element => {
+      if (getData.indexOf(element) >= 0) {
+        contador++;
+      }
+    });
+    return contador;
+  };
   return (
     <View>
       <Header text={'Notificaciones'} navigation={navigation} />
@@ -59,23 +69,27 @@ export default function NotificationScreen({navigation, data}) {
           </Pressable>
         </View>
       </Modal>
-      <FlatList
-        data={getData}
-        renderItem={({item}) => (
-          <TouchableOpacity
-            style={styles.card}
-            onPress={() => {
-              setInfoModal(item);
-              setModalVisible(true);
-            }}>
-            <NotificationAdoption
-              data={item}
-              setGetData={setGetData}
-              getData={getData}
-            />
-          </TouchableOpacity>
-        )}
-      />
+      {array() > 0 ? (
+        <FlatList
+          data={getData}
+          renderItem={({item}) => (
+            <TouchableOpacity
+              style={styles.card}
+              onPress={() => {
+                setInfoModal(item);
+                setModalVisible(true);
+              }}>
+              <NotificationAdoption
+                data={item}
+                setGetData={setGetData}
+                getData={getData}
+              />
+            </TouchableOpacity>
+          )}
+        />
+      ) : (
+        <MessageAdoption />
+      )}
     </View>
   );
 }
