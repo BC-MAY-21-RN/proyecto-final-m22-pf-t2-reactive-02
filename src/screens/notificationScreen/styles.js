@@ -27,6 +27,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 10,
   },
+  flatlist: {
+    marginBottom: 70,
+  },
 });
 
 export default styles;

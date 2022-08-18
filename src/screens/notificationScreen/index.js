@@ -20,6 +20,7 @@ function info(changeGetData) {
   firestore()
     .collection('adopciones')
     .where('uidPosteo', '==', id)
+    .orderBy('fecha', 'desc')
     .get()
     .then(querySnapshot => {
       var data = [];
@@ -37,7 +38,16 @@ export default function NotificationScreen({navigation, data}) {
   const [modalVisible, setModalVisible] = useState(false);
   const [getData, setGetData] = useState([]);
   const [infoModal, setInfoModal] = useState([]);
+  const [newAdoption, setNewAdoption] = useState(false);
   const changeGetData = adoptions => setGetData(adoptions);
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+  const [isFetching, setIsFetching] = useState(false);
+
+  const onRefresh = async () => {
+    setIsFetching(true);
+    await sleep(2000);
+    setIsFetching(false);
+  };
   useEffect(() => {
     info(changeGetData);
   }, []);
@@ -48,6 +58,7 @@ export default function NotificationScreen({navigation, data}) {
         contador++;
       }
     });
+    console.log(contador);
     return contador;
   };
   return (
@@ -72,6 +83,13 @@ export default function NotificationScreen({navigation, data}) {
       {array() > 0 ? (
         <FlatList
           data={getData}
+          style={styles.flatlist}
+          onRefresh={() => {
+            onRefresh();
+            info(changeGetData);
+            setNewAdoption(!newAdoption);
+          }}
+          refreshing={isFetching}
           renderItem={({item}) => (
             <TouchableOpacity
               style={styles.card}
@@ -83,6 +101,8 @@ export default function NotificationScreen({navigation, data}) {
                 data={item}
                 setGetData={setGetData}
                 getData={getData}
+                newAdoption={newAdoption}
+                setNewAdoption={setNewAdoption}
               />
             </TouchableOpacity>
           )}
