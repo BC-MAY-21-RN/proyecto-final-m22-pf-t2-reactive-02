@@ -36,6 +36,7 @@ const addForm = (
         fecha: firestore.Timestamp.fromMillis(Date.now()),
         uidUsuario: auth().currentUser.uid,
         nombreUsuario: auth().currentUser.displayName,
+        imagenUsuario: auth().currentUser.photoURL,
       })
       .then(_ => {
         Alert.alert('Se ha enviado tu respuesta.', '', [

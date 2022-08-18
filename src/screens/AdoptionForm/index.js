@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import Header from '../../components/atoms/header';
-import TopBar from '../../components/atoms/TopBar';
 import InputForm from '../../components/atoms/inputForm';
 import QuestionForm from '../../components/atoms/QuestionForm';
 import ButtonForm from '../../components/atoms/ButtonForm';
@@ -21,12 +20,7 @@ export default function AdoptionForm({navigation, route}) {
   const uid = route.params.data.uidUsuario;
   return (
     <View>
-      <TopBar navigation={navigation} iconVisible={false} />
-      <Header
-        text="Formulario de adopción"
-        navigation={navigation}
-        filter={true}
-      />
+      <Header text="Formulario de adopción" navigation={navigation} />
       <View>
         <InputForm
           text={'Teléfono'}
