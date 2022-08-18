@@ -1,53 +1,58 @@
 import React, {useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Alert} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import styles from './styles';
 import InputConfiguration from '../../atoms/inputConfiguration';
-import EmailSVG from '../../../assets/icons/mail.svg';
 import PhoneSVG from '../../../assets/icons/phone.svg';
 import LocationPinSVG from '../../../assets/icons/location_pin.svg';
 import LocationSVG from '../../../assets/icons/location.svg';
 import EditSVG from '../../../assets/icons/create.svg';
 import AddSVG from '../../../assets/icons/arrow.svg';
 import firestore from '@react-native-firebase/firestore';
+import userIcon from '../../../assets/icons/Vector.svg';
 
-const getIdDocument = (id, docID, setDocID, email, number, ciudad) => {
+const getIdDocument = (id, name, number, ciudad, photo) => {
   firestore()
     .collection('usuarios')
     .where('uid', '==', id)
     .get()
     .then(querySnapshot => {
       const id = querySnapshot.forEach(documentSnapshot =>
-        setDocID(documentSnapshot.ref.id),
+        update(documentSnapshot.ref.id, name, number, ciudad, photo),
       );
-      update(docID, email, number, ciudad);
     });
 };
-const update = (idDoc, email, number, ciudad) => {
+const update = (id, name, number, ciudad, photo) => {
   firestore()
     .collection('usuarios')
-    .doc(idDoc)
-    .update({correo: email, phoneNumber: number, ciudad: ciudad})
-    .then(() => {});
+    .doc(id)
+    .update({
+      nombre: name,
+      phoneNumber: number,
+      ciudad: ciudad,
+      imagenurl: photo,
+    })
+    .then(() => {
+      Alert.alert('Tus datos se han actualizado correctamente!');
+    });
 };
 
-export default function ConfigurationContent() {
+export default function ConfigurationContent({photo}) {
   const user = auth().currentUser;
 
-  const [email, setEmail] = useState(user.email);
+  const [name, setName] = useState(user.displayName);
   const [number, setNumber] = useState(user.phoneNumber);
-  const [ciudad, setCiudad] = useState(user.displayName);
-  const [docID, setDocId] = useState(user.displayName);
+  const [ciudad, setCiudad] = useState('');
 
   return (
     <View style={styles.container}>
       <InputConfiguration
-        title={user.email}
-        Icon={EmailSVG}
+        title={user.displayName}
+        Icon={userIcon}
         visibleIcon={true}
-        ChangeIcon={EditSVG}
-        changeUser={setEmail}
-        input={email}
+        ChangeIcon={AddSVG}
+        changeUser={setName}
+        input={name}
       />
       <InputConfiguration
         title={'+52'}
@@ -65,17 +70,12 @@ export default function ConfigurationContent() {
         changeUser={setCiudad}
         input={ciudad}
       />
-      <InputConfiguration
-        title={'Agregar ubicación'}
-        Icon={LocationSVG}
-        visibleIcon={true}
-        ChangeIcon={AddSVG}
-      />
+
       <TouchableOpacity
         style={styles.guardar}
-        onPress={() =>
-          getIdDocument(user.uid, docID, setDocId, email, number, ciudad)
-        }>
+        onPress={() => {
+          getIdDocument(user.uid, name, number, ciudad, photo);
+        }}>
         <Text>Guardar</Text>
       </TouchableOpacity>
     </View>

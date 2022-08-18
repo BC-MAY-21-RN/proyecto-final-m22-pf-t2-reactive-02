@@ -11,6 +11,7 @@ export default function InputComponent({
   changeUser,
   input,
   onPress = null,
+  secondIcon,
 }) {
   return (
     <View style={styles.containerInput}>
@@ -27,9 +28,11 @@ export default function InputComponent({
           onChange={e => changeUser(e.nativeEvent.text, input)}
         />
       </View>
-      <TouchableOpacity style={styles.visible} onPress={onPress}>
-        <Icons IconProp={ChangeIcon} style={null} />
-      </TouchableOpacity>
+      {secondIcon ? (
+        <TouchableOpacity style={styles.visible} onPress={onPress}>
+          <Icons IconProp={ChangeIcon} style={null} />
+        </TouchableOpacity>
+      ) : null}
     </View>
   );
 }

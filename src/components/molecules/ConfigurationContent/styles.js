@@ -2,10 +2,11 @@ import {StyleSheet, Dimensions} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    height: '60%',
-    marginTop: 30,
-    marginRight: 30,
-    marginLeft: 30,
+    height: 400,
+    paddingTop: 30,
+    paddingRight: 30,
+    paddingLeft: 30,
+    backgroundColor: 'white',
   },
 
   guardar: {

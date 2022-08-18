@@ -3,7 +3,11 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   background: {
     backgroundColor: 'white',
-    height: '100%',
+    height: '45%',
+    marginBottom: 100,
+  },
+  backgroundTop: {
+    backgroundColor: 'white',
   },
 });
 
