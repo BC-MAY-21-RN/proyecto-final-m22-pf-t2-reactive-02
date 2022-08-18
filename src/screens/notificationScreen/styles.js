@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   info: {
     backgroundColor: '#E1E1E1',
     width: '85%',
-    height: '70%',
+    height: '80%',
     elevation: 50,
     alignSelf: 'center',
     top: '10%',
@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
     margin: 30,
     alignSelf: 'center',
     borderRadius: 10,
-    top: '30%',
   },
 });
 

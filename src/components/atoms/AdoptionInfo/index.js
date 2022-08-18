@@ -1,21 +1,28 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 import styles from './styles';
+import AdoptionText from '../AdoptionText';
 
-export default function AdoptionInfo({data, route}) {
+export default function AdoptionInfo({data}) {
   return (
     <View>
       <Text style={styles.title}>Respuestas del usuario</Text>
-      <Text>Nombre de usuario: {data.nombreUsuario}</Text>
-      <Text>Telefono: {data.telefono}</Text>
-      <Text>Correo: {data.correo}</Text>
-      <Text>Ciudad: {data.ciudad}</Text>
-      <Text>¿Cuántas mascotas tienes? {data.mascotas}</Text>
-      <Text>
-        ¿Conviven con otras mascotas de forma pacifica? {data.Pacifico}
+      <AdoptionText title={'Nombre de usuario: '} info={data.nombreUsuario} />
+      <AdoptionText title={'Telefono: '} info={data.telefono} />
+      <AdoptionText title={'Correo: '} info={data.correo} />
+      <AdoptionText title={'Ciudad: '} info={data.ciudad} />
+      <Text style={styles.text}>¿Cuántas mascotas tienes?</Text>
+      <Text>{data.mascotas}</Text>
+      <Text style={styles.text}>
+        ¿Conviven con otras mascotas de forma pacifica?
       </Text>
-      <Text>¿Cuántas horas al día pasará tu mascota sola? {data.horas}</Text>
-      <Text>Tu mascota estará mayormente... {data.lugarMascota}</Text>
+      <Text>{data.Pacifico}</Text>
+      <Text style={styles.text}>
+        ¿Cuántas horas al día pasará tu mascota sola?{' '}
+      </Text>
+      <Text>{data.horas}</Text>
+      <Text style={styles.text}>Tu mascota estará mayormente... </Text>
+      <Text>{data.lugarMascota}</Text>
     </View>
   );
 }
