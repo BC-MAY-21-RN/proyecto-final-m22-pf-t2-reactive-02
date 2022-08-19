@@ -58,7 +58,6 @@ export default function NotificationScreen({navigation, data}) {
         contador++;
       }
     });
-    console.log(contador);
     return contador;
   };
   return (
