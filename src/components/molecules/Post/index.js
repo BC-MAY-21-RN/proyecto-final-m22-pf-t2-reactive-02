@@ -58,12 +58,11 @@ const LocationButton = ({data, setLocation, setShowMap}) => {
 export default function Post({
   navigation,
   data,
-  setImage,
-  setLocation,
-  setShowMap,
-  setShowImage,
   imagesFunctions,
   mapFunctions,
+  getData,
+  setGetData,
+  hashtag,
 }) {
   return (
     <Card containerStyle={styles.card}>
@@ -84,7 +83,13 @@ export default function Post({
           setImage={imagesFunctions.setImage}
           setShowImage={imagesFunctions.setShowImage}
         />
-        <ButtonsPost navigation={navigation} data={data} />
+        <ButtonsPost
+          navigation={navigation}
+          data={data}
+          getData={getData}
+          hashtag={hashtag}
+          setGetData={setGetData}
+        />
       </View>
     </Card>
   );
