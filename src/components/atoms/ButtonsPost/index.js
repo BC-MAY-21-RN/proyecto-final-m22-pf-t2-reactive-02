@@ -17,6 +17,7 @@ export default function ButtonsPost({
   const [disabledL, setdisableL] = useState(false);
   const [disabledF, setdisableF] = useState(false);
   return (
+
     <View style={styles().container}>
       {components.map((element, i) =>
         functions.foundAdoption(data) || i !== 1 ? (
