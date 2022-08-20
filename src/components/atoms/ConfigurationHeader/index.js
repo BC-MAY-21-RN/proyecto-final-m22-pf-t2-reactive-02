@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, Image, TouchableOpacity, Alert} from 'react-native';
-import styles from '../ProfileHeader/styles';
-import styleContainer from './styles';
+import styles from './styles';
 import Icons from '../Icons';
 import * as ImagePicker from 'react-native-image-picker';
 import PickImage from '../../../assets/icons/add_a_photo.svg';
@@ -37,7 +36,7 @@ export default function ConfigurationHeader({image, name, setPhoto, photo}) {
   };
 
   return (
-    <View style={styleContainer.container}>
+    <View style={styles.container}>
       <Image
         style={styles.image}
         source={{
