@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {View, Text, Image, TouchableOpacity, Alert} from 'react-native';
 import styles from '../ProfileHeader/styles';
 import styleContainer from './styles';
 import Icons from '../Icons';
@@ -18,7 +18,7 @@ export default function ConfigurationHeader({image, name, setPhoto, photo}) {
 
   const updateValue = result => {
     if (result.didCancel) {
-      console.log('nada');
+      Alert.alert('No seleccionaste ninguna imagen');
     } else {
       setChImage(true);
       uploadImg(result.assets[0].uri);
