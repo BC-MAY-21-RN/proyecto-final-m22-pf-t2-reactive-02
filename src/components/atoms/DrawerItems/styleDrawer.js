@@ -1,56 +1,46 @@
 import {StyleSheet} from 'react-native';
+import colors from '../../../const/colors';
 
-const styleDrawer = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-    height: '100%',
-  },
+const styles = StyleSheet.create({
+  container: {backgroundColor: colors.white, height: '100%'},
   header: {
-    backgroundColor: '#D3A6BA',
+    backgroundColor: colors.pink3,
     height: 180,
     width: '100%',
   },
-  textButtons: {
-    fontSize: 16,
-    fontFamily: 'Arial',
-    color: '#263238',
-  },
-  headerItem: {
-    flexDirection: 'row',
-    flex: 1,
-    marginTop: 50,
-    marginHorizontal: 25,
-  },
-  image: {
+  close: {position: 'absolute', right: 15, top: 15},
+  img: {
     borderRadius: 55 / 2,
     width: 55,
     height: 55,
+    marginTop: 60,
   },
-  dataProfile: {
-    paddingTop: 5,
-    paddingLeft: 10,
+  name: {
+    fontSize: 16,
+    color: colors.white,
+    maxWidth: 160,
+    marginLeft: 10,
+    marginTop: 60,
   },
-  textName: {
-    fontSize: 17,
-    fontWeight: 'bold',
-    color: 'white',
-    marginBottom: 5,
-    maxWidth: 200,
+  userInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  textEmail: {
-    fontSize: 15,
-    color: 'white',
-    width: 190,
+  scrollView: {
+    marginTop: -3,
   },
-  iconExitPosition: {
-    width: 30,
-    marginLeft: 240,
-    marginTop: 15,
+  btn: {
+    height: 60,
+    justifyContent: 'center',
+    borderColor: colors.gray2,
+    borderWidth: 1,
   },
-  iconExit: {
-    color: 'black',
-    size: '20',
+  textBtn: {
+    fontSize: 16,
+    marginLeft: 50,
   },
+  iconPosition: {position: 'absolute', left: 12},
 });
 
-export default styleDrawer;
+export default styles;
