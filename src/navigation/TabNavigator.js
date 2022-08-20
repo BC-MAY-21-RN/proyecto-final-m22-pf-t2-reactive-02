@@ -25,6 +25,7 @@ export default function TabNavigator() {
         tabBarActiveBackgroundColor: '#D3A6BA',
         tabBarInactiveBackgroundColor: '#D3A6BA80',
         tabBarLabelStyle: {fontSize: 14},
+        unmountOnBlur: true,
       })}>
       {screens.map((item, index) => (
         <Tab.Screen

@@ -15,6 +15,7 @@ function favorites(changeGetData) {
   firestore()
     .collection('favoritos')
     .where('uidUsuario', '==', auth().currentUser.uid)
+    .orderBy('fecha', 'desc')
     .get()
     .then(querySnapshot => {
       var data = [];
@@ -32,6 +33,7 @@ function noFavorites(changeGetData, hashtagforSearch) {
   firestore()
     .collection('posts')
     .where('hashtags', 'array-contains-any', hashtagforSearch)
+    .orderBy('fecha', 'desc')
     .get()
     .then(querySnapshot => {
       var data = [];
@@ -64,6 +66,32 @@ const initLocation = {
   longitudeDelta: 0.04,
 };
 
+const ListPost = ({
+  getData,
+  navigation,
+  imagesFunctions,
+  mapFunctions,
+  setGetData,
+  hashtag,
+}) => {
+  return (
+    <FlatList
+      data={getData}
+      renderItem={({item}) => (
+        <Post
+          navigation={navigation}
+          data={item}
+          imagesFunctions={imagesFunctions}
+          mapFunctions={mapFunctions}
+          getData={getData}
+          setGetData={setGetData}
+          hashtag={hashtag}
+        />
+      )}
+    />
+  );
+};
+
 export default function PostsScreen({navigation, route}) {
   const [getData, setGetData] = useState([]);
   const [images, setImage] = useState();
@@ -73,8 +101,11 @@ export default function PostsScreen({navigation, route}) {
   const changeGetData = post => setGetData(post);
   useFocusEffect(
     useCallback(() => {
+      if (route.params.goback !== undefined) {
+        changeGetData([]);
+      }
       createArray(changeGetData, route.params.hashtag);
-    }, [route.params.hashtag]),
+    }, [route.params.hashtag, route.params.goback]),
   );
   return (
     <View style={styles.container}>
@@ -89,16 +120,13 @@ export default function PostsScreen({navigation, route}) {
         visible={showMap}
         changePost={false}
       />
-      <FlatList
-        data={getData}
-        renderItem={({item}) => (
-          <Post
-            navigation={navigation}
-            data={item}
-            imagesFunctions={{setImage, setShowImage}}
-            mapFunctions={{setShowMap, setLocation}}
-          />
-        )}
+      <ListPost
+        navigation={navigation}
+        imagesFunctions={{setImage, setShowImage}}
+        mapFunctions={{setShowMap, setLocation}}
+        getData={getData}
+        setGetData={setGetData}
+        hashtag={route.params.hashtag}
       />
       {route.params.goback === true ? null : (
         <AddButton navigation={navigation} hashtag={route.params.hashtag} />

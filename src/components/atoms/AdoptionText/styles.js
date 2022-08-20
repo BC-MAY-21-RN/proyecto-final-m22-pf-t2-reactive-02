@@ -1,15 +1,13 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    margin: 10,
   },
-  city: {
+  title: {
     fontSize: 17,
-  },
-  info: {
-    marginLeft: 10,
+    fontWeight: 'bold',
+    paddingBottom: 10,
   },
 });
 

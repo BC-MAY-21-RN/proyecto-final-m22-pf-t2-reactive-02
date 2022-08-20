@@ -76,7 +76,8 @@ const uploadFavoritePostFirestore = (
 ) => {
   firestore()
     .collection('favoritos')
-    .add({
+    .doc(idPost + auth().currentUser.uid)
+    .set({
       uidUsuario: auth().currentUser.uid,
       idPost: idPost,
       post: getNewPost(ref),
