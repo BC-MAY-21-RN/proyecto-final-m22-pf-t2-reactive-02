@@ -1,14 +1,14 @@
 import React from 'react';
 import {View, TextInput} from 'react-native';
 import Icons from '../Icons';
-import styles from '../../atoms/InputComponent/styles';
+import styles from '../../atoms/Input/styles';
 
-export default function InputComponent({
+export default function InputConfiguration({
   title,
   Icon,
   visibleIcon = false,
   changeUser,
-  input,
+  keyObj,
 }) {
   return (
     <View style={styles.containerInput}>
@@ -22,7 +22,7 @@ export default function InputComponent({
         <TextInput
           placeholder={title}
           style={styles.input}
-          onChange={e => changeUser(e.nativeEvent.text, input)}
+          onChange={e => changeUser({[keyObj]: e.nativeEvent.text})}
         />
       </View>
     </View>
