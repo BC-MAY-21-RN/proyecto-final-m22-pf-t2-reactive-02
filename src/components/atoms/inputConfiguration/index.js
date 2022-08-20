@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, TextInput, TouchableOpacity} from 'react-native';
+import {View, TextInput} from 'react-native';
 import Icons from '../Icons';
 import styles from '../../atoms/InputComponent/styles';
 

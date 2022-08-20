@@ -5,8 +5,6 @@ import styles from './styles';
 import InputConfiguration from '../../atoms/inputConfiguration';
 import PhoneSVG from '../../../assets/icons/phone.svg';
 import LocationPinSVG from '../../../assets/icons/location_pin.svg';
-import EditSVG from '../../../assets/icons/create.svg';
-import AddSVG from '../../../assets/icons/arrow.svg';
 import firestore from '@react-native-firebase/firestore';
 import userIcon from '../../../assets/icons/Vector.svg';
 import {firebase} from '@react-native-firebase/auth';
