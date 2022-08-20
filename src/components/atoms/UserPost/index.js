@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import globalstyles from '../../../const/globalStyles';
 
-export default function UserPost({name, time, image}) {
+export default function UserPost({name, time, image, id, navigation}) {
   return (
     <View style={styles.container}>
       <Image
@@ -13,7 +13,10 @@ export default function UserPost({name, time, image}) {
         }}
       />
       <View style={styles.info}>
-        <Text style={styles.name}>{name}</Text>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('profileScreen', {id: id})}>
+          <Text style={styles.name}>{name}</Text>
+        </TouchableOpacity>
         <Text>{time}</Text>
       </View>
     </View>
