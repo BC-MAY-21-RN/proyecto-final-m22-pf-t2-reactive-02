@@ -48,41 +48,68 @@ const updateAuth = async (name, number, ciudad, photo) => {
 
   await firebase.auth().currentUser.updateProfile(updateData);
 };
+const dataFunction = (
+  user,
+  setNamed,
+  name,
+  setNumber,
+  number,
+  setCiudad,
+  ciudad,
+) => {
+  const data = [
+    {
+      title: user.displayName,
+      Icon: userIcon,
+      changeUser: setNamed,
+      input: name,
+    },
+    {
+      title: 'number',
+      Icon: PhoneSVG,
+      changeUser: setNumber,
+      input: number,
+    },
+    {
+      title: 'city',
+      Icon: LocationPinSVG,
+      changeUser: setCiudad,
+      input: ciudad,
+    },
+  ];
+  return data;
+};
 
 export default function ConfigurationContent({photo, name, setName}) {
   const user = auth().currentUser;
-
   const [number, setNumber] = useState('');
   const [ciudad, setCiudad] = useState('');
   const [named, setNamed] = useState('');
-
+  const data = dataFunction(
+    user,
+    setNamed,
+    name,
+    setNumber,
+    number,
+    setCiudad,
+    ciudad,
+  );
   return (
     <View style={styles.container}>
-      <InputConfiguration
-        title={user.displayName}
-        Icon={userIcon}
-        visibleIcon={true}
-        ChangeIcon={AddSVG}
-        changeUser={setNamed}
-        input={name}
-      />
-      <InputConfiguration
-        title={'number'}
-        Icon={PhoneSVG}
-        visibleIcon={true}
-        ChangeIcon={EditSVG}
-        changeUser={setNumber}
-        input={number}
-      />
-      <InputConfiguration
-        title={'city'}
-        Icon={LocationPinSVG}
-        visibleIcon={true}
-        ChangeIcon={EditSVG}
-        changeUser={setCiudad}
-        input={ciudad}
-      />
-
+      {true
+        ? data.map(function (obj, i) {
+            return (
+              <InputConfiguration
+                key={i}
+                title={obj.title}
+                Icon={obj.Icon}
+                visibleIcon={true}
+                changeUser={obj.changeUser}
+                input={obj.input}
+              />
+            );
+          })
+        : null}
       <TouchableOpacity
         style={styles.guardar}
         onPress={() => {

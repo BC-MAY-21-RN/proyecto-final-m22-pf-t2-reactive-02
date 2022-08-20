@@ -6,12 +6,9 @@ import styles from '../../atoms/InputComponent/styles';
 export default function InputComponent({
   title,
   Icon,
-  ChangeIcon,
   visibleIcon = false,
   changeUser,
   input,
-  onPress = null,
-  secondIcon,
 }) {
   return (
     <View style={styles.containerInput}>
@@ -28,11 +25,6 @@ export default function InputComponent({
           onChange={e => changeUser(e.nativeEvent.text, input)}
         />
       </View>
-      {secondIcon ? (
-        <TouchableOpacity style={styles.visible} onPress={onPress}>
-          <Icons IconProp={ChangeIcon} style={null} />
-        </TouchableOpacity>
-      ) : null}
     </View>
   );
 }
