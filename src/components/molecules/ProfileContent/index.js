@@ -7,6 +7,7 @@ import InfoUser from '../../atoms/InfoUser';
 
 export default function ProfileContent({navigation}) {
   const user = auth().currentUser;
+
   return (
     <View style={styles.container}>
       <View style={styles.containerinfo}>
@@ -15,9 +16,13 @@ export default function ProfileContent({navigation}) {
         <UserProfileInfo info={5} title={'Guardados'} />
       </View>
       <InfoUser icon={'mail'} text={'Correo'} info={user.email} />
-      <InfoUser icon={'phone'} text={'Teléfono'} info={'+52'} />
+      <InfoUser
+        icon={'phone'}
+        text={'Teléfono'}
+        info={user.phoneNumber ? user.phoneNumber : user.phoneNumber}
+      />
       <InfoUser icon={'map-pin'} text={'Ciudad'} info={'Agrega una ciudad'} />
-      <InfoUser icon={'smile'} text={'Sobre ti: '} info={'¿Qué te gusta?'} />
+
       <TouchableOpacity
         style={styles.editar}
         onPress={() => navigation.navigate('Configuration')}>

@@ -5,21 +5,22 @@ import styles from './styles';
 import InputConfiguration from '../../atoms/inputConfiguration';
 import PhoneSVG from '../../../assets/icons/phone.svg';
 import LocationPinSVG from '../../../assets/icons/location_pin.svg';
-import LocationSVG from '../../../assets/icons/location.svg';
 import EditSVG from '../../../assets/icons/create.svg';
 import AddSVG from '../../../assets/icons/arrow.svg';
 import firestore from '@react-native-firebase/firestore';
 import userIcon from '../../../assets/icons/Vector.svg';
+import {firebase} from '@react-native-firebase/auth';
 
-const getIdDocument = (id, name, number, ciudad, photo) => {
+const getIdDocument = (id, named, number, ciudad, photo, setAuthUpdate) => {
   firestore()
     .collection('usuarios')
     .where('uid', '==', id)
     .get()
     .then(querySnapshot => {
-      const id = querySnapshot.forEach(documentSnapshot =>
-        update(documentSnapshot.ref.id, name, number, ciudad, photo),
-      );
+      const id = querySnapshot.forEach(documentSnapshot => {
+        update(documentSnapshot.ref.id, named, number, ciudad, photo);
+        updateAuth(named, number, ciudad, photo, setAuthUpdate);
+      });
     });
 };
 const update = (id, name, number, ciudad, photo) => {
@@ -37,12 +38,23 @@ const update = (id, name, number, ciudad, photo) => {
     });
 };
 
-export default function ConfigurationContent({photo}) {
+const updateAuth = async (name, number, ciudad, photo) => {
+  const updateData = {
+    displayName: name,
+    phoneNumber: number,
+    ciudad: ciudad,
+    photoURL: photo,
+  };
+
+  await firebase.auth().currentUser.updateProfile(updateData);
+};
+
+export default function ConfigurationContent({photo, name, setName}) {
   const user = auth().currentUser;
 
-  const [name, setName] = useState(user.displayName);
-  const [number, setNumber] = useState(user.phoneNumber);
+  const [number, setNumber] = useState('');
   const [ciudad, setCiudad] = useState('');
+  const [named, setNamed] = useState('');
 
   return (
     <View style={styles.container}>
@@ -51,11 +63,11 @@ export default function ConfigurationContent({photo}) {
         Icon={userIcon}
         visibleIcon={true}
         ChangeIcon={AddSVG}
-        changeUser={setName}
+        changeUser={setNamed}
         input={name}
       />
       <InputConfiguration
-        title={'+52'}
+        title={'number'}
         Icon={PhoneSVG}
         visibleIcon={true}
         ChangeIcon={EditSVG}
@@ -63,7 +75,7 @@ export default function ConfigurationContent({photo}) {
         input={number}
       />
       <InputConfiguration
-        title={'Ciudad'}
+        title={'city'}
         Icon={LocationPinSVG}
         visibleIcon={true}
         ChangeIcon={EditSVG}
@@ -74,7 +86,8 @@ export default function ConfigurationContent({photo}) {
       <TouchableOpacity
         style={styles.guardar}
         onPress={() => {
-          getIdDocument(user.uid, name, number, ciudad, photo);
+          getIdDocument(user.uid, named, number, ciudad, photo);
+          setName(named);
         }}>
         <Text>Guardar</Text>
       </TouchableOpacity>

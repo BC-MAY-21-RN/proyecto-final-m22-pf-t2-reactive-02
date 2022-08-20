@@ -5,6 +5,8 @@ import styleContainer from './styles';
 import Icons from '../Icons';
 import * as ImagePicker from 'react-native-image-picker';
 import PickImage from '../../../assets/icons/add_a_photo.svg';
+import auth from '@react-native-firebase/auth';
+import storage from '@react-native-firebase/storage';
 
 export default function ConfigurationHeader({image, name, setPhoto, photo}) {
   const [chImage, setChImage] = useState(false);
@@ -19,9 +21,21 @@ export default function ConfigurationHeader({image, name, setPhoto, photo}) {
       console.log('nada');
     } else {
       setChImage(true);
-      setPhoto(result.assets[0].uri);
+      uploadImg(result.assets[0].uri);
     }
   };
+
+  const uploadImg = async i => {
+    const url = i;
+    const nameImage = url.substring(url.lastIndexOf('/') + 1);
+    const reference = storage().ref(auth().currentUser.uid + '/' + nameImage);
+    await reference.putFile(url);
+    await reference.getDownloadURL().then(urlFirebase => {
+      const urlDs = {url: urlFirebase};
+      setPhoto(urlDs.url);
+    });
+  };
+
   return (
     <View style={styleContainer.container}>
       <Image
@@ -30,7 +44,7 @@ export default function ConfigurationHeader({image, name, setPhoto, photo}) {
           uri: chImage ? photo : image,
         }}
       />
-      <View style={{...styles.changeImage, ...{backgroundColor: '#000000'}}}>
+      <View style={{...styles.changeImage, ...{backgroundColor: '#979797'}}}>
         <TouchableOpacity
           onPress={() => {
             ChangeImage();
