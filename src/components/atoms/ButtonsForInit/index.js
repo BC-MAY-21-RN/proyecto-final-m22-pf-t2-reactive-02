@@ -1,160 +1,42 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Alert} from 'react-native';
-import styles from './styles';
+import {View, Text, TouchableOpacity} from 'react-native';
 import GoogleSVG from '../../../assets/icons/google.svg';
 import Icons from '../Icons';
-import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
-import {firebase} from '@react-native-firebase/firestore';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import styles from './styles';
+import colors from '../../../const/colors';
 
-const getPhotoUrl = value => {
-  if (value === null) {
-    return 'https://cdn2.excelsior.com.mx/media/styles/image800x600/public/pictures/2022/08/03/2798885.jpg';
-  } else {
-    return value;
-  }
-};
+const buttons = ['normalbutton', 'googlebutton'];
 
-const addUser = (user, changeLoading) => {
-  firestore()
-    .collection('usuarios')
-    .add({
-      correo: user.valuesRegister.email,
-      nombre: user.valuesRegister.name,
-      uid: auth().currentUser.uid,
-      imagenurl: getPhotoUrl(auth().currentUser.photoURL),
-      fecharegistro: firestore.Timestamp.fromMillis(Date.now()),
-    })
-    .then(() => {
-      const update = {
-        displayName: user.valuesRegister.name,
-        photoURL: getPhotoUrl(auth().currentUser.photoURL),
-      };
-      firebase.auth().currentUser.updateProfile(update);
-      changeLoading(false);
-    });
-};
-
-const registerEmailUser = (user, changeLoading) => {
-  auth()
-    .createUserWithEmailAndPassword(
-      user.valuesRegister.email,
-      user.valuesRegister.password,
-    )
-    .then(() => {
-      addUser(user, changeLoading);
-    })
-    .catch(error => {
-      changeLoading(false);
-      Alert.alert('Error', '' + error, [{text: 'OK'}]);
-    });
-};
-
-const validateData = (user, changeAlerts, changeLoading) => {
-  const list = [false, false, false, false];
-  const inputs = [
-    {fun: user.validateName(user)},
-    {fun: user.validateEmail(user)},
-    {fun: user.validatePassword(user)},
-    {fun: user.validatePassword2(user)},
-  ];
-
-  inputs.forEach((item, index) => {
-    list[index] = item.fun;
-  });
-  changeAlerts(list);
-
-  if (list.includes(true)) {
-    changeLoading(false);
-  } else {
-    changeLoading(true);
-    registerEmailUser(user, changeLoading);
-  }
-};
-
-async function onGoogleButtonPress(changeLoading) {
-  changeLoading(true);
-  const {idToken} = await GoogleSignin.signIn();
-  const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-  return auth().signInWithCredential(googleCredential);
-}
-
-const validateDataGoogle = changeLoading => {
-  const uid = auth().currentUser.uid;
-  const user = {
-    valuesRegister: {
-      name: auth().currentUser.displayName,
-      email: auth().currentUser.email,
-    },
-  };
-  const db = firestore();
-  db.collection('usuarios')
-    .where('uid', '==', uid)
-    .get()
-    .then(querySnapshot => {
-      if (querySnapshot.size === 0) {
-        addUser(user, changeLoading);
-      }
-    });
-};
-
-const loginAccount = (email, password, changeLoading) => {
-  changeLoading(true);
-  auth()
-    .signInWithEmailAndPassword(email, password)
-    .then(() => {
-      changeLoading(false);
-    })
-    .catch(error => {
-      changeLoading(false);
-      Alert.alert('Error', 'Usuario o contraseña incorrectos', [{text: 'OK'}]);
-    });
-};
-
-export default function ButtonsForInit({user, changeAlerts, changeLoading}) {
+export default function ButtonsForInit({
+  validationbtn1,
+  validationbtn2,
+  textButton,
+  onPress1,
+  onPress2,
+}) {
   return (
     <View>
-      <TouchableOpacity
-        disabled={!user?.getBool()}
-        style={{
-          ...styles.button1,
-          ...(user?.getBool() ? {} : {backgroundColor: '#B09AAC'}),
-        }}
-        onPress={() =>
-          changeAlerts === undefined
-            ? loginAccount(
-                user.valuesLogin.email,
-                user.valuesLogin.password,
-                changeLoading,
-              )
-            : validateData(user, changeAlerts, changeLoading)
-        }>
-        <Text style={styles.text1}>
-          {' '}
-          {changeAlerts === undefined ? 'INICIAR SESIÓN' : 'CREAR CUENTA'}
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        disabled={!user?.getBoolGoogle()}
-        style={{
-          ...styles.button2,
-          ...(user?.getBoolGoogle() ? {} : {borderColor: '#B09AAC'}),
-        }}
-        onPress={() => {
-          onGoogleButtonPress(changeLoading)
-            .then(() => validateDataGoogle(changeLoading))
-            .catch(() => changeLoading(false));
-        }}>
-        <Text
+      {buttons.map((_, i) => (
+        <TouchableOpacity
+          key={i}
+          onPress={i === 0 ? onPress1 : onPress2}
+          disabled={i === 0 ? !validationbtn1 : !validationbtn2}
           style={{
-            ...styles.text2,
-            ...(user?.getBoolGoogle() ? {} : {color: '#B09AAC'}),
+            ...(i === 0 ? styles.button1 : styles.button2),
+            ...(i === 0
+              ? validationbtn1
+              : validationbtn2
+              ? {}
+              : {backgroundColor: colors.disabledpink}),
           }}>
-          Ingresa con:
-        </Text>
-        <Icons IconProp={GoogleSVG} style={styles.google} />
-      </TouchableOpacity>
+          <Text style={i === 0 ? styles.text1 : styles.text2}>
+            {i === 0 ? textButton : 'INGRESA CON: '}
+          </Text>
+          {i === 0 ? null : (
+            <Icons IconProp={GoogleSVG} style={styles.google} />
+          )}
+        </TouchableOpacity>
+      ))}
     </View>
   );
 }
