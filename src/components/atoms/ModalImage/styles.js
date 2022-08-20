@@ -1,7 +1,8 @@
 import {StyleSheet} from 'react-native';
+import colors from '../../../const/colors';
 
 const styles = StyleSheet.create({
-  imageViewer: {backgroundColor: '#000000DC'},
+  imageViewer: {backgroundColor: colors.blackopacity},
 });
 
 export default styles;
