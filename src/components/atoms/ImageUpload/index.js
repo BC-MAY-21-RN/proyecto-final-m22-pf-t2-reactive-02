@@ -11,30 +11,30 @@ import {request, PERMISSIONS, check, RESULTS} from 'react-native-permissions';
 import {Icon, Avatar} from 'react-native-elements';
 import styles from './styles';
 
-const addImage = async (change, post) => {
+const addImage = async (handleData, dataForm) => {
   const result = await ImagePicker.launchImageLibrary();
-  setImage(result, change, post);
+  setImage(result, handleData, dataForm);
 };
 
-const setImage = (result, change, post) => {
+const setImage = (result, handleData, dataForm) => {
   if (result.didCancel === true) {
     Alert.alert('Error al cargar la imagen', '', [{text: 'OK'}]);
   } else {
-    const array = [...post.valuesPost.images, {url: result.assets[0].uri}];
-    change(array, 'images');
+    const array = [...dataForm.object.images, {url: result.assets[0].uri}];
+    handleData({['images']: array});
   }
 };
 
-const launchCamera = async (change, post) => {
+const launchCamera = async (handleData, dataForm) => {
   const result = await ImagePicker.launchCamera();
-  setImage(result, change, post);
+  setImage(result, handleData, dataForm);
 };
 
-const getPermissions = (change, post) => {
+const getPermissions = (handleData, dataForm) => {
   request(PERMISSIONS.ANDROID.CAMERA)
     .then(result2 => {
       if (result2 === RESULTS.GRANTED) {
-        launchCamera(change, post);
+        launchCamera(handleData, dataForm);
       } else {
         Alert.alert(
           'Se requieren permisos',
@@ -46,37 +46,34 @@ const getPermissions = (change, post) => {
     .catch(error => Alert.alert('Error', '' + error, [{text: 'OK'}]));
 };
 
-const checkPermissions = (change, post) => {
+const checkPermissions = (handleData, dataForm) => {
   check(PERMISSIONS.ANDROID.CAMERA)
     .then(result => {
       if (result === RESULTS.GRANTED) {
-        launchCamera(change, post);
+        launchCamera(handleData, dataForm);
       } else {
-        getPermissions(change, post);
+        getPermissions(handleData, dataForm);
       }
     })
     .catch(error => Alert.alert('Error', '' + error, [{text: 'OK'}]));
 };
 
-const deleteImage = (change, post, index) => {
+const deleteImage = (handleData, dataForm, index) => {
   Alert.alert('Eliminar imagen', '¿Quiere eliminar esta imagen?', [
     {
       text: 'Eliminar',
       onPress: () => {
-        const array = post.valuesPost.images;
-        change(
-          array.filter((_, i) => i !== index),
-          'images',
-        );
+        const array = dataForm.object.images;
+        handleData({['images']: array.filter((_, i) => i !== index)});
       },
     },
     {text: 'Cancelar', style: 'cancel'},
   ]);
 };
 
-const styleScroll = post => {
+const styleScroll = dataForm => {
   return styles(
-    post.valuesPost.images.length > 0
+    dataForm.object.images.length > 0
       ? 0
       : Dimensions.get('screen').height > 740
       ? 120
@@ -84,40 +81,35 @@ const styleScroll = post => {
   ).scrollimage;
 };
 
-const openImage = (setIndexImage, setImageOpen, index) => {
-  const changeIndex = () => setIndexImage(index);
-  const changeImageOpen = () => setImageOpen(true);
-  changeIndex();
-  changeImageOpen();
+const openImage = (modals, dataForm, index) => {
+  const jsonImages = {i: index, a: dataForm.object.images};
+  modals.handleUrlImgs(jsonImages);
+  modals.handleImgsVisible(true);
 };
 
-export default function ImageUpload({
-  changePost,
-  post,
-  setIndexImage,
-  setImageOpen,
-}) {
+export default function ImageUpload({modals, handleData, dataForm}) {
   return (
     <View>
       <View style={styles().container}>
         <TouchableOpacity
-          onPress={() => addImage(changePost, post)}
+          onPress={() => addImage(handleData, dataForm)}
           style={styles().button}>
           <Icon name={'image'} type={'feather'} size={30} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => checkPermissions(changePost, post)}>
+        <TouchableOpacity
+          onPress={() => checkPermissions(handleData, dataForm)}>
           <Icon name={'camera'} type={'feather'} size={30} />
         </TouchableOpacity>
       </View>
-      <ScrollView horizontal={true} style={styleScroll(post)}>
-        {post.valuesPost.images.map((image, index) => (
+      <ScrollView horizontal={true} style={styleScroll(dataForm)}>
+        {dataForm.object.images.map((image, index) => (
           <Avatar
             key={index}
             source={{uri: image.url}}
             size={Dimensions.get('screen').height > 740 ? 120 : 80}
             containerStyle={styles().imagecontainer}
-            onPress={() => openImage(setIndexImage, setImageOpen, index)}
-            onLongPress={() => deleteImage(changePost, post, index)}
+            onPress={() => openImage(modals, dataForm, index)}
+            onLongPress={() => deleteImage(handleData, dataForm, index)}
           />
         ))}
       </ScrollView>
