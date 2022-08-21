@@ -7,13 +7,7 @@ import UploadLocation from '../../atoms/UploadLocation';
 
 const components = [ImageUpload, UploadLocation];
 
-export default function PagerImageLocation({
-  changePost,
-  setMapOpen,
-  setIndexImage,
-  setImageOpen,
-  values,
-}) {
+export default function PagerImageLocation({modals, handleData, dataForm}) {
   return (
     <PagerView initialPage={0} style={styles.container}>
       {components.map((Component, index) => (
@@ -22,12 +16,9 @@ export default function PagerImageLocation({
             {index === 0 ? 'Imágenes' : 'Ubicación'}
           </Text>
           <Component
-            changePost={changePost}
-            setIndexImage={setIndexImage}
-            setImageOpen={setImageOpen}
-            setMapOpen={setMapOpen}
-            mapOpen={values.mapOpen}
-            post={values.post}
+            modals={modals}
+            handleData={handleData}
+            dataForm={dataForm}
           />
         </View>
       ))}
