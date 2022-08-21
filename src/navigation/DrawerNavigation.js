@@ -1,40 +1,35 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import NotificationScreen from '../screens/notificationScreen';
-import ConfigurationScreen from '../screens/configurationScreen';
 import DrawerItems from '../components/atoms/DrawerItems';
-import ProfileScreen from '../screens/profileScreen';
-import AdoptionForm from '../screens/AdoptionForm';
-import TabNavigator from './TabNavigator';
-import NewPublication from '../screens/NewPublication';
+
+import ProfileScreen from '../screens/ProfileScreen';
 import CommentsScreen from '../screens/CommentsScreen';
+import PublicationScreen from '../screens/PublicationScreen';
+import TabNavigator from './TabNavigator';
+import ConfigurationScreen from '../screens/ConfigurationScreen';
+import NotificationScreen from '../screens/NotificationScreen';
+import AdoptionScreen from '../screens/AdoptionScreen';
 
 const Drawer = createDrawerNavigator();
+
+const screens = [
+  {name: 'bottomTap', component: TabNavigator},
+  {name: 'notificationScreen', component: NotificationScreen},
+  {name: 'configurationScreen', component: ConfigurationScreen},
+  {name: 'profileScreen', component: ProfileScreen},
+  {name: 'adoptionScreen', component: AdoptionScreen},
+  {name: 'commentsScreen', component: CommentsScreen},
+  {name: 'publicationScreen', component: PublicationScreen},
+];
 
 export default function DrawerNavigation() {
   return (
     <Drawer.Navigator
-      screenOptions={{headerShown: false}}
+      screenOptions={{headerShown: false, unmountOnBlur: true}}
       drawerContent={props => <DrawerItems {...props} />}>
-      <Drawer.Screen name="BottomTab" component={TabNavigator} />
-      <Drawer.Screen name="Notification" component={NotificationScreen} />
-      <Drawer.Screen name="Configuration" component={ConfigurationScreen} />
-      <Drawer.Screen name="Profile" component={ProfileScreen} />
-      <Drawer.Screen
-        name="AdoptionForm"
-        component={AdoptionForm}
-        options={{unmountOnBlur: true}}
-      />
-      <Drawer.Screen
-        name="Comments"
-        component={CommentsScreen}
-        options={{unmountOnBlur: true}}
-      />
-      <Drawer.Screen
-        name="NewPublication"
-        component={NewPublication}
-        options={{unmountOnBlur: true}}
-      />
+      {screens.map((item, i) => (
+        <Drawer.Screen name={item.name} component={item.component} key={i} />
+      ))}
     </Drawer.Navigator>
   );
 }
