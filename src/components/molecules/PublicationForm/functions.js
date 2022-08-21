@@ -75,10 +75,6 @@ const editPost = (data, changeLoading, navigation, idDoc) => {
         .then(() => {
           navigation.goBack();
           changeLoading(false);
-        })
-        .catch(() => {
-          changeLoading(false);
-          Alert.alert('Error al editar publicación');
         });
     })
     .catch(() => {

@@ -6,7 +6,7 @@ import PhoneSVG from '../../../assets/icons/phone.svg';
 import LocationPinSVG from '../../../assets/icons/location_pin.svg';
 import userIcon from '../../../assets/icons/Vector.svg';
 
-const updateData = (data, dataUpdate) => {
+const updateData = (data, dataUpdate, setName) => {
   firestore
     .getFunction('usuarios', 'uid', '==', authfunc.getId())
     .then(querySnapshot => {
@@ -14,6 +14,7 @@ const updateData = (data, dataUpdate) => {
         firestore
           .updateFunction('usuarios', documentSnapshot.ref.id, undefined, data)
           .then(async () => {
+            setName(dataUpdate.displayName);
             await firebase.auth().currentUser.updateProfile(dataUpdate);
             Alert.alert('Tus datos se han actualizado correctamente!');
           });
@@ -22,23 +23,18 @@ const updateData = (data, dataUpdate) => {
 };
 
 const createObject = (photo, form, setName, name) => {
-  if (form.ciudad === '') {
-    delete form.ciudad;
-  }
-  if (form.nombre === '') {
-    delete form.nombre;
-  } else {
-    setName(form.nombre !== undefined ? form.nombre : name);
-  }
-  if (form.phoneNumber === '') {
-    delete form.phoneNumber;
-  }
+  const values = ['ciudad', 'nombre', 'phoneNumber'];
+  values.forEach(key => {
+    if (form[key] === '') {
+      delete form[key];
+    }
+  });
   const dataUpdate = {
     displayName: form.nombre !== undefined ? form.nombre : name,
     photoURL: photo,
   };
   const dataFirestore = {...form, imagenurl: photo};
-  updateData(dataFirestore, dataUpdate);
+  updateData(dataFirestore, dataUpdate, setName);
 };
 
 const dataFunction = () => {
