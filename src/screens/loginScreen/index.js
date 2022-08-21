@@ -1,60 +1,56 @@
-import React, {useState} from 'react';
-import {View, Text} from 'react-native';
-import NameAppSVG from '../../assets/icons/nameapp.svg';
+import React, {Fragment} from 'react';
+import {Text, View} from 'react-native';
+import initialValues from '../../const/initialValues';
+import useStateHook from '../../hooks/useStateHook';
+import useFormData from '../../hooks/useFormData';
+import Form from '../../models/Form';
+import Loading from '../../components/atoms/Loading';
+import TopDesign from '../../components/atoms/TopDesign';
 import LogoSVG from '../../assets/icons/logo.svg';
-import InputComponent from '../../components/atoms/InputComponent';
+import NameAppSVG from '../../assets/icons/nameapp.svg';
+import styles from './styles';
+import globalstyles from '../../const/globalStyles';
+import Input from '../../components/atoms/Input';
 import EmailSVG from '../../assets/icons/email.svg';
 import PasswordSVG from '../../assets/icons/password.svg';
-import ButtonsForInit from '../../components/atoms/ButtonsForInit';
 import BottomText from '../../components/atoms/BottomText';
-import Loading from '../../components/atoms/Loading';
-import styles from './styles';
-import LoginUser from '../../models/LoginUser';
-import globalstyles from '../../const/globalStyles';
-import TopDesign from '../../components/atoms/TopDesign';
+import ButtonsForInit from '../../components/atoms/ButtonsForInit';
 import functions from './functions';
 
 export default function LoginScreen({navigation}) {
-  const [user, setUser] = useState(new LoginUser());
-  const [loading, setLoading] = useState(false);
-  const changeUser = (value, key) =>
-    setUser(functions.newObject(user, key, value));
-  const changeLoading = bool => setLoading(bool);
+  const form = useFormData(new Form(initialValues.initialLogin));
+  const loading = useStateHook(false);
 
   return (
-    <View style={styles.container}>
-      <Loading isvisible={loading} />
-      <TopDesign
-        styles={styles}
-        LogoRegisterSVG={LogoSVG}
-        NameAppSVG={NameAppSVG}
-      />
+    <Fragment>
+      <Loading isVisible={loading.state} />
+      <TopDesign styles={styles} LogoSVG={LogoSVG} NameAppSVG={NameAppSVG} />
       <View style={globalstyles.formContainer}>
         <Text style={styles.text}>INICIAR SESIÓN</Text>
-        <InputComponent
-          visibleAlert={false}
-          title={'E-mail'}
+        <Input
+          keyObj={'email'}
           Icon={EmailSVG}
-          changeUser={changeUser}
-          input={'email'}
+          title={'E-mail'}
+          changeInput={form.handleData}
         />
-        <InputComponent
-          title={'Contraseña'}
-          visibleAlert={false}
+        <Input
+          keyObj={'password'}
           Icon={PasswordSVG}
-          visibleIcon={true}
-          changeUser={changeUser}
-          input={'password'}
+          title={'Contraseña'}
+          isPassword={true}
+          changeInput={form.handleData}
         />
-        <BottomText 
-          text={'¿Contraseña Olvidada?'} 
+        <BottomText
+          text={'¿Contraseña Olvidada?'}
           navigation={navigation}
-          namescreen={'forgetScreen'}  
+          namescreen={'forgetScreen'}
         />
         <ButtonsForInit
-          text="INGRESAR"
-          user={user}
-          changeLoading={changeLoading}
+          validationbtn1={true}
+          validationbtn2={true}
+          textButton={'INICIAR SESIÓN'}
+          onPress1={() => functions.onPress1(loading, form.dataForm)}
+          onPress2={() => functions.onPress2(loading)}
         />
         <BottomText
           text={'¿Aún no tienes una cuenta?'}
@@ -62,6 +58,6 @@ export default function LoginScreen({navigation}) {
           namescreen={'registerScreen'}
         />
       </View>
-    </View>
+    </Fragment>
   );
 }

@@ -1,12 +1,32 @@
-import LoginUser from '../../models/LoginUser';
+import auth from '../../services/auth';
+import Alert from '../../components/atoms/Input/Alert';
 
-const newObject = (object, key, value) => {
-  object.setValues({[key]: value});
-  return new LoginUser(object.valuesLogin.email, object.valuesLogin.password);
-};
+function onPress2(loading) {
+  loading.changeState(true);
+  auth
+    .onGoogleButtonPress()
+    .then(() => {
+      loading.changeState(false);
+    })
+    .catch(err => {
+      loading.changeState(false);
+      Alert.alert('Error', '' + err, [{text: 'OK'}]);
+    });
+}
 
-const functions = {
-  newObject,
-};
+function onPress1(loading, form) {
+  loading.changeState(true);
+  const email = form.object.email;
+  const password = form.object.password;
+  auth
+    .loginAccount(email, password)
+    .then(() => {
+      loading.changeState(false);
+    })
+    .catch(err => {
+      loading.changeState(false);
+      Alert.alert('Error', '' + err, [{text: 'OK'}]);
+    });
+}
 
-export default functions;
+export default {onPress1, onPress2};
