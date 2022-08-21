@@ -1,5 +1,5 @@
 import React from 'react';
-import {TextInput, View} from 'react-native';
+import {TextInput, View, Text, TouchableOpacity} from 'react-native';
 import useStateHook from '../../../hooks/useStateHook';
 import Alert from './Alert';
 import PasswordIcon from './PasswordIcon';

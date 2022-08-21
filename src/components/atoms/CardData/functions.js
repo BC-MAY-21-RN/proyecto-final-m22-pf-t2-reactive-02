@@ -1,5 +1,6 @@
 import {Alert} from 'react-native';
 import firestore from '../../../services/firestore';
+import auth from '../../../services/auth';
 
 const edit = (text, data) => {
   text.handleData({

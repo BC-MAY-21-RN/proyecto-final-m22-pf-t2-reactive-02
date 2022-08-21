@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
-import {Tooltip, Icon} from 'react-native-elements';
-import {View} from 'react-native';
+import {Card, Tooltip, Icon} from 'react-native-elements';
+import {View, Text, Alert} from 'react-native';
 import Button from '../Button';
 import styles from './styles';
 import functions from './functions';

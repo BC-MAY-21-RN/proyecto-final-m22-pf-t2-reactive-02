@@ -33,7 +33,7 @@ const addForm = (form, loading, navigation, data) => {
       )
       .catch(error => Alert.alert('Error', error, [{text: 'ok'}]));
   } else {
-    Alert.alert('Por favor rellena los campos', '', [{text: 'ok'}]);
+    Alert.alert('Por favor rellena los campos', [{text: 'ok'}]);
   }
 };
 
