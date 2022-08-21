@@ -1,20 +1,24 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  background: {
-    backgroundColor: '#DAC3DB',
-  },
-  title: {
-    color: '#784B90',
-    fontSize: 20,
-    fontWeight: 'bold',
+  container: {height: '100%', backgroundColor: '#DAC3DB'},
+  topInfo: {height: 230, justifyContent: 'center'},
+  img: {
+    borderRadius: 90,
+    width: 170,
+    height: 170,
+    alignSelf: 'center',
     marginTop: 20,
   },
-  info: {
-    fontSize: 18,
-    borderBottomWidth: 1,
-    borderColor: 'gray',
+  name: {
+    maxWidth: 300,
+    alignSelf: 'center',
+    marginTop: 10,
+    fontSize: 20,
+    fontWeight: '900',
+    textAlign: 'center',
   },
+  icon: {position: 'absolute', top: 20, left: 20},
 });
 
 export default styles;

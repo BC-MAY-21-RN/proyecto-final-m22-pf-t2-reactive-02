@@ -1,6 +1,6 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import PostsScreen from '../screens/postsScreen';
+import PostsScreen from '../screens/PostsScreen';
 import {Icon} from 'react-native-elements';
 
 const Tab = createBottomTabNavigator();
@@ -26,6 +26,7 @@ export default function TabNavigator() {
         tabBarInactiveBackgroundColor: '#D3A6BA80',
         tabBarLabelStyle: {fontSize: 14},
         unmountOnBlur: true,
+        tabBarHideOnKeyboard: true,
       })}>
       {screens.map((item, index) => (
         <Tab.Screen

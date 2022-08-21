@@ -1,17 +1,30 @@
 import React from 'react';
-import {View} from 'react-native';
-import auth from '@react-native-firebase/auth';
+import {View, Text, Image} from 'react-native';
+import {Icon} from 'react-native-elements';
+import InfoProfile from '../../components/molecules/InfoProfile';
+import useProfile from '../../hooks/useProfile';
 import styles from './styles';
-import ProfileHeader from '../../components/atoms/ProfileHeader';
-import ProfileContent from '../../components/molecules/ProfileContent';
 
-export default function ProfileScreen({navigation}) {
-  const user = auth().currentUser;
-
+export default function ProfileScreen({navigation, route}) {
+  const profileData = useProfile(route.params.id);
   return (
-    <View style={styles.background}>
-      <ProfileHeader image={user.photoURL} name={user.displayName} />
-      <ProfileContent navigation={navigation} />
+    <View style={styles.container}>
+      <View style={styles.topInfo}>
+        <Icon
+          name="arrowleft"
+          type="antdesign"
+          containerStyle={styles.icon}
+          onPress={() => navigation.goBack()}
+        />
+        <Image
+          source={{
+            uri: profileData.userData.imagenurl,
+          }}
+          style={styles.img}
+        />
+        <Text style={styles.name}>{profileData.userData.nombre}</Text>
+      </View>
+      <InfoProfile profileData={profileData} />
     </View>
   );
 }

@@ -1,28 +1,31 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View} from 'react-native';
-import auth from '@react-native-firebase/auth';
-import styles from './styles';
+import Header from '../../components/atoms/Header';
 import ConfigurationHeader from '../../components/atoms/ConfigurationHeader';
 import ConfigurationContent from '../../components/molecules/ConfigurationContent';
-import Header from '../../components/atoms/header';
+import useStateHook from '../../hooks/useStateHook';
+import auth from '../../services/auth';
+import styles from './styles';
 
 export default function ConfigurationScreen({navigation}) {
-  const user = auth().currentUser;
-  const [photo, setPhoto] = useState(user.photoURL);
-  const [name, setName] = useState(user.displayName);
-
+  const photo = useStateHook(auth.getPhoto());
+  const name = useStateHook(auth.getName());
   return (
     <View style={styles.background}>
       <View style={styles.backgroundTop}>
-        <Header text={'Editar Perfil'} navigation={navigation} />
+        <Header navigation={navigation} text={'Edita tu perfil'} />
         <ConfigurationHeader
-          image={user.photoURL}
-          name={name}
-          setPhoto={setPhoto}
-          photo={photo}
+          image={photo.state}
+          name={name.state}
+          setPhoto={photo.changeState}
+          photo={photo.state}
         />
       </View>
-      <ConfigurationContent photo={photo} name={name} setName={setName} />
+      <ConfigurationContent
+        photo={photo.state}
+        name={name.state}
+        setName={name.changeState}
+      />
     </View>
   );
 }

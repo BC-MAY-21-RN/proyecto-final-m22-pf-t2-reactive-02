@@ -1,16 +1,16 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 import styles from './styles';
-import AdoptionText from '../AdoptionText';
+import TwoTexts from '../TwoTexts';
 
 export default function AdoptionInfo({data}) {
   return (
     <View>
       <Text style={styles.title}>Respuestas del usuario</Text>
-      <AdoptionText title={'Nombre de usuario: '} info={data.nombreUsuario} />
-      <AdoptionText title={'Telefono: '} info={data.telefono} />
-      <AdoptionText title={'Correo: '} info={data.correo} />
-      <AdoptionText title={'Ciudad: '} info={data.ciudad} />
+      <TwoTexts text={'Nombre: '} text2={data.nombreUsuario} styles={styles} />
+      <TwoTexts text={'Telefono: '} text2={data.telefono} styles={styles} />
+      <TwoTexts text={'Correo: '} text2={data.correo} styles={styles} />
+      <TwoTexts text={'Ciudad: '} text2={data.ciudad} styles={styles} />
       <Text style={styles.text}>¿Cuántas mascotas tienes?</Text>
       <Text>{data.mascotas}</Text>
       <Text style={styles.text}>

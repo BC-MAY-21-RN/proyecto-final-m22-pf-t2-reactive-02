@@ -1,25 +1,29 @@
-import React, {useState} from 'react';
-import {View, Alert} from 'react-native';
+import React, {Fragment} from 'react';
+import {View} from 'react-native';
 import NameAppSVG from '../../assets/icons/nameapp.svg';
 import LogoRegisterSVG from '../../assets/icons/logoRegister.svg';
-import InputComponent from '../../components/atoms/InputComponent';
 import EmailSVG from '../../assets/icons/email.svg';
 import TextScreenSVG from '../../assets/icons/TextScreen.svg';
-import BottomText from '../../components/atoms/BottomText';
-import ButtonForgetScreen from '../../components/atoms/ButtonForgetScreen';
+import TopDesign from '../../components/atoms/TopDesign';
+import useFormData from '../../hooks/useFormData';
+import Form from '../../models/Form';
 import styles from './styles';
 import globalstyles from '../../const/globalStyles';
-import TopDesign from '../../components/atoms/TopDesign';
-import auth from '@react-native-firebase/auth';
+import initialValues from '../../const/initialValues';
+import Input from '../../components/atoms/Input';
+import BottomText from '../../components/atoms/BottomText';
+import Button from '../../components/atoms/Button';
+import functions from './functions';
 
 export default function ForgetScreen({navigation}) {
-  const [text, setText] = useState('');
+  const form = useFormData(new Form(initialValues));
+
   return (
-    <View style={styles.container}>
+    <Fragment>
       <TopDesign
         styles={styles}
+        LogoSVG={LogoRegisterSVG}
         NameAppSVG={NameAppSVG}
-        LogoRegisterSVG={LogoRegisterSVG}
       />
       <TextScreenSVG style={styles.imagetext} />
       <View
@@ -27,22 +31,17 @@ export default function ForgetScreen({navigation}) {
           ...globalstyles.formContainer,
           ...{marginTop: 20},
         }}>
-        <InputComponent
-          visibleAlert={false}
-          title={'E-mail'}
+        <Input
+          keyObj={'email'}
           Icon={EmailSVG}
-          input={'email'}
-          changeUser={setText}
+          title={'E-mail'}
+          changeInput={form.handleData}
         />
-        <ButtonForgetScreen
-          text={'RECUPERAR'}
-          onPress={() =>
-            auth().sendPasswordResetEmail(text)
-              ? Alert.alert(
-                  'Se ha mandado un correo, por favor revisa tu bandeja de spam.',
-                )
-              : Alert.alert('Ha ocurrido un error, inténtalo nuevamente.')
-          }
+        <Button
+          text={'RECUPERAR CUENTA'}
+          onPress={() => functions.sendForgetPassword(form.dataForm)}
+          style={styles}
+          disabled={form.dataForm.object.email !== ''}
         />
         <BottomText
           text={'Ingresa a tu cuenta aquí'}
@@ -50,6 +49,6 @@ export default function ForgetScreen({navigation}) {
           namescreen={'loginScreen'}
         />
       </View>
-    </View>
+    </Fragment>
   );
 }

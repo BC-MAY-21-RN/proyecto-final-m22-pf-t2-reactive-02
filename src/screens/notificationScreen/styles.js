@@ -20,16 +20,18 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   close: {
+    position: 'absolute',
     backgroundColor: '#7B9CB2',
+    bottom: 10,
+    alignSelf: 'center',
     paddingVertical: 10,
     paddingHorizontal: 40,
-    margin: 30,
-    alignSelf: 'center',
     borderRadius: 10,
   },
   flatlist: {
     marginBottom: 70,
   },
+  text: {fontSize: 16, alignSelf: 'center'},
 });
 
 export default styles;

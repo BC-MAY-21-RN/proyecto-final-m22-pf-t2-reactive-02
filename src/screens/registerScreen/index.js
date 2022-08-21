@@ -1,30 +1,26 @@
-import React, {useState} from 'react';
-import {View} from 'react-native';
+import React, {Fragment} from 'react';
+import useFormData from '../../hooks/useFormData';
+import useStateHook from '../../hooks/useStateHook';
+import Form from '../../models/Form';
+import initialValues from '../../const/initialValues';
 import Loading from '../../components/atoms/Loading';
-import RegisterUser from '../../models/RegisterUser';
 import RegisterForm from '../../components/molecules/RegisterForm';
-import functions from './functions';
 
 export default function RegisterScreen({navigation}) {
-  const [user, setUser] = useState(new RegisterUser());
-  const [alerts, setAlerts] = useState([false, false, false, false]);
-  const [loading, setLoading] = useState(false);
-  const changeAlerts = arr => setAlerts(arr);
-  const changeLoading = bool => setLoading(bool);
-  const changeUser = (value, key) =>
-    setUser(functions.newObject(user, key, value));
+  const {dataForm, handleData} = useFormData(
+    new Form(initialValues.initialRegister),
+  );
+  const loading = useStateHook(false);
 
   return (
-    <View>
-      <Loading isvisible={loading} />
+    <Fragment>
+      <Loading isVisible={loading.state} />
       <RegisterForm
-        user={user}
-        alerts={alerts}
-        changeAlerts={changeAlerts}
-        changeLoading={changeLoading}
-        changeUser={changeUser}
+        dataForm={dataForm}
+        loading={loading}
+        handleData={handleData}
         navigation={navigation}
       />
-    </View>
+    </Fragment>
   );
 }

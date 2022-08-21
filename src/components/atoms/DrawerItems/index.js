@@ -1,80 +1,62 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
-import ButtonDrawer from '../ButtonDrawer/index';
-import auth from '@react-native-firebase/auth';
 import {Icon} from 'react-native-elements';
-import styleDrawer from './styleDrawer';
-import Verify from './functions';
+import auth from '../../../services/auth';
+import Button from '../Button';
+import styles from './styles';
 
-const logout = () => {
-  auth()
-    .signOut()
-    .then(() => {});
-};
+const components = [
+  {text: 'Inicio', icon: 'home', screen: 'bottomTap'},
+  {
+    text: 'Notificaciones de Adopción',
+    icon: 'adduser',
+    screen: 'notificationScreen',
+  },
+  {text: 'Configuración', icon: 'setting', screen: 'configurationScreen'},
+  {text: 'Cerrar Sesión', icon: 'logout', screen: false},
+];
 
 export default function DrawerItems({navigation}) {
-  const user = auth().currentUser;
   return (
-    <View style={styleDrawer.container}>
-      <View style={styleDrawer.header}>
+    <View style={styles.container}>
+      <View style={styles.header}>
         <TouchableOpacity
-          style={styleDrawer.iconExitPosition}
-          onPress={() => {
-            navigation.closeDrawer();
-          }}>
-          <Icon
-            name={'close'}
-            type={'antdesign'}
-            style={styleDrawer.iconExit}
-          />
+          style={styles.userInfo}
+          onPress={() =>
+            navigation.navigate('profileScreen', {id: auth.getId()})
+          }>
+          <Image source={{uri: auth.getPhoto()}} style={styles.img} />
+          <Text style={styles.name}>{auth.getName()}</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styleDrawer.headerItem}
-          onPress={() => navigation.navigate('Profile')}>
-          <View>
-            <Image
-              source={{
-                uri: Verify(user.photoURL)
-                  ? user.photoURL
-                  : 'https://www.lolitamoda.com/uploads/post/image/61/56.Reglas_de_estilo_que_todo_hombre_debe_conocer.jpg',
-              }}
-              style={styleDrawer.image}
-            />
-          </View>
-          <View style={styleDrawer.dataProfile}>
-            <Text style={styleDrawer.textName}>
-              {Verify(user.displayName) ? user.displayName : 'Funganito'}
-            </Text>
-            <Text style={styleDrawer.textEmail}>{user.email}</Text>
-          </View>
-        </TouchableOpacity>
+        <Icon
+          name={'close'}
+          type={'antdesign'}
+          containerStyle={styles.close}
+          onPress={() => navigation.closeDrawer()}
+        />
       </View>
-      <DrawerContentScrollView style={styleDrawer.scrollView}>
-        <View>
-          <ButtonDrawer
-            text={'Home'}
-            onPress={() => navigation.navigate('Home')}
-            icon={'home'}
-          />
-          <ButtonDrawer
-            text={'Notificaciones de Adopción'}
-            onPress={() => navigation.navigate('Notification')}
-            icon={'adduser'}
-          />
-          <ButtonDrawer
-            text={'Configuración'}
-            onPress={() => navigation.navigate('Configuration')}
-            icon={'setting'}
-          />
-          <ButtonDrawer
-            text={'Cerrar Sesión'}
+      <DrawerContentScrollView style={styles.scrollView}>
+        {components.map((item, i) => (
+          <Button
+            key={i}
+            text={item.text}
+            disabled={true}
+            style={styles}
             onPress={() => {
-              logout();
+              item.screen === false
+                ? auth.logout()
+                : navigation.navigate(item.screen);
             }}
-            icon={'logout'}
+            children={
+              <Icon
+                name={item.icon}
+                type="antdesign"
+                containerStyle={styles.iconPosition}
+              />
+            }
           />
-        </View>
+        ))}
       </DrawerContentScrollView>
     </View>
   );

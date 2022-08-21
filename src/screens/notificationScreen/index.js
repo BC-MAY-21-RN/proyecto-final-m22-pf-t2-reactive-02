@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -7,107 +7,80 @@ import {
   Modal,
   Pressable,
 } from 'react-native';
-import NotificationAdoption from '../../components/atoms/NotificationAdoption';
-import Header from '../../components/atoms/header';
-import firestore from '@react-native-firebase/firestore';
-import auth from '@react-native-firebase/auth';
+import useNotification from '../../hooks/useNotification';
+import Header from '../../components/atoms/Header';
+import DataNotFound from '../../components/atoms/DataNotFound';
+import UserPost from '../../components/atoms/UserPost';
+import helpers from '../../utils/helpers';
 import styles from './styles';
 import AdoptionInfo from '../../components/atoms/AdoptionInfo';
-import MessageAdoption from '../../components/atoms/MessageAdoption';
+import useStateHook from '../../hooks/useStateHook';
 
-function info(changeGetData) {
-  const id = auth().currentUser.uid;
-  firestore()
-    .collection('adopciones')
-    .where('uidPosteo', '==', id)
-    .orderBy('fecha', 'desc')
-    .get()
-    .then(querySnapshot => {
-      var data = [];
-      querySnapshot.forEach(documentSnapshot => {
-        data.push({
-          ...documentSnapshot.data(),
-          idDoc: documentSnapshot.ref.id,
-        });
-        changeGetData(data);
-      });
-    });
-}
+const NotificationData = ({data, modalvisible}) => {
+  return (
+    <Modal
+      visible={modalvisible.state}
+      transparent={true}
+      animationType="fade"
+      onRequestClose={() => {
+        modalvisible.changeState(false);
+      }}>
+      <View style={styles.info}>
+        <AdoptionInfo data={data} />
+        <Pressable
+          style={styles.close}
+          onPress={() => {
+            modalvisible.changeState(false);
+          }}>
+          <Text>Cerrar</Text>
+        </Pressable>
+      </View>
+    </Modal>
+  );
+};
 
-export default function NotificationScreen({navigation, data}) {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [getData, setGetData] = useState([]);
-  const [infoModal, setInfoModal] = useState([]);
-  const [newAdoption, setNewAdoption] = useState(false);
-  const changeGetData = adoptions => setGetData(adoptions);
-  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-  const [isFetching, setIsFetching] = useState(false);
+export default function NotificationScreen({navigation}) {
+  const notifications = useNotification();
+  const modalData = useStateHook(null);
+  const modalvisible = useStateHook(false);
 
-  const onRefresh = async () => {
-    setIsFetching(true);
-    await sleep(2000);
-    setIsFetching(false);
-  };
-  useEffect(() => {
-    info(changeGetData);
-  }, []);
-  const array = () => {
-    let contador = 0;
-    getData.map(element => {
-      if (getData.indexOf(element) >= 0) {
-        contador++;
-      }
-    });
-    return contador;
-  };
   return (
     <View>
+      <NotificationData data={modalData.state} modalvisible={modalvisible} />
       <Header text={'Notificaciones'} navigation={navigation} />
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}>
-        <View style={styles.info}>
-          <AdoptionInfo data={infoModal} />
-          <Pressable
-            style={styles.close}
-            onPress={() => setModalVisible(!modalVisible)}>
-            <Text>Cerrar</Text>
-          </Pressable>
-        </View>
-      </Modal>
-      {array() > 0 ? (
+      {notifications.data === [] && notifications.finish === true ? (
+        <DataNotFound
+          title={'¡No hay nada por aqui!'}
+          text={'Aqui aparecerán las respuestas a tus formularios de adopción'}
+        />
+      ) : (
         <FlatList
-          data={getData}
-          style={styles.flatlist}
+          data={notifications.data}
+          refreshing={!notifications.finish}
           onRefresh={() => {
-            onRefresh();
-            info(changeGetData);
-            setNewAdoption(!newAdoption);
+            notifications.refres();
           }}
-          refreshing={isFetching}
+          style={styles.flatlist}
           renderItem={({item}) => (
             <TouchableOpacity
               style={styles.card}
               onPress={() => {
-                setInfoModal(item);
-                setModalVisible(true);
+                modalData.changeState(item);
+                modalvisible.changeState(true);
               }}>
-              <NotificationAdoption
-                data={item}
-                setGetData={setGetData}
-                getData={getData}
-                newAdoption={newAdoption}
-                setNewAdoption={setNewAdoption}
+              <UserPost
+                id={item.uidUsuario}
+                image={item.imagenUsuario}
+                name={item.nombreUsuario}
+                navigation={navigation}
+                time={helpers.dateToString(item)}
               />
+              <Text style={styles.text}>
+                Ha respondido tu formulario de adopción
+              </Text>
             </TouchableOpacity>
           )}
         />
-      ) : (
-        <MessageAdoption />
       )}
     </View>
   );

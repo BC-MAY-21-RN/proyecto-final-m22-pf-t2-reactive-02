@@ -1,20 +1,19 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import RegisterScreen from '../screens/registerScreen';
-import LoginScreen from '../screens/loginScreen';
-import ForgetScreen from '../screens/forgetScreen';
-import UserContext from '../context/UserContext.js';
-import auth from '@react-native-firebase/auth';
+import useAuthChange from '../hooks/useAuthChange';
+import RegisterScreen from '../screens/RegisterScreen';
+import LoginScreen from '../screens/LoginScreen';
+import ForgetScreen from '../screens/ForgetScreen';
+import SplashScreen from '../screens/SplashScreen';
 import DrawerNavigation from './DrawerNavigation';
-import WelcomeScreen from '../screens/welcomeScreen';
 
 const Stack = createNativeStackNavigator();
 
 const stackNoLoged = [
   {
     name: 'welcomeScreen',
-    component: WelcomeScreen,
+    component: SplashScreen,
     title: 'welcomeScreen',
   },
   {
@@ -51,32 +50,20 @@ const typeStack = user => {
   }
 };
 
-const Navigation = () => {
-  const {user, setUser} = React.useContext(UserContext);
-
-  function onAuthStateChanged(userInfo) {
-    setUser(userInfo);
-  }
-
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber;
-  });
+export default function Navigation() {
+  const {user} = useAuthChange();
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
         {typeStack(user).map((item, index) => (
           <Stack.Screen
             key={index}
             name={item.name}
             component={item.component}
-            options={{headerShown: false}}
           />
         ))}
       </Stack.Navigator>
     </NavigationContainer>
   );
-};
-
-export default Navigation;
+}

@@ -3,7 +3,6 @@ import {View, Text} from 'react-native';
 import {Icon, Overlay} from 'react-native-elements';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import styles from './styles';
-import FilttersPost from '../FilttersPost';
 
 export default function Header({text, navigation, filter, color}) {
   const [visible, setVisible] = useState(false);
@@ -17,9 +16,8 @@ export default function Header({text, navigation, filter, color}) {
       <Overlay
         overlayStyle={styles().overlay}
         isVisible={visible}
-        onBackdropPress={toggleOverlay}>
-        <FilttersPost />
-      </Overlay>
+        onBackdropPress={toggleOverlay}
+      />
     );
   };
   return (

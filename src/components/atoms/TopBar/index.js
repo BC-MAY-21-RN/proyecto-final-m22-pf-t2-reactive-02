@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, TouchableOpacity, TextInput} from 'react-native';
+import {View, TouchableOpacity, TextInput, Alert} from 'react-native';
 import nameHeader from '../../../assets/icons/nameHeader.svg';
 import logoHeader from '../../../assets/icons/LogoHeader.svg';
 import Icons from '../../atoms/Icons';
@@ -15,6 +15,11 @@ const navigate = (e, navigation) => {
       hashtag: e.nativeEvent.text,
       goback: true,
     });
+  } else {
+    Alert.alert(
+      'Búsqueda incorrecta',
+      'Para realizar una búsqueda debe poner # antes de la palabra',
+    );
   }
 };
 

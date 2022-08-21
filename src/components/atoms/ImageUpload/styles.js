@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import colors from '../../../const/colors';
 
 const styles = value =>
   StyleSheet.create({
@@ -10,7 +11,7 @@ const styles = value =>
       marginTop: 30,
     },
     imagecontainer: {marginRight: 10},
-    imageViewer: {backgroundColor: '#000000DC'},
+    imageViewer: {backgroundColor: colors.blackopacity},
     scrollimage: {
       flexDirection: 'row',
       marginBottom: value,

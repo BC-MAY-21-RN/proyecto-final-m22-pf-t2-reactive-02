@@ -1,9 +1,9 @@
 import React from 'react';
 import {View} from 'react-native';
 
-export default function Icons({IconProp, style}) {
+export default function Icons({IconProp, styles}) {
   return (
-    <View style={style}>
+    <View style={styles}>
       <IconProp />
     </View>
   );

@@ -1,32 +1,28 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import PagerView from 'react-native-pager-view';
+import useStateHook from '../../../hooks/useStateHook';
 import styles from './styles';
+import helpers from '../../../utils/helpers';
 
-const jsonImgs = data => {
-  const array = data.map(url => ({url: url}));
-  return array;
+const showImages = (index, handleUrlImgs, handleImgsVisible, array) => {
+  const jsonImages = {i: index, a: helpers.jsonImgs(array)};
+  handleUrlImgs(jsonImages);
+  handleImgsVisible(true);
 };
 
-const showImages = (index, setImage, setShowImage, array) => {
-  const changeShowImage = () => setShowImage(true);
-  const setValuesImages = values => setImage(values);
-  const jsonImages = {i: index, a: jsonImgs(array)};
-  changeShowImage();
-  setValuesImages(jsonImages);
-};
-
-export default function Carousel({array, setImage, setShowImage}) {
-  const [position, setPosition] = useState(0);
-  const newPos = e => setPosition(e.nativeEvent.position);
+export default function Carousel({array, handleUrlImgs, handleImgsVisible}) {
+  const pos = useStateHook(0);
   return (
     <View style={styles(array.length === 0 ? 0 : 200).container}>
-      <PagerView onPageScroll={e => newPos(e)} style={styles().pager}>
+      <PagerView
+        onPageScroll={e => pos.changeState(e.nativeEvent.position)}
+        style={styles().pager}>
         {array.map((url, index) => (
           <View key={index}>
             <TouchableOpacity
               onPress={() =>
-                showImages(position, setImage, setShowImage, array)
+                showImages(pos.state, handleUrlImgs, handleImgsVisible, array)
               }>
               <Image source={{uri: url}} style={styles().img} />
             </TouchableOpacity>
@@ -35,7 +31,7 @@ export default function Carousel({array, setImage, setShowImage}) {
       </PagerView>
       <View style={styles().pagination}>
         {array.map((_, k) => (
-          <Text key={k} style={styles(k, position).point}>
+          <Text key={k} style={styles(k, pos).point}>
             ⬤
           </Text>
         ))}

@@ -36,4 +36,5 @@ const styles = color =>
       color: '#263238',
     },
   });
+
 export default styles;

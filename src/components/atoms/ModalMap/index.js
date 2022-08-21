@@ -3,38 +3,32 @@ import {Overlay} from 'react-native-elements';
 import MapView, {Marker} from 'react-native-maps';
 import styles from './styles';
 import Options from './Options';
+import functions from './functions';
 
-const location = newCoordinate => {
-  return {
-    latitude: newCoordinate.nativeEvent.coordinate.latitude,
-    longitude: newCoordinate.nativeEvent.coordinate.longitude,
-    latitudeDelta: 0.01,
-    longitudeDelta: 0.01,
-  };
-};
-
-const ModalMap = ({visible, setMapOpen, changePost, init}) => {
-  const changeMapOpen = value => setMapOpen(value);
+const ModalMap = ({changePost, modals, handleData}) => {
   return (
-    <Overlay isVisible={visible} onBackdropPress={() => changeMapOpen(false)}>
+    <Overlay
+      isVisible={modals.mapVisible}
+      onBackdropPress={() => modals.handleMapVisible(false)}>
       <MapView
         style={styles().Mapsize}
-        region={init}
+        region={modals.dataMap}
         onLongPress={value =>
-          changePost ? changePost(location(value), 'location') : {}
+          changePost ? modals.handleLocation(functions.location(value)) : {}
         }>
         <Marker
           draggable={changePost ? true : false}
-          coordinate={init}
+          coordinate={modals.dataMap}
           onDragEnd={value =>
-            changePost ? changePost(location(value), 'location') : {}
+            changePost ? modals.handleLocation(functions.location(value)) : {}
           }
         />
       </MapView>
       <Options
-        changeMapOpen={changeMapOpen}
-        init={init}
+        handleMapVisible={modals.handleMapVisible}
+        init={modals.dataMap}
         changePost={changePost}
+        handleData={handleData}
       />
     </Overlay>
   );

@@ -1,4 +1,5 @@
 import {StyleSheet, Dimensions} from 'react-native';
+import colors from '../../../const/colors';
 
 const styles = (i, p) =>
   StyleSheet.create({
@@ -6,7 +7,7 @@ const styles = (i, p) =>
       marginLeft: -16,
       height: i,
       width: Dimensions.get('screen').width - 8,
-      backgroundColor: '#000',
+      backgroundColor: colors.black,
     },
     img: {
       height: 200,
