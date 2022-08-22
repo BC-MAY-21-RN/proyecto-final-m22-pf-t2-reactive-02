@@ -10,6 +10,7 @@ import DrawerNavigation from './DrawerNavigation';
 
 const Stack = createNativeStackNavigator();
 
+
 const stackNoLoged = [
   {
     name: 'welcomeScreen',
