@@ -12,29 +12,40 @@ const addComment = (text, postid, comments) => {
     userName: auth.getName(),
     fecha: firestore.dateNow(),
   };
-  firestore
-    .addFunction('comentarios', commentData)
-    .then(document => {
-      const data = comments.data;
-      comments.handleComments([{...commentData, idDoc: document.id}, ...data]);
-    })
-    .catch(() => {
-      Alert.alert('Error al hacer comentario');
-    });
+  if (commentData.texto !== '') {
+    firestore
+      .addFunction('comentarios', commentData)
+      .then(document => {
+        const data = comments.data;
+        comments.handleComments([
+          {...commentData, idDoc: document.id},
+          ...data,
+        ]);
+      })
+      .catch(() => {
+        Alert.alert('Error al hacer comentario');
+      });
+  } else {
+    Alert.alert('El comentario no puede estar vacío.');
+  }
 };
 
 const updateComment = (id, text, comments) => {
-  firestore
-    .updateFunction('comentarios', id, 'texto', text)
-    .then(() => {
-      const data = comments.data;
-      data[data.findIndex(item => item.idDoc === id)].texto = text;
-      comments.handleComments([]);
-      comments.handleComments(data);
-    })
-    .catch(() => {
-      Alert.alert('Error al editar');
-    });
+  if (text === '') {
+    Alert.alert('Los comentarios no pueden estar vacíos.');
+  } else {
+    firestore
+      .updateFunction('comentarios', id, 'texto', text)
+      .then(() => {
+        const data = comments.data;
+        data[data.findIndex(item => item.idDoc === id)].texto = text;
+        comments.handleComments([]);
+        comments.handleComments(data);
+      })
+      .catch(() => {
+        Alert.alert('Error al editar');
+      });
+  }
 };
 
 const sendComment = (text, postid, comments) => {
