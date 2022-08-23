@@ -3,7 +3,7 @@ import {View, ScrollView, FlatList} from 'react-native';
 import ModalImage from '../../components/atoms/ModalImage';
 import ModalMap from '../../components/atoms/ModalMap';
 import Post from '../../components/molecules/Post';
-import Header from '../../components/atoms/Header';
+import Header from '../../components/atoms/header';
 import useModals from '../../hooks/useModals';
 import useComments from '../../hooks/useComments';
 import styles from './styles';
