@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     height: 40,
     marginTop: 20,
   },
-  icon: {marginLeft: 76, marginRight: 10},
+  icon: {marginLeft: 6, marginRight: 10},
   iconInput: {flex: 1, flexDirection: 'row', alignItems: 'center'},
   input: {
     fontSize: 16,
