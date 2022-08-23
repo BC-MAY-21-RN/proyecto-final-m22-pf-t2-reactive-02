@@ -31,7 +31,6 @@ const updateComment = (id, text, comments) => {
       data[data.findIndex(item => item.idDoc === id)].texto = text;
       comments.handleComments([]);
       comments.handleComments(data);
-      Alert.alert('Se modificó correctamente');
     })
     .catch(() => {
       Alert.alert('Error al editar');

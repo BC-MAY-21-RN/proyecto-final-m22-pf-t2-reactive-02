@@ -22,6 +22,7 @@ export default function InputConfiguration({
         <TextInput
           placeholder={title}
           style={styles.input}
+          {...(keyObj === 'phoneNumber' ? {keyboardType: 'numeric'} : {})}
           onChange={e => changeUser({[keyObj]: e.nativeEvent.text})}
         />
       </View>

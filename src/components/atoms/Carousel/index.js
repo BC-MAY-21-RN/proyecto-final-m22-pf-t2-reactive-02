@@ -31,7 +31,7 @@ export default function Carousel({array, handleUrlImgs, handleImgsVisible}) {
       </PagerView>
       <View style={styles().pagination}>
         {array.map((_, k) => (
-          <Text key={k} style={styles(k, pos).point}>
+          <Text key={k} style={styles(k, pos.state).point}>
             ⬤
           </Text>
         ))}

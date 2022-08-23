@@ -27,7 +27,10 @@ export default function DrawerItems({navigation}) {
             navigation.navigate('profileScreen', {id: auth.getId()})
           }>
           <Image source={{uri: auth.getPhoto()}} style={styles.img} />
-          <Text style={styles.name}>{auth.getName()}</Text>
+          <View style={styles.textContainer}>
+            <Text style={styles.name}>{auth.getName()}</Text>
+            <Text style={styles.email}>{auth.getEmail()}</Text>
+          </View>
         </TouchableOpacity>
         <Icon
           name={'close'}

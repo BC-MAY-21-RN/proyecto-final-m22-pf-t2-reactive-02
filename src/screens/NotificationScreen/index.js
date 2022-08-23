@@ -48,7 +48,7 @@ export default function NotificationScreen({navigation}) {
     <View>
       <NotificationData data={modalData.state} modalvisible={modalvisible} />
       <Header text={'Notificaciones'} navigation={navigation} />
-      {notifications.data === [] && notifications.finish === true ? (
+      {notifications.data.length === 0 && notifications.finish === true ? (
         <DataNotFound
           title={'¡No hay nada por aqui!'}
           text={'Aqui aparecerán las respuestas a tus formularios de adopción'}

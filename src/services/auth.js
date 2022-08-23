@@ -33,8 +33,8 @@ function logout() {
 
 async function registerEmailUser(user) {
   return auth().createUserWithEmailAndPassword(
-    user.valuesRegister.email,
-    user.valuesRegister.password,
+    user.object.email,
+    user.object.password,
   );
 }
 

@@ -28,7 +28,7 @@ export default function ConfigurationContent({photo, name, setName}) {
         onPress={() => {
           functions.createObject(photo, form.dataForm.object, setName, name);
         }}>
-        <Text>Guardar</Text>
+        <Text style={styles.text}>Guardar</Text>
       </TouchableOpacity>
     </View>
   );

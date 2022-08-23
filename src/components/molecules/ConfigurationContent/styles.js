@@ -1,4 +1,5 @@
 import {StyleSheet, Dimensions} from 'react-native';
+import colors from '../../../const/colors';
 
 const styles = StyleSheet.create({
   container: {
@@ -8,9 +9,9 @@ const styles = StyleSheet.create({
     paddingLeft: 30,
     backgroundColor: 'white',
   },
-
+  text: {color: colors.white},
   guardar: {
-    backgroundColor: '#C4C4C4',
+    backgroundColor: '#DB6C9EAA',
     borderRadius: 8,
     paddingHorizontal: 20,
     paddingVertical: 10,
