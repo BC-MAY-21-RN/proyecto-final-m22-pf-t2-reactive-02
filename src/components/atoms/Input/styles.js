@@ -11,7 +11,12 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   icon: {marginLeft: 6, marginRight: 10},
-  iconInput: {flex: 1, flexDirection: 'row', alignItems: 'center'},
+  iconInput: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: 20,
+  },
   input: {
     fontSize: 16,
     fontWeight: '400',
