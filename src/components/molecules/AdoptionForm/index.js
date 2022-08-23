@@ -12,6 +12,7 @@ const propsInput = text => {
   return {
     placeholder: text,
     style: styles.input,
+    keyboardType: text === 'Teléfono' ? 'numeric' : 'default',
   };
 };
 
