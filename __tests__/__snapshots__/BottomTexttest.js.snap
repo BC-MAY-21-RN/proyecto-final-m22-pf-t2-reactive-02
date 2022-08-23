@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test from BottomText component BottomText snapshot test 1`] = `
+<View
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignSelf": "center",
+      "marginTop": 20,
+      "opacity": 1,
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "fontSize": 16,
+        "fontStyle": "italic",
+        "textDecorationLine": "underline",
+      }
+    }
+  />
+</View>
+`;

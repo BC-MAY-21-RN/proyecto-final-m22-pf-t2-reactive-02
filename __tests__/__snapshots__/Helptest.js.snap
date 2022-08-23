@@ -1,0 +1,199 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test from Help component Help snapshot test 1`] = `
+<Modal
+  hardwareAccelerated={false}
+  onRequestClose={[Function]}
+  transparent={true}
+  visible={true}
+>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgba(0, 0, 0, .4)",
+        "height": "100%",
+        "justifyContent": "center",
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }
+    testID="RNE__Overlay__backdrop"
+  />
+  <View
+    pointerEvents="box-none"
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "white",
+          "borderRadius": 3,
+          "padding": 10,
+          "shadowColor": "rgba(0, 0, 0, .3)",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowRadius": 4,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "height": 400,
+            "width": 260,
+          }
+        }
+      >
+        <View>
+          <Text
+            style={
+              Object {
+                "color": "#DB6C9E",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "marginLeft": 10,
+                "marginTop": 10,
+              }
+            }
+          >
+            Nombre:
+          </Text>
+          <Text
+            style={
+              Object {
+                "fontSize": 16,
+                "marginLeft": 10,
+                "maxWidth": 240,
+                "textAlign": "justify",
+              }
+            }
+          >
+            El nombre debe de ser al menos un carácter
+          </Text>
+        </View>
+        <View>
+          <Text
+            style={
+              Object {
+                "color": "#DB6C9E",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "marginLeft": 10,
+                "marginTop": 10,
+              }
+            }
+          >
+            Correo electrónico:
+          </Text>
+          <Text
+            style={
+              Object {
+                "fontSize": 16,
+                "marginLeft": 10,
+                "maxWidth": 240,
+                "textAlign": "justify",
+              }
+            }
+          >
+            El correo electrónico tiene que ser correcto ejemplo:
+          </Text>
+          <Text
+            style={
+              Object {
+                "alignSelf": "center",
+                "marginVertical": 5,
+              }
+            }
+          >
+            petmyheart@gmail.com
+          </Text>
+        </View>
+        <View>
+          <Text
+            style={
+              Object {
+                "color": "#DB6C9E",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "marginLeft": 10,
+                "marginTop": 10,
+              }
+            }
+          >
+            Contraseña:
+          </Text>
+          <Text
+            style={
+              Object {
+                "fontSize": 16,
+                "marginLeft": 10,
+                "maxWidth": 240,
+                "textAlign": "justify",
+              }
+            }
+          >
+            La contraseña tiene que tener al menos un carácter numérico, una letra mayúscula y una letra minúscula.
+          </Text>
+          <Text
+            style={
+              Object {
+                "alignSelf": "center",
+                "marginVertical": 5,
+              }
+            }
+          >
+            Contraseña123
+          </Text>
+        </View>
+        <View>
+          <Text
+            style={
+              Object {
+                "color": "#DB6C9E",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "marginLeft": 10,
+                "marginTop": 10,
+              }
+            }
+          >
+            Términos y condiciones:
+          </Text>
+          <Text
+            style={
+              Object {
+                "fontSize": 16,
+                "marginLeft": 10,
+                "maxWidth": 240,
+                "textAlign": "justify",
+              }
+            }
+          >
+            Se tienen que aceptar los términos y condiciones.
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</Modal>
+`;

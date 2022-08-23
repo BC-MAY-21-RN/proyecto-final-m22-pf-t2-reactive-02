@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test from Header component Header snapshot test 1`] = `
+<View>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#D3A6BA",
+        "flexDirection": "row",
+        "height": 60,
+      }
+    }
+  >
+    <RNGestureHandlerButton
+      collapsable={false}
+      exclusive={true}
+      handlerTag={1}
+      handlerType="NativeViewGestureHandler"
+      onGestureEvent={[Function]}
+      onGestureHandlerEvent={[Function]}
+      onGestureHandlerStateChange={[Function]}
+      onHandlerStateChange={[Function]}
+      rippleColor={0}
+      touchSoundDisabled={false}
+    >
+      <View
+        accessible={true}
+        collapsable={false}
+        style={
+          Object {
+            "opacity": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "overflow": "hidden",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "marginHorizontal": 15,
+                "marginTop": 19,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "transparent",
+                  "justifyContent": "center",
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                selectable={false}
+                style={
+                  Array [
+                    Object {
+                      "color": "#242424",
+                      "fontSize": 24,
+                    },
+                    Object {
+                      "backgroundColor": "transparent",
+                    },
+                    Object {
+                      "fontFamily": "anticon",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
+                    },
+                    Object {},
+                  ]
+                }
+                testID="iconIcon"
+              >
+                
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </RNGestureHandlerButton>
+    <Text
+      style={
+        Object {
+          "color": "#263238",
+          "fontSize": 22,
+          "fontWeight": "bold",
+          "marginVertical": 15,
+        }
+      }
+    />
+  </View>
+</View>
+`;

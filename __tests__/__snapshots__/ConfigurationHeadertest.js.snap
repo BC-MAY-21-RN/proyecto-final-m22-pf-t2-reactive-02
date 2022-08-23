@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test from ConfigurationHeader component ConfigurationHeader snapshot test 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#DAC3DB",
+      "borderBottomLeftRadius": 30,
+      "borderBottomRightRadius": 30,
+      "height": 250,
+      "padding": 20,
+    }
+  }
+>
+  <Image
+    source={
+      Object {
+        "uri": "",
+      }
+    }
+    style={
+      Object {
+        "alignSelf": "center",
+        "borderRadius": 90,
+        "height": 150,
+        "width": 150,
+      }
+    }
+  />
+  <View
+    style={
+      Object {
+        "backgroundColor": "#979797",
+        "borderRadius": 25,
+        "padding": 10,
+        "position": "absolute",
+        "right": 120,
+        "top": 120,
+      }
+    }
+  >
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
+    >
+      <View>
+        < />
+      </View>
+    </View>
+  </View>
+  <Text
+    style={
+      Object {
+        "alignSelf": "center",
+        "fontSize": 25,
+        "fontWeight": "bold",
+      }
+    }
+  />
+</View>
+`;

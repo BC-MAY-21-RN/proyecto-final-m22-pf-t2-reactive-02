@@ -1,0 +1,187 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test from AdoptionInfo component AdoptionInfo snapshot test 1`] = `
+<View>
+  <Text
+    style={
+      Object {
+        "alignSelf": "center",
+        "fontSize": 23,
+        "fontWeight": "bold",
+        "marginVertical": 15,
+      }
+    }
+  >
+    Respuestas del usuario
+  </Text>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "alignSelf": "center",
+          "fontSize": 17,
+          "fontWeight": "bold",
+          "paddingBottom": 10,
+        }
+      }
+    >
+      Nombre: 
+    </Text>
+    <Text
+      style={
+        Object {
+          "fontSize": 15,
+          "marginLeft": 10,
+          "maxWidth": 150,
+          "width": 150,
+        }
+      }
+    />
+  </View>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "alignSelf": "center",
+          "fontSize": 17,
+          "fontWeight": "bold",
+          "paddingBottom": 10,
+        }
+      }
+    >
+      Telefono: 
+    </Text>
+    <Text
+      style={
+        Object {
+          "fontSize": 15,
+          "marginLeft": 10,
+          "maxWidth": 150,
+          "width": 150,
+        }
+      }
+    />
+  </View>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "alignSelf": "center",
+          "fontSize": 17,
+          "fontWeight": "bold",
+          "paddingBottom": 10,
+        }
+      }
+    >
+      Correo: 
+    </Text>
+    <Text
+      style={
+        Object {
+          "fontSize": 15,
+          "marginLeft": 10,
+          "maxWidth": 150,
+          "width": 150,
+        }
+      }
+    />
+  </View>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "alignSelf": "center",
+          "fontSize": 17,
+          "fontWeight": "bold",
+          "paddingBottom": 10,
+        }
+      }
+    >
+      Ciudad: 
+    </Text>
+    <Text
+      style={
+        Object {
+          "fontSize": 15,
+          "marginLeft": 10,
+          "maxWidth": 150,
+          "width": 150,
+        }
+      }
+    />
+  </View>
+  <Text
+    style={
+      Object {
+        "fontSize": 17,
+        "fontWeight": "bold",
+        "paddingTop": 10,
+      }
+    }
+  >
+    ¿Cuántas mascotas tienes?
+  </Text>
+  <Text />
+  <Text
+    style={
+      Object {
+        "fontSize": 17,
+        "fontWeight": "bold",
+        "paddingTop": 10,
+      }
+    }
+  >
+    ¿Conviven con otras mascotas de forma pacifica?
+  </Text>
+  <Text />
+  <Text
+    style={
+      Object {
+        "fontSize": 17,
+        "fontWeight": "bold",
+        "paddingTop": 10,
+      }
+    }
+  >
+    ¿Cuántas horas al día pasará tu mascota sola?
+     
+  </Text>
+  <Text />
+  <Text
+    style={
+      Object {
+        "fontSize": 17,
+        "fontWeight": "bold",
+        "paddingTop": 10,
+      }
+    }
+  >
+    Tu mascota estará mayormente... 
+  </Text>
+  <Text />
+</View>
+`;

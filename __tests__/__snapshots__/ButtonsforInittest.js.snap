@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test from ButtonsForInit component ButtonsForInit snapshot test 1`] = `
+<View>
+  <View
+    accessibilityState={
+      Object {
+        "disabled": false,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#DB6C9E",
+        "borderRadius": 8,
+        "height": 45,
+        "justifyContent": "center",
+        "marginLeft": 42,
+        "marginTop": 15,
+        "opacity": 1,
+        "width": 666,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#ffffff",
+          "fontSize": 16,
+        }
+      }
+    />
+  </View>
+  <View
+    accessibilityState={
+      Object {
+        "disabled": false,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#ffffff",
+        "borderColor": "#DB6C9E",
+        "borderRadius": 8,
+        "borderWidth": 3,
+        "flexDirection": "row",
+        "height": 50,
+        "justifyContent": "center",
+        "marginLeft": 79,
+        "marginTop": 20,
+        "opacity": 1,
+        "width": 592,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#DB6C9E",
+          "fontSize": 20,
+          "fontWeight": "600",
+        }
+      }
+    >
+      INGRESA CON: 
+    </Text>
+    <View>
+      < />
+    </View>
+  </View>
+</View>
+`;
