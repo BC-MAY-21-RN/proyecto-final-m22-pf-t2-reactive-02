@@ -19,19 +19,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.white,
     maxWidth: 160,
-    marginLeft: 10,
     marginTop: 60,
+    marginLeft: 4,
   },
   userInfo: {
+    marginTop: 30,
     flexDirection: 'row',
+    marginLeft: 10,
     alignItems: 'center',
-    justifyContent: 'center',
   },
   scrollView: {
     marginTop: -3,
   },
   btn: {
-    height: 60,
+    height: 80,
     justifyContent: 'center',
     borderColor: colors.gray2,
     borderWidth: 1,
@@ -41,6 +42,8 @@ const styles = StyleSheet.create({
     marginLeft: 50,
   },
   iconPosition: {position: 'absolute', left: 12},
+  email: {color: colors.white, maxWidth: 200, fontSize: 12, marginLeft: 4},
+  textContainer: {marginLeft: 5},
 });
 
 export default styles;
