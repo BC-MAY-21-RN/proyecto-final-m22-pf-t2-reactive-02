@@ -52,7 +52,10 @@ export default function PostsScreen({navigation, route}) {
       <ModalImage modals={modals} />
       <ModalMap modals={modals} changePost={false} />
       <ScrollView style={styles.scroll}>
-        <ScrollView horizontal={true} contentContainerStyle={styles.scroll}>
+        <ScrollView
+          horizontal={true}
+          scrollEnabled={false}
+          contentContainerStyle={styles.scroll}>
           <ListPost
             posts={posts}
             modals={modals}
