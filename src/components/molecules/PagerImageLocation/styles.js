@@ -9,6 +9,9 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   container: {flex: 1},
+  row: {flexDirection: 'row'},
+  icon: {position: 'absolute', top: 10, right: 30},
+  text2: {position: 'absolute', top: 12, right: 60},
 });
 
 export default styles;

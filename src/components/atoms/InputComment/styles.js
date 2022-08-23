@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 
 const styles = v =>
   StyleSheet.create({
@@ -21,7 +21,7 @@ const styles = v =>
     },
     input: {
       padding: 10,
-      width: v ? '90%' : '100%',
+      width: v ? Dimensions.get('screen').width - 140 : '95%',
       height: 35,
       borderRadius: 20,
       backgroundColor: '#EAE5E5',
